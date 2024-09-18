@@ -4,7 +4,7 @@
             <div
                 class="grid grid-cols-1 md:grid-cols-2 gap-28 bg-base-100 w-full rounded shadow-md border border-base-100 p-10">
                 <div class="hidden md:flex justify-center items-center h-full w-full">
-                    <img src="{{ asset('img/auth/auth.png') }}" alt="Auth Image"
+                    <img src="{{ asset('img/auth/logo.png') }}" alt="Auth Image"
                         class="bg-cover object-cover bg-no-repeat max-h-[400px]" />
                 </div>
                 <div class="">
