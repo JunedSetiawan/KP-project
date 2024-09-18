@@ -1,11 +1,10 @@
 name: "Deploy to server"
 
 on:
-  workflow_run:
-    workflows: [CI Deployment]
-    types:
-      - completed
-
+  push:
+    branches:
+      - main
+      
 jobs:
   cd:
     runs-on: ubuntu-latest
