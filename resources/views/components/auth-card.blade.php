@@ -15,7 +15,8 @@
 
         <footer class="footer footer-center p-4 bg-base-300 text-base-content">
             <div>
-                <p>Copyright © {{ \Carbon\Carbon::now()->format('Y') }} - All right reserved by {{ env('COPY_RIGHT') }}
+                <p>Copyright © {{ \Carbon\Carbon::now()->format('Y') }} {{ config('app.name',
+                    'Zera Dev') }} - Created By Zera Dev
                 </p>
             </div>
         </footer>
