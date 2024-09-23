@@ -1,15 +1,15 @@
 <x-auth-card>
     <div class="">
 
-        <h2 class="text-2xl font-bold tracking-wide text-base-content">Sign in</h2>
+        <h2 class="text-2xl font-bold tracking-wide text-base-content">BK ZAPO</h2>
         <hr class="border border-secondary my-4">
-        <p class="text-base-content">Welcome back, please sign in to continue.</p>
+        <p class="text-base-content">Selamat Datang, Silahkan Login Terlebih dahulu</p>
 
         <div class="mt-3">
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" />
 
-            <x-splade-form action="{{ route('login') }}" class="space-y-4">
+            <x-splade-form action="{{ route('store.login') }}" class="space-y-4">
                 <!-- Email Address -->
                 <x-splade-input id="email" type="email" name="email" :label="__('Email')" required autofocus
                     float="true" />
@@ -17,7 +17,7 @@
                     autocomplete="current-password" float="true" />
                 <x-splade-checkbox class="" id="remember_me" name="remember" :label="__('Remember me')" />
 
-                <x-splade-submit class="w-full" :label="__('Sign in')" />
+                <x-splade-submit class="w-full" :label="__('Masuk')" />
 
                 <div class="mt-6 text-center">
                     @if (Route::has('password.request'))

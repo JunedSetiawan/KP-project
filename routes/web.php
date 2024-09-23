@@ -28,9 +28,9 @@ Route::middleware('splade')->group(function () {
     // Registers routes to support async File Uploads with Filepond...
     Route::spladeUploads();
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
 
     Route::middleware('auth')->group(function () {
         Route::get('testing-table', [UserController::class, 'index'])->name('test.table');
