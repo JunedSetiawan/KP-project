@@ -52,7 +52,7 @@ class Users extends AbstractTable
             ->column('name', sortable: true, searchable: true)
             ->column('email', sortable: true, searchable: true)
             ->column('created_at', sortable: true)
-            ->column('edit')
+            ->column('Actions')
             ->searchInput('email')
             ->withGlobalSearch('name')
             ->selectFilter('email', [
