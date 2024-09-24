@@ -1,7 +1,7 @@
 <x-auth-card>
     <div class="">
 
-        <h2 class="text-2xl font-bold tracking-wide text-base-content">BK ZAPO</h2>
+        <h2 class="text-xl font-bold tracking-wide text-base-content">Sistem Informasi BK dan Pengembangan Peserta Didik ZAPO</h2>
         <hr class="border border-secondary my-4">
         <p class="text-base-content">Selamat Datang, Silahkan Login Terlebih dahulu</p>
 

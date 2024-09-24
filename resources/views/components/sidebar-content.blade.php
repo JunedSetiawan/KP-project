@@ -3,7 +3,7 @@ use App\View\Composer\Sidebar\SidebarContent;
 @endphp
 <li class="mb-2 flex flex-row justify-between lg:justify-center">
 
-    <Link href="/dashboard" class="btn btn-ghost normal-case text-2xl text-secondary px-2">BK ZAPO</Link>
+    <Link href="/dashboard" class="btn btn-ghost normal-case text-2xl text-secondary px-2">SIBKA ZAPO <img src="{{ asset('img/auth/logo.png') }}" class="w-8" alt=""></Link>
 
     <label for="my-drawer-2" class="content-center lg:hidden px-1 py-1">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

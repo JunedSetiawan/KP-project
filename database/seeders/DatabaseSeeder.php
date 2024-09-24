@@ -17,9 +17,17 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(10)->create();
 
         \App\Models\User::create([
-            'name' => 'User',
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+        ]);
+
+        \App\Models\User::create([
+            'name' => 'Guru BK',
             'email' => 'user@example.com',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
+            'role' => 'user',
         ]);
 
         $this->call([SchoolYearSeeder::class,ClassesSeeder::class]);

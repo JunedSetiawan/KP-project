@@ -4,8 +4,8 @@ use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 // create route for users
-Route::get('/user', [UserController::class, 'index'])->name('user.index');
-Route::group(['middleware' => [ 'auth']], function () {
+Route::group(['middleware' => [ 'auth','can:manage-user']], function () {
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
     Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
     Route::post('/user', [UserController::class, 'store'])->name('user.store');
     Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');

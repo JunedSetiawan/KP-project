@@ -58,10 +58,17 @@ class SidebarContent
                         'menus' => [],
                     ],
                     [
+                        'title' => 'Tahun Sekolah',
+                        'route' => 'schoolyear.index',
+                        'icon' => @svg('heroicon-o-calendar-days'),
+                        'permissions' => '',
+                        'menus' => [],
+                    ],
+                    [
                         'title' => 'User',
                         'route' => 'user.index',
                         'icon' => @svg('heroicon-o-users'),
-                        'permissions' => '',
+                        'permissions' => 'manage-user',
                         'menus' => [],
                     ],
                     [
