@@ -14,8 +14,14 @@ class Student extends Model
         'name',
         'gender',
         'phone_number',
-        'class',
         'name_parent',
+        'phone_number_parent',
         'phone_number_parent_opt',
+        'classes_id',
     ];
+
+    public function classes()
+    {
+        return $this->belongsTo(Classes::class, 'classes_id');
+    }
 }

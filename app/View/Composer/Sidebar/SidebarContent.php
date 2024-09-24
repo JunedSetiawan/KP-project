@@ -38,7 +38,7 @@ class SidebarContent
                 'menus' => [
                     [
                         'title' => 'Siswa',
-                        'route' => 'documentation.index',
+                        'route' => 'student.index',
                         'icon' => @svg('heroicon-o-academic-cap'),
                         'permissions' => '',
                         'menus' => [],

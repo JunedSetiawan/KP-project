@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('nis')->unique();
-            $table->string('gender');
+            $table->string('name');
+            $table->enum('gender', ['L', 'P']);
             $table->string('phone_number');
-            $table->string('class');
             $table->string('name_parent');
+            $table->string('phone_number_parent');
             $table->string('phone_number_parent_opt')->nullable();
+            $table->foreignId('classes_id')->nullable();
+          //  $table->foreign('classes_id')->references('id')->on('classes');
             $table->timestamps();
         });
     }
