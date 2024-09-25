@@ -50,6 +50,7 @@ class Classrooms extends AbstractTable
     {
         $table
             ->column('name', sortable: true)
+            ->column('teacher.name', sortable: true)
             ->withGlobalSearch(columns: ['id'])
             ->column('actions');
 
