@@ -15,7 +15,6 @@ class SchoolYearSeeder extends Seeder
     {
         SchoolYear::create([
             'year' => '2024/2025',
-            'status' => 'active'
         ]);
     }
 }

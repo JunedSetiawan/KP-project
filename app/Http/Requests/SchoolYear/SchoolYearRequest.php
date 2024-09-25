@@ -11,7 +11,7 @@ class SchoolYearRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class SchoolYearRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'start_year' => ['required', 'integer', 'digits:4'],
+            'end_year' => ['required', 'integer', 'digits:4'],
+            'status' => ['boolean'],
         ];
     }
 }

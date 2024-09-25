@@ -5,21 +5,27 @@
 
     {{-- @can('manage-user') --}}
     <div class="flex justify-between">
-    <Link href="{{ route('schoolyear.create') }}" class="btn btn-secondary mb-4">Create</Link>
-</div>
+        <Link href="{{ route('schoolyear.create') }}" class="btn btn-secondary mb-4">Create</Link>
+    </div>
     {{-- @endcan --}}
     <x-splade-table :for="$schoolyears">
         {{-- @can('manage-user') --}}
-            <x-splade-cell Actions as="$schoolyear">
-                <div class="space-x-3">
-                    <Link slideover href="{{ route('schoolyear.edit', $schoolyear->id) }}" class="btn btn-secondary">Edit</Link>
-                    <Link confirm href="{{ route('schoolyear.destroy', $schoolyear->id) }}" class="btn btn-error" method="DELETE">Delete
-                    </Link>
-                </div>
-            </x-splade-cell>
-            <x-slot:empty-state>
-                <p>Data is empty!</p>
-            </x-slot>
+        <x-splade-cell Actions as="$schoolyear">
+            <div class="space-x-3">
+                <Link slideover href="{{ route('schoolyear.switch', $schoolyear->id) }}" class="btn btn-warning">
+                    <strong>{{ $schoolyear->status == 1 ? 'Deactivate' : 'Activate' }}</strong>
+                </Link>
+                <Link slideover href="{{ route('schoolyear.edit', $schoolyear->id) }}" class="btn btn-secondary">Edit
+                </Link>
+                <Link confirm href="{{ route('schoolyear.destroy', $schoolyear->id) }}" class="btn btn-error"
+                    method="DELETE">Delete
+                </Link>
+
+            </div>
+        </x-splade-cell>
+        <x-slot:empty-state>
+            <p>Data is empty!</p>
+        </x-slot>
         {{-- @endcan --}}
     </x-splade-table>
 </x-app-layout>

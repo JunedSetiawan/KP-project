@@ -11,6 +11,9 @@ Route::group(['middleware' => [ 'auth']], function () {
     Route::get('/schoolyear/{schoolyear}/edit', [SchoolYearController::class, 'edit'])->name('schoolyear.edit');
     Route::put('/schoolyear/{schoolyear}', [SchoolYearController::class, 'update'])->name('schoolyear.update');
     Route::delete('/schoolyear/{schoolyear}', [SchoolYearController::class, 'destroy'])->name('schoolyear.destroy');
+    Route::get('/schoolyear/{schoolyear}/switch', [SchoolYearController::class, 'switch'])->name('schoolyear.switch');
+
+
 });
 
 ?>

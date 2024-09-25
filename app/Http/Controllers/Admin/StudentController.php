@@ -70,7 +70,9 @@ class StudentController extends Controller
         //     'manager' => 'Manager',
         // ];
 
-        $classes = Classes::all();
+
+
+        $classes = Classes::query()->pluck('name', 'id')->toArray();
 
 
         return view('pages.student.edit', [

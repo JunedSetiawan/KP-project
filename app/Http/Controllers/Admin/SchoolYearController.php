@@ -43,6 +43,8 @@ class SchoolYearController extends Controller
 
         $validated = $request->validated();
 
+        $validated['year'] = $validated['start_year'] . '/' . $validated['end_year'];
+
         // $validated['password'] = Hash::make($validated['password']);
         
         $schoolyear = SchoolYear::create($validated);
@@ -61,6 +63,9 @@ class SchoolYearController extends Controller
         //     'purchase' => 'Purchase',
         //     'manager' => 'Manager',
         // ];
+        $years = explode('/', $schoolyear->year);
+        $schoolyear->start_year = $years[0];
+        $schoolyear->end_year = $years[1] ?? null;
 
 
 
@@ -82,6 +87,10 @@ class SchoolYearController extends Controller
 
         $validated = $request->validated();
 
+        $validated['year'] = $validated['start_year'] . '/' . $validated['end_year'];
+        
+
+
         $schoolyear->update($validated);
 
         Toast::success('School Year updated successfully!')->autoDismiss(5);
@@ -99,4 +108,18 @@ class SchoolYearController extends Controller
 
         return redirect()->route('schoolyear.index');
     }
+
+    public function switch(SchoolYear $schoolyear)
+{
+    // Toggle the status between 0 (inactive) and 1 (active)
+    $newStatus = $schoolyear->status == 1 ? 0 : 1; // Mengubah status
+    $schoolyear->update(['status' => $newStatus]); // Update status
+
+    // Menampilkan pesan yang sesuai berdasarkan status baru
+    $message = $newStatus == 1 ? 'School Year is now Active' : 'School Year is now Inactive';
+    Toast::success($message)->autoDismiss(5);
+
+    return redirect()->route('schoolyear.index'); // Kembali ke halaman index
+}
+
 }

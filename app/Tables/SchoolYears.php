@@ -49,9 +49,11 @@ class SchoolYears extends AbstractTable
     {
         $table
             ->column('year')
-            ->column('status')
-            ->withGlobalSearch(columns: ['id'])
-            ->column('id', sortable: true);
+            ->column('status', label: 'Status', as: function ($status) {
+                return $status == 1 ? 'Active' : 'Inactive';
+            })
+            ->column('Actions')
+            ->withGlobalSearch(columns: ['id']);
 
             // ->searchInput()
             // ->selectFilter()
