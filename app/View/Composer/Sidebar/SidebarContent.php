@@ -45,14 +45,14 @@ class SidebarContent
                     ],
                     [
                         'title' => 'Guru',
-                        'route' => 'documentation.color',
+                        'route' => 'teacher.index',
                         'icon' => @svg('heroicon-o-academic-cap'),
                         'permissions' => '',
                         'menus' => [],
                     ],
                     [
                         'title' => 'Kelas',
-                        'route' => 'documentation.sidebar',
+                        'route' => 'classes.index',
                         'icon' => @svg('heroicon-o-home-modern'),
                         'permissions' => '',
                         'menus' => [],

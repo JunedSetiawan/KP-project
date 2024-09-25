@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nip')->unique();
             $table->string('name');
-            $table->boolean('wali_kelas');
+            $table->boolean('wali_kelas')->nullable();
             $table->timestamps();
         });
     }

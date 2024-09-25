@@ -47,5 +47,7 @@ Route::middleware('splade')->group(function () {
     require __DIR__ . '/auth.php';
     require __DIR__ . '/admin/user.php';
     require __DIR__ . '/admin/student.php';
+    require __DIR__ . '/admin/classes.php';
+    require __DIR__ . '/admin/teacher.php';
     require __DIR__ . '/admin/schoolyear.php';
 });
