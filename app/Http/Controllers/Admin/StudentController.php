@@ -7,6 +7,7 @@ use App\Http\Requests\Student\StudentRequest;
 use App\Http\Requests\Student\UpdateStudentRequest;
 use App\Imports\StudentsImport;
 use App\Models\Classes;
+use App\Models\Classroom;
 use App\Models\Student;
 use App\Tables\Students;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class StudentController extends Controller
         //     'manager' => 'Manager',
         // ];
 
-        $classes = Classes::all();
+        $classes = Classroom::all();
 
         return view('pages.student.create', [
            'classes' => $classes,
@@ -72,7 +73,7 @@ class StudentController extends Controller
 
 
 
-        $classes = Classes::query()->pluck('name', 'id')->toArray();
+        $classes = Classroom::query()->pluck('name', 'id')->toArray();
 
 
         return view('pages.student.edit', [
