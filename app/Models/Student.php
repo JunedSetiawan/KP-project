@@ -22,6 +22,6 @@ class Student extends Model
 
     public function classes()
     {
-        return $this->belongsTo(Classes::class, 'classes_id');
+        return $this->belongsTo(Classroom::class, 'classes_id');
     }
 }
