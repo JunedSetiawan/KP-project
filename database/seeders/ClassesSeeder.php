@@ -25,7 +25,7 @@ class ClassesSeeder extends Seeder
         ];
 
         foreach ($class as $key => $value) {
-            \App\Models\Classes::create($value);
+            \App\Models\Classroom::create($value);
         }
         
     }
