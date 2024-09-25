@@ -17,11 +17,19 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(10)->create();
 
         \App\Models\User::create([
-            'name' => 'User',
-            'email' => 'user@example.com',
-            'password' => Hash::make('password')
+            'name' => 'Admin',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
         ]);
 
-        $this->call(SchoolYearSeeder::class);
+        \App\Models\User::create([
+            'name' => 'Guru BK',
+            'email' => 'user@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'user',
+        ]);
+
+        $this->call([SchoolYearSeeder::class,ClassesSeeder::class]);
     }
 }

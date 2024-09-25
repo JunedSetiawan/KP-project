@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $this->spladeTitle('User');
-        // $this->authorize('viewAny', \App\Models\User::class);
+        $this->authorize('viewAny', \App\Models\User::class);
         return view('pages.user.index', [
             'users' => Users::class,
         ]);
@@ -42,7 +42,7 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        // $this->authorize('create', \App\Models\User::class);
+        $this->authorize('create', \App\Models\User::class);
 
         $validated = $request->validated();
 
@@ -60,9 +60,8 @@ class UserController extends Controller
         $this->spladeTitle('Edit User');
 
         $roles = [
-            'sales' => 'Sales',
-            'purchase' => 'Purchase',
-            'manager' => 'Manager',
+            'admin' => 'Admin',
+            'user' => 'Guru BK',
         ];
 
         return view('pages.user.edit', [
@@ -80,7 +79,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        // $this->authorize('update', \App\Models\User::class);
+        $this->authorize('update', \App\Models\User::class);
 
         $validated = $request->validated();
 
@@ -93,7 +92,7 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        // $this->authorize('delete', \App\Models\User::class);
+        $this->authorize('delete', \App\Models\User::class);
 
         $user->delete();
 

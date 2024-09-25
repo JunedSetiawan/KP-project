@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
             'name' => ['required', 'string'],
             'email' => ['required', 'email'],
             'password' => ['required', 'string', 'min:8'],
-            // 'role' => ['required', 'string', 'in:sales,purchase,manager'],
+            'role' => ['required', 'string', 'in:admin,user'],
         ];
     }
 }

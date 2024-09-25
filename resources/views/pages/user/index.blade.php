@@ -9,7 +9,8 @@
     <x-splade-form action="{{ route('user.import') }}"
     >
     @csrf
-    <div class="flex items-center">
+    <label for="">Import Data User</label>
+    <div class="flex items-center mb-4">
         <input class="file-input file-input-bordered w-full max-w-xs" type="file" dusk="import" @input="form.import = $event.target.files[0]" />
         <button type="submit" class="btn btn-primary ml-2">Submit</button>
     </div>
@@ -26,9 +27,6 @@
                     </Link>
                 </div>
             </x-splade-cell>
-            <x-slot:empty-state>
-                <p>Data is empty!</p>
-            </x-slot>
         {{-- @endcan --}}
     </x-splade-table>
 </x-app-layout>
