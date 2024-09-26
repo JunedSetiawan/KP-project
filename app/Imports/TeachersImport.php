@@ -19,7 +19,7 @@ class TeachersImport implements ToModel, WithHeadingRow
         return new Teacher([
             'nip' => $row['nip'],
             'name' => $row['name'],
-            'wali_kelas' => $row['wali_kelas'],
+            // 'wali_kelas' => $row['wali_kelas'],
         ]);
     }
 }

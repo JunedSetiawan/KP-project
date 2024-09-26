@@ -9,7 +9,7 @@
             @csrf
             <x-splade-input name="nip" label="Nip" required />
             <x-splade-input name="name" label="Name" required />
-            <x-splade-input name="wali_kelas" label="Wali Kelas" required />
+            {{-- <x-splade-input name="wali_kelas" label="Wali Kelas" required /> --}}
 
             <div class="flex justify-between">
                 <x-splade-submit />
