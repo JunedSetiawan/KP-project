@@ -1,0 +1,29 @@
+<x-app-layout>
+    <x-slot name="headerNav">
+        {{ __('Edit Student') }}
+    </x-slot>
+
+    <x-splade-modal>
+        <x-splade-form class="bg-base-100 space-y-2 p-5" :default="$student" action="{{ route('student.update', $student->id) }}"
+            method="put">
+            @csrf
+            <x-splade-input name="nis" label="NIS" required />
+        <x-splade-input name="name" label="Nama" required />
+        <x-splade-group name="gender" label="Pilih Jenis Kelamin" inline>
+            <x-splade-radio name="gender" value="L" label="Laki Laki" />
+            <x-splade-radio name="gender" value="P" label="Perempuan" />
+        </x-splade-group>
+        <x-splade-input name="phone_number" label="Nomor HP" required />
+        <x-splade-select name="classes_id" :options="$classes" label="Pilih Kelas" required placeholder="Pilih kelas" />
+        <br>
+        <h2 class="text-xl font-bold tracking-wide">Data Orang Tua</h2>
+        <x-splade-input name="name_parent" label="Nama Orang Tua" required />
+        <x-splade-input name="phone_number_parent" label="Nomor Orang Tua" required />
+        <x-splade-input name="phone_number_parent_opt" label="Nomor Orang Tua Wali(Opsional)"/>
+
+            <div class="flex justify-between">
+                <x-splade-submit />
+            </div>
+        </x-splade-form>
+    </x-splade-modal>
+</x-app-layout>

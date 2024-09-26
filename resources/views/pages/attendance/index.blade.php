@@ -1,0 +1,33 @@
+<x-app-layout>
+    <x-slot name="headerNav">
+        {{ __('Attendance') }}
+    </x-slot>
+
+    {{-- @can('manage-user') --}}
+    <div class="flex justify-between">
+    <Link href="{{ route('attendance.create') }}" class="btn btn-secondary mb-4">Create</Link>
+    <x-splade-form action="{{ route('attendance.import') }}"
+    >
+    @csrf
+    <label for="">Import Data Siswa (excel/xlsx)</label>
+    <div class="flex items-center mb-4">
+        <input class="file-input file-input-bordered w-full max-w-xs" type="file" dusk="import" @input="form.import = $event.target.files[0]" />
+        <button type="submit" class="btn btn-primary ml-2">Import</button>
+    </div>
+    <p v-text="form.errors.import" />
+    </x-splade-form>
+</div>
+    {{-- @endcan --}}
+    <x-splade-table :for="$attendances">
+        {{-- @can('manage-user') --}}
+            <x-splade-cell Actions as="$attendance">
+                <div class="space-x-3">
+                    <Link slideover href="{{ route('attendance.edit', $attendance->id) }}" class="btn btn-secondary">Edit</Link>
+                    <Link confirm href="{{ route('attendance.destroy', $attendance->id) }}" class="btn btn-error" method="DELETE">Delete
+                    </Link>
+                </div>
+            </x-splade-cell>
+            
+        {{-- @endcan --}}
+    </x-splade-table>
+</x-app-layout>

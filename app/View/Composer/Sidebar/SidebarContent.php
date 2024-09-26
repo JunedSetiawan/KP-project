@@ -72,6 +72,12 @@ class SidebarContent
                         'menus' => [],
                     ],
                     [
+                        'title' => 'Daftar Hadir',
+                        'route' => 'attendance.index',
+                        'icon' => @svg('heroicon-o-users'),
+                        'menus' => [],
+                    ],
+                    [
                         'title' => 'Helpers',
                         'route' => null,
                         'icon' => @svg('heroicon-o-question-mark-circle'),

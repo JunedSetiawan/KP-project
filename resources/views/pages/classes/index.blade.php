@@ -26,9 +26,6 @@
                     </Link>
                 </div>
             </x-splade-cell>
-            <x-slot:empty-state>
-                <p>Data is empty!</p>
-            </x-slot>
         {{-- @endcan --}}
     </x-splade-table>
 </x-app-layout>

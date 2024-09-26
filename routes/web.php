@@ -50,4 +50,5 @@ Route::middleware('splade')->group(function () {
     require __DIR__ . '/admin/classes.php';
     require __DIR__ . '/admin/teacher.php';
     require __DIR__ . '/admin/schoolyear.php';
+    require __DIR__ . '/admin/attendance.php';
 });
