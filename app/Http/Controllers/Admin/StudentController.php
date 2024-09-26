@@ -64,15 +64,7 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         $this->spladeTitle('Edit Student');
-
-        // $roles = [
-        //     'sales' => 'Sales',
-        //     'purchase' => 'Purchase',
-        //     'manager' => 'Manager',
-        // ];
-
-
-
+        
         $classes = Classroom::query()->pluck('name', 'id')->toArray();
 
 

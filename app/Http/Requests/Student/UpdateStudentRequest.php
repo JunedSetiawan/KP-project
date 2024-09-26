@@ -26,7 +26,7 @@ class UpdateStudentRequest extends FormRequest
             'name' => ['required', 'string'],
             'gender' => ['required', 'string'],
             'phone_number' => ['string'],
-            'class_id' => ['nullable', 'string'],
+            'classes_id' => ['nullable', 'string'],
             'name_parent' => ['string'],
             'phone_number_parent' => ['string'],
             'phone_number_parent_opt' => ['string'],
