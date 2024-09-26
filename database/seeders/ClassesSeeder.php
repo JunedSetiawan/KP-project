@@ -12,21 +12,6 @@ class ClassesSeeder extends Seeder
      */
     public function run(): void
     {
-        $class = [
-            [
-                'name' => '7A',
-            ],
-            [
-                'name' => '8B',
-            ],
-            [
-                'name' => '9C',
-            ],
-        ];
-
-        foreach ($class as $key => $value) {
-            \App\Models\Classroom::create($value);
-        }
-        
+        //
     }
 }
