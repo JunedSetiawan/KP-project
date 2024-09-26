@@ -23,8 +23,8 @@ class TeacherRequest extends FormRequest
     {
         return [
             'nip' => ['required', 'string'],
-            'name' => ['required', 'string'],
-            'wali_kelas' => ['required', 'string']
+            'name' => ['required', 'string']
+            // 'wali_kelas' => ['required', 'string']
         ];
     }
 }

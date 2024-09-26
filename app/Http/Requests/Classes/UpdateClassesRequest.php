@@ -23,6 +23,7 @@ class UpdateClassesRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
+            'teacher_id' => 'required|exists:teachers,id',
             // 'role' => ['required', 'string', 'in:sales,purchase,manager'],
         ];
     }

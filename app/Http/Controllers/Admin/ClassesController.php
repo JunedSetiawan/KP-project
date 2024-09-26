@@ -9,6 +9,7 @@ use App\Models\Classes;
 use App\Models\Classroom;
 use App\Tables\Classrooms;
 use App\Imports\ClassesImport;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
@@ -29,30 +30,39 @@ class ClassesController extends Controller
     public function create()
     {
         $this->spladeTitle('Create Classrom');
+        $teacher = Teacher::all();
         $classes = Classroom::all();
         return view('pages.classes.create', [
            'classes' => $classes,
+           'teacher' => $teacher,
         ]);
     }
 
     public function store(ClassesRequest $request)
-    {
-        // $this->authorize('create', \App\Models\User::class);
-        $validated = $request->validate([
-            'name' => 'required',
-        ]);
-        
-        $classes = Classroom::create($validated);
-        Toast::success('Student created successfully!')->autoDismiss(5);
-        return redirect()->route('classes.index');
-    }
+{
+    // Validasi input termasuk teacher_id
+    $validated = $request->validate([
+        'name' => 'required',
+        'teacher_id' => 'required|exists:teachers,id', // Validasi teacher_id
+    ]);
+
+    // Simpan data classroom dengan teacher_id
+    $classes = Classroom::create($validated);
+
+    // Tampilkan pesan sukses
+    Toast::success('Classroom created successfully!')->autoDismiss(5);
+    return redirect()->route('classes.index');
+}
+
 
     public function edit(Classroom $classes)
     {
         $this->spladeTitle('Edit Classroom');
+        $teacher = Teacher::all();
         // $classes = Classroom::all();
         return view('pages.classes.edit', [
             'classes' => $classes,
+            'teacher' => $teacher,
         ]);
     }
 

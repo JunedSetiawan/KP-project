@@ -2,7 +2,6 @@
 
 namespace App\Tables;
 
-use App\Models\Classes;
 use App\Models\Classroom;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\AbstractTable;
@@ -37,7 +36,7 @@ class Classrooms extends AbstractTable
      */
     public function for()
     {
-        return Classroom::query()->get() ?? [];
+        return Classroom::query(); // Gunakan query builder untuk pagination
     }
 
     /**
@@ -52,13 +51,7 @@ class Classrooms extends AbstractTable
             ->column('name', sortable: true)
             ->column('teacher.name', sortable: true)
             ->withGlobalSearch(columns: ['id'])
-            ->column('actions');
-
-            // ->searchInput()
-            // ->selectFilter()
-            // ->withGlobalSearch()
-
-            // ->bulkAction()
-            // ->export()
+            ->column('actions')
+            ->paginate(10); // Pagination Splade, tanpa memanggil get()
     }
 }
