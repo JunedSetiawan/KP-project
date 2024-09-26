@@ -12,9 +12,11 @@
         {{-- @can('manage-user') --}}
         <x-splade-cell Actions as="$schoolyear">
             <div class="space-x-3">
-                <Link slideover href="{{ route('schoolyear.switch', $schoolyear->id) }}" class="btn btn-warning">
-                    <strong>{{ $schoolyear->status == 1 ? 'Deactivate' : 'Activate' }}</strong>
+                @if ($schoolyear->status == 1)
+                <Link href="{{ route('schoolyear.switch', $schoolyear->id) }}" class="btn btn-warning" method="POST">
+                    <strong>Inactive</strong>
                 </Link>
+                @endif
                 <Link slideover href="{{ route('schoolyear.edit', $schoolyear->id) }}" class="btn btn-secondary">Edit
                 </Link>
                 <Link confirm href="{{ route('schoolyear.destroy', $schoolyear->id) }}" class="btn btn-error"

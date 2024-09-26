@@ -109,17 +109,29 @@ class SchoolYearController extends Controller
         return redirect()->route('schoolyear.index');
     }
 
-    public function switch(SchoolYear $schoolyear)
+    public function switch($id)
 {
+    $schoolyear = SchoolYear::find($id);
+
+    if (!$schoolyear) {
+        Toast::error('School Year not found')->autoDismiss(5);
+        return redirect()->route('schoolyear.index');
+    }
+
     // Toggle the status between 0 (inactive) and 1 (active)
-    $newStatus = $schoolyear->status == 1 ? 0 : 1; // Mengubah status
-    $schoolyear->update(['status' => $newStatus]); // Update status
+    $newStatus = $schoolyear->status == 1 ? 0 : 1;
 
-    // Menampilkan pesan yang sesuai berdasarkan status baru
-    $message = $newStatus == 1 ? 'School Year is now Active' : 'School Year is now Inactive';
-    Toast::success($message)->autoDismiss(5);
+    // Validate the new status value before updating
+    if (in_array($newStatus, [0, 1])) {
+        $schoolyear->update(['status' => $newStatus]); // Update status
+        $message = $newStatus == 1 ? 'School Year is now Active' : 'School Year is now Inactive';
+        Toast::success($message)->autoDismiss(5);
+    } else {
+        Toast::error('Invalid status value')->autoDismiss(5);
+    }
 
-    return redirect()->route('schoolyear.index'); // Kembali ke halaman index
+    return redirect()->route('schoolyear.index');
 }
+
 
 }

@@ -13,8 +13,6 @@ class SchoolYearSeeder extends Seeder
      */
     public function run(): void
     {
-        SchoolYear::create([
-            'year' => '2024/2025',
-        ]);
+        //
     }
 }

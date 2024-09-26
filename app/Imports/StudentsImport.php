@@ -3,7 +3,9 @@
 namespace App\Imports;
 
 use App\Models\Classes;
+use App\Models\Classroom;
 use App\Models\Student;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
@@ -17,18 +19,28 @@ class StudentsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // $classroom = Classes::firstOrCreate(['name' => $row['class']]);
+        Log::info('Data row:', $row);
 
-        // Buat student
-        return new Student([
-            'nis' => $row['nis'],
-            'name' => $row['name'],
-            'gender' => $row['gender'],
-            'phone_number' => $row['phone_number'],
-            'classes_id' => $row['classes_id'],
-            'name_parent' => $row['name_parent'],
-            'phone_number_parent' => $row['phone_number_parent'],
-            'phone_number_parent_opt' => $row['phone_number_parent_opt'],
-            
-        ]);
+        $classroom = Classroom::where('name', $row['classes_id'])->first();
+
+        if (!$classroom) {
+            Log::warning('Classroom not found: ' . $row['classes_id']);
+            return null;
+        }
+
+        $student = Student::updateOrCreate(
+            ['nis' => $row['nis']],
+            ['name' => $row['name']],
+            ['gender' => $row['gender']],
+            ['phone_number' => $row['phone_number']],
+            ['classes_id' => $classroom->id],
+            ['name_parent' => $row['name_parent']],
+            ['phone_number_parent' => $row['phone_number_parent']],
+            ['phone_number_parent_opt' => $row['phone_number_parent_opt']],
+        );
+
+        Log::info('Student created/updated: ', $student->toArray());
+
+        return $student;
     }
 }
