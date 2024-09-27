@@ -29,15 +29,18 @@ class StudentsImport implements ToModel, WithHeadingRow
         }
 
         $student = Student::updateOrCreate(
-            ['nis' => $row['nis']],
-            ['name' => $row['name']],
-            ['gender' => $row['gender']],
-            ['phone_number' => $row['phone_number']],
-            ['classes_id' => $classroom->id],
-            ['name_parent' => $row['name_parent']],
-            ['phone_number_parent' => $row['phone_number_parent']],
-            ['phone_number_parent_opt' => $row['phone_number_parent_opt']],
+            ['nis' => $row['nis']], // Kondisi untuk menentukan apakah akan melakukan update atau create
+            [
+                'name' => $row['name'],
+                'gender' => $row['gender'],
+                'phone_number' => $row['phone_number'],
+                'classes_id' => $classroom->id, // Pastikan ini menggunakan ID yang benar dari Classroom
+                'name_parent' => $row['name_parent'],
+                'phone_number_parent' => $row['phone_number_parent'],
+                'phone_number_parent_opt' => $row['phone_number_parent_opt'],
+            ]
         );
+        
 
         Log::info('Student created/updated: ', $student->toArray());
 

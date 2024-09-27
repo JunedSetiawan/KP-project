@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone_number_parent')->nullable();
             $table->string('phone_number_parent_opt')->nullable();
             $table->foreignId('classes_id')->nullable();
+            $table->string('status')->nullable()->default('active');
           //  $table->foreign('classes_id')->references('id')->on('classes');
             $table->timestamps();
         });

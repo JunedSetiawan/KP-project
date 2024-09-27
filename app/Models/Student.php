@@ -18,6 +18,7 @@ class Student extends Model
         'phone_number_parent',
         'phone_number_parent_opt',
         'classes_id',
+        'status',
     ];
 
     public function classes()
