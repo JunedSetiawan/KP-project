@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Attendance\UpdateAttendanceRequest;
 use App\Models\Attendance;
 use App\Models\Classroom;
+use App\Models\Student;
 use App\Tables\Attendances;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\Facades\Toast;
@@ -21,17 +22,26 @@ class AttendanceController extends Controller
         ]);
     }
 
-    public function create()
+    public function create($id)
     {
         $this->spladeTitle('Create Attendance');
 
-        // $roles = [
-        //     'sales' => 'Sales',
-        //     'purchase' => 'Purchase',
-        //     'manager' => 'Manager',
-        // ];
+        $attendance = Attendance::with('classrooms')->find($id);
 
-        return view('pages.student.create', [
+        $class = Student::query()->with('classes')->get();
+        dd($class->classes);
+
+        // Cek apakah attendance ditemukan dan classroom tersedia
+        if ($attendance && $attendance->classrooms) {
+            // Ambil semua siswa terkait dengan classroom
+            $students = $attendance->classrooms->students;
+            dd($students);
+        } else {
+            dd('No attendance or classroom found');
+        }
+    
+
+        return view('pages.attendance.create', [
         ]);
     }
 

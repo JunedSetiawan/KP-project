@@ -19,11 +19,11 @@ class Attendance extends Model
 
     public function classrooms()
     {
-        return $this->belongsTo(Classroom::class);
+        return $this->belongsTo(Classroom::class, 'classrooms_id', 'id');
     }
 
     public function students()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Student::class, 'student_id', 'id');
     }
 }
