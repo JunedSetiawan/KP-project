@@ -12,12 +12,12 @@ class Attendance extends Model
     protected $fillable = [
         'student_id',
         'date',
-        'classes_id',
+        'classrooms_id',
         'information',
         'note',
     ];
 
-    public function classes()
+    public function classrooms()
     {
         return $this->belongsTo(Classroom::class);
     }

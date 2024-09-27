@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id');
             $table->date('date');
-            $table->foreignId('classes_id');
+            $table->unsignedBigInteger('classrooms_id');
+            $table->foreign('classrooms_id')->references('id')->on('classrooms');
+ 
+           
             $table->string('information');
             $table->string('note');
             $table->timestamps();

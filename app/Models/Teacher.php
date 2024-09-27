@@ -15,8 +15,8 @@ class Teacher extends Model
         'wali_kelas',
     ];
 
-    public function teacher()
-    {
-        return $this->hasMany(Teacher::class);
-    }
+    // public function teacher()
+    // {
+    //     return $this->hasMany(Teacher::class);
+    // }
 }

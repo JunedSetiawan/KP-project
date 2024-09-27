@@ -48,10 +48,11 @@ class Teachers extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-            ->withGlobalSearch(columns: ['id'])
+            ->withGlobalSearch(columns: ['name'])
             ->column('nip')
             ->column('name')
-            ->column('actions');
+            ->column('actions')
+            ->paginate(5);
 
             // ->searchInput()
             // ->selectFilter()

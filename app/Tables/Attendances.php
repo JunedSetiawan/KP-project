@@ -36,7 +36,7 @@ class Attendances extends AbstractTable
      */
     public function for()
     {
-        return Attendance::query();
+        return Attendance::query()->with('classrooms')->get();
     }
 
     /**
@@ -48,9 +48,9 @@ class Attendances extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-        ->column('student_id', sortable:true)
+        ->column('classrooms.name', sortable:true, searchable: true, label: 'Class')
+        ->column('classrooms.teacher.name', sortable:true, searchable: true, label: 'Guru')
         ->column('date', sortable:true)
-        ->column('classes_id', sortable:true)
         ->column('information', sortable:true)
         ->column('note')
 

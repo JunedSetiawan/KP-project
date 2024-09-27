@@ -2,7 +2,6 @@
 
 namespace App\Imports;
 
-use App\Models\Classes;
 use App\Models\Classroom;
 use App\Models\Student;
 use Illuminate\Support\Facades\Log;

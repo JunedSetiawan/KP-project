@@ -50,8 +50,8 @@ class Classrooms extends AbstractTable
         $table
             ->column('name', sortable: true)
             ->column('teacher.name', sortable: true)
-            ->withGlobalSearch(columns: ['id'])
+            ->withGlobalSearch(columns: ['name'])
             ->column('actions')
-            ->paginate(10); // Pagination Splade, tanpa memanggil get()
+            ->paginate(5); // Pagination Splade, tanpa memanggil get()
     }
 }
