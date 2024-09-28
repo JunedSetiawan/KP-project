@@ -48,10 +48,9 @@ class Classrooms extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-            ->column('name', sortable: true)
-            ->column('teacher.name', sortable: true)
-            ->withGlobalSearch(columns: ['name'])
+            ->column('name', sortable: true, searchable: true, label: 'Kelas')
+            ->column('teacher.name', searchable: true, label: 'Wali Kelas')
             ->column('actions')
-            ->paginate(5); // Pagination Splade, tanpa memanggil get()
+            ->paginate(10); // Pagination Splade, tanpa memanggil get()
     }
 }

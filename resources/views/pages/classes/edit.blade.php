@@ -8,7 +8,7 @@
             method="put">
             @csrf
             <x-splade-input name="name" label="Name" />
-            <x-splade-select name="teacher_id" :options="$teacher" label="Pilih Wali Kelas" required placeholder="Pilih Wali Kelas" option-label="name" option-value="id" />
+            <x-splade-select name="teacher_id" :options="$teacher" label="Pilih Wali Kelas" placeholder="Pilih Wali Kelas" option-label="name" option-value="id" />
 
             <div class="flex justify-between">
                 <x-splade-submit />

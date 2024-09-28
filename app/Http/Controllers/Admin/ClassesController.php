@@ -30,29 +30,55 @@ class ClassesController extends Controller
     public function create()
     {
         $this->spladeTitle('Create Classrom');
+        $classrooms = [
+            '7' => '7',
+            '8' => '8',
+            '9' => '9',
+        ];
+
+        $type = [
+            'A' => 'A',
+            'B' => 'B',
+            'C' => 'C',
+            'D' => 'D',
+            'E' => 'E',
+            'F' => 'F',
+            'G' => 'G',
+            'H' => 'H',
+            'I' => 'I',
+        ];
         $teacher = Teacher::all();
-        $classes = Classroom::all();
+
         return view('pages.classes.create', [
-           'classes' => $classes,
-           'teacher' => $teacher,
+            'classrooms' => $classrooms,
+            'types' => $type,
+            'teacher' => $teacher,
         ]);
     }
 
     public function store(ClassesRequest $request)
-{
-    // Validasi input termasuk teacher_id
-    $validated = $request->validate([
-        'name' => 'required',
-        'teacher_id' => 'required|exists:teachers,id', // Validasi teacher_id
-    ]);
+    {
 
-    // Simpan data classroom dengan teacher_id
-    $classes = Classroom::create($validated);
+        // Data yang sudah tervalidasi
+        $validated = $request->validated();
 
-    // Tampilkan pesan sukses
-    Toast::success('Classroom created successfully!')->autoDismiss(5);
-    return redirect()->route('classes.index');
-}
+        // check if name is duplcate or unique
+        $check = Classroom::where('name', $validated['name'])->first();
+
+        if ($check) {
+            Toast::warning("Data Kelas $check->name Sudah ada")->autoDismiss(5);
+            return redirect()->route('classes.index');
+        }
+
+        // Simpan ke database dengan gabungan kelas dan tipe kelas di kolom name
+        $class = Classroom::create([
+            'name' => $validated['name'],
+        ]);
+
+        // Tampilkan pesan sukses
+        Toast::success("Data Kelas $class->name Berhasil dibuat")->autoDismiss(5);
+        return redirect()->route('classes.index');
+    }
 
 
     public function edit(Classroom $classes)
@@ -72,7 +98,15 @@ class ClassesController extends Controller
 
         $validated = $request->validated();
 
+        $check = $classes::where('name', $validated['name'])->first();
+
+        if ($check) {
+            Toast::warning("Data Kelas $check->name Sudah ada")->autoDismiss(5);
+            return redirect()->route('classes.index');
+        }
+
         $classes->update($validated);
+
 
         Toast::success('Classes updated successfully!')->autoDismiss(5);
 
@@ -90,20 +124,18 @@ class ClassesController extends Controller
         return redirect()->route('classes.index');
     }
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
-        try{
+        try {
             // dd($request->import);
-// 
+            // 
             Excel::import(new ClassesImport, $request->file('import')->store('files'));
             Toast::success('classes import successfully!')->autoDismiss(5);
             return redirect()->route('classes.index');
-        }catch(\Exception $ex){
+        } catch (\Exception $ex) {
             Log::info($ex);
-            Toast::danger( $ex)->autoDismiss(5);
+            Toast::danger($ex)->autoDismiss(5);
             return redirect()->route('classes.index');
-
         }
-        
     }
 }

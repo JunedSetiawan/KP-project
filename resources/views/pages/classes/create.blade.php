@@ -6,9 +6,11 @@
 
     <x-splade-form class="bg-base-100 space-y-2 p-5" action="{{ route('classes.store') }}" method="post">
         @csrf
-        <x-splade-input name="name" label="Name" required />
-        <x-splade-select name="teacher_id" :options="$teacher->pluck('name', 'id')" label="Pilih Wali Kelas" required placeholder="Pilih Wali Kelas" />
-        {{-- <x-splade-select name="role" :options="$roles" label="Role" required placeholder="Select 1 role" /> --}}
+     
+        <x-splade-select name="classroom" :options="$classrooms" label="Kelas"  placeholder="Pilih Kelas" />
+        <x-splade-select name="type" :options="$types" label="Tipe Kelas"  placeholder="Pilih Tipe Kelas" />
+
+        <x-splade-select name="teacher_id" :options="$teacher->pluck('name', 'id')" label="Pilih Wali Kelas" placeholder="Pilih Wali Kelas" />
 
         <x-splade-submit label="Save" />
 
