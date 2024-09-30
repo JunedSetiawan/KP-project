@@ -8,8 +8,10 @@ use App\Models\Attendance;
 use App\Models\Classroom;
 use App\Models\Student;
 use App\Tables\Attendances;
+use App\Tables\ListStudents;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\Facades\Toast;
+use ProtoneMedia\Splade\SpladeTable;
 
 class AttendanceController extends Controller
 {
@@ -46,6 +48,8 @@ class AttendanceController extends Controller
             'classes' => $classes,
         ]);
     }
+
+
 
     public function store(Attendance $request)
     {
@@ -100,5 +104,32 @@ class AttendanceController extends Controller
         Toast::success('Attendance deleted successfully!')->autoDismiss(5);
 
         return redirect()->route('attendance.index');
+    }
+
+    public function list($classroom_id)
+    {
+        $this->spladeTitle('List Attendance');
+
+        $attendance = Attendance::with('classrooms')->find($classroom_id);
+
+
+        // Cek apakah attendance ditemukan dan classroom tersedia
+        if ($attendance && $attendance->classrooms) {
+            // Ambil semua siswa terkait dengan classroom
+            $students = $attendance->classrooms->students;
+        } else {
+            dd('No attendance or classroom found');
+        }
+    
+
+        return view('pages.attendance.list', [
+            'students' => SpladeTable::for($students)
+            ->column('name', 'Name')
+            ->column('registration_number', 'Registration Number')
+            ->column('email', 'Email')
+            ->searchInput('name', 'Search by Name')
+          
+        ]);
+
     }
 }
