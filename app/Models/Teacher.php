@@ -12,7 +12,8 @@ class Teacher extends Model
     protected $fillable = [
         'nip',
         'name',
-        'wali_kelas',
+        'is_active',
+        // 'wali_kelas',
     ];
 
     // public function teacher()

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Classes\ClassesRequest;
 use App\Http\Requests\Classes\UpdateClassesRequest as ClassesUpdateClassesRequest;
-use App\Models\Classes;
 use App\Models\Classroom;
 use App\Tables\Classrooms;
 use App\Imports\ClassesImport;
@@ -73,6 +72,7 @@ class ClassesController extends Controller
         // Simpan ke database dengan gabungan kelas dan tipe kelas di kolom name
         $class = Classroom::create([
             'name' => $validated['name'],
+            'teacher_id' => $validated['teacher_id'],
         ]);
 
         // Tampilkan pesan sukses

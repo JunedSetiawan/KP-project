@@ -78,6 +78,12 @@ class SidebarContent
                         'menus' => [],
                     ],
                     [
+                        'title' => 'Riwayat Data Kelas',
+                        'route' => 'studentclasshistory.index',
+                        'icon' => @svg('heroicon-o-users'),
+                        'menus' => [],
+                    ],
+                    [
                         'title' => 'Helpers',
                         'route' => null,
                         'icon' => @svg('heroicon-o-question-mark-circle'),
