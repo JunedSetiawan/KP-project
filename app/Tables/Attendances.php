@@ -3,6 +3,7 @@
 namespace App\Tables;
 
 use App\Models\Attendance;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
@@ -36,7 +37,7 @@ class Attendances extends AbstractTable
      */
     public function for()
     {
-        return Attendance::query()->with('classrooms')->get();
+        return Classroom::query()->with('teacher')->get();
     }
 
     /**
@@ -48,12 +49,10 @@ class Attendances extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-        ->column('classrooms.name', sortable:true, searchable: true, label: 'Class')
-        ->column('classrooms.teacher.name', sortable:true, searchable: true, label: 'Guru')
-        ->rowLink(fn (Attendance $attendance) => route('attendance.list', ['id' => $attendance->id]))
-        ->column('date', sortable:true)
-        ->column('information', sortable:true)
-        ->column('note')
+        ->column('name', sortable:true, searchable: true, label: 'Class')
+        ->column('teacher.name', sortable:true, searchable: true, label: 'Guru')
+        ->rowLink(fn (Classroom $classroom) => route('attendance.list', ['id' => $classroom->id]))
+       
 
             ->withGlobalSearch(columns: ['id']);
 

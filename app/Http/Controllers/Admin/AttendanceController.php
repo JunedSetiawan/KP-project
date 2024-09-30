@@ -107,29 +107,23 @@ class AttendanceController extends Controller
     }
 
     public function list($classroom_id)
-    {
-        $this->spladeTitle('List Attendance');
+{
+    $this->spladeTitle('List Attendance');
 
-        $attendance = Attendance::with('classrooms')->find($classroom_id);
+    // Ambil classroom berdasarkan classroom_id dan relasi dengan students
+    $classroom = Classroom::with('students')->find($classroom_id);
 
-
-        // Cek apakah attendance ditemukan dan classroom tersedia
-        if ($attendance && $attendance->classrooms) {
-            // Ambil semua siswa terkait dengan classroom
-            $students = $attendance->classrooms->students;
-        } else {
+    // Pastikan classroom ditemukan
+    if ($classroom) {
+        // Ambil semua siswa terkait dengan classroom
+        $students = $classroom->students;
+    } else {
             dd('No attendance or classroom found');
-        }
-    
-
-        return view('pages.attendance.list', [
-            'students' => SpladeTable::for($students)
-            ->column('name', 'Name')
-            ->column('registration_number', 'Registration Number')
-            ->column('email', 'Email')
-            ->searchInput('name', 'Search by Name')
-          
-        ]);
-
     }
+
+    // Kirim koleksi siswa ke view
+    return view('pages.attendance.list', [
+        'students' => $students,
+    ]);
+}
 }
