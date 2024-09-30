@@ -110,7 +110,7 @@ class StudentController extends Controller
         try{
             // dd($request->import);
 // 
-            Excel::import(new StudentsImport, $request->file('import')->store('files'));
+            Excel::import(new StudentsImport, $request->file('import'));
             Toast::success('Student import successfully!')->autoDismiss(5);
             return redirect()->route('student.index');
         }catch(\Exception $ex){

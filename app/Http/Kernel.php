@@ -45,6 +45,11 @@ class Kernel extends HttpKernel
         ],
     ];
 
+    protected $routeMiddleware = [
+
+        'splade' => \ProtoneMedia\Splade\Http\SpladeMiddleware::class,
+    ];
+
     /**
      * The application's middleware aliases.
      *

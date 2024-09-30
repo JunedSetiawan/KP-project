@@ -36,7 +36,7 @@ class StudentClassHistorys extends AbstractTable
      */
     public function for()
     {
-        return StudentClassHistory::query();
+        return StudentClassHistory::query()->with('student','classroom','schoolYear');
     }
 
     /**
@@ -50,11 +50,9 @@ class StudentClassHistorys extends AbstractTable
         $table
             ->withGlobalSearch(columns: ['id', 'student_id', 'classroom_id', 'school_year_id'])
             ->column('id', label: 'ID', sortable: true)
-            ->column('student_id', label: 'Student ID', sortable: true)
-            ->column('classroom_id', label: 'Classroom ID', sortable: true)
-            ->column('school_year_id', label: 'School Year ID', sortable: true)
-            ->column('created_at', label: 'Created At', sortable: true)
-            ->column('updated_at', label: 'Updated At', sortable: true);
+            ->column('student.name', label: 'Nama Siswa', sortable: true)
+            ->column('classroom.name', label: 'Kelas', sortable: true)
+            ->column('schoolYear,year', label: 'Tahun Ajaran', sortable: true);
 
         // Menambahkan input pencarian, filter, aksi masal, dan export jika dibutuhkan
         // ->searchInput('student_id', label: 'Search by Student ID')

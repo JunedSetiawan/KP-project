@@ -22,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        ini_set('max_execution_time', 0); // Waktu eksekusi tanpa batas
+    ini_set('memory_limit', '-1');  
         SEO::metaByName('theme-color', '#D926A9');
 
         // permission for view Apps

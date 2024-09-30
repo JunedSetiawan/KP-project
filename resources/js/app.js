@@ -1,6 +1,7 @@
 import "./bootstrap";
 import "../css/app.css";
 import "@protonemedia/laravel-splade/dist/style.css";
+import cors from 'cors';
 
 import ThemeToggle from "./components/ThemeToggle.vue";
 
@@ -14,6 +15,7 @@ const el = document.getElementById("app");
 createApp({
     render: renderSpladeApp({ el }),
 })
+    .use(cors)
     .use(SpladePlugin, {
         max_keep_alive: 10,
         transform_anchors: true,
@@ -21,3 +23,5 @@ createApp({
     })
     .component("theme-toggle", ThemeToggle)
     .mount(el);
+
+    // This URL is copied from the side panel showing the backend ports view

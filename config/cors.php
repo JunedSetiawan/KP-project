@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['https://8000-idx-kp-project-1727328353731.cluster-a3grjzek65cxex762e4mwrzl46.cloudworkstations.dev/','https://5173-idx-kp-project-1727328353731.cluster-a3grjzek65cxex762e4mwrzl46.cloudworkstations.dev/'],
 
     'allowed_origins_patterns' => [],
 

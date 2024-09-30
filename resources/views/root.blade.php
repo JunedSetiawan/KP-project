@@ -14,8 +14,8 @@
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
     <!-- Scripts -->
-    @vite(['resources/js/app.js'])
     @spladeHead
+    @vite(['resources/js/app.js', ])
 </head>
 
 <body class="font-sans antialiased">
@@ -38,6 +38,7 @@
          console.error("Service workers are not supported.");
       }
     </script>
+
 </body>
 
 </html>

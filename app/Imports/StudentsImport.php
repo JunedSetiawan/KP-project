@@ -6,9 +6,10 @@ use App\Models\Classroom;
 use App\Models\Student;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class StudentsImport implements ToModel, WithHeadingRow
+class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
 {
     /**
     * @param array $row
@@ -28,8 +29,9 @@ class StudentsImport implements ToModel, WithHeadingRow
         }
 
         $student = Student::updateOrCreate(
-            ['nis' => $row['nis']], // Kondisi untuk menentukan apakah akan melakukan update atau create
+             // Kondisi untuk menentukan apakah akan melakukan update atau create
             [
+                'nis' => $row['nis'],
                 'name' => $row['name'],
                 'gender' => $row['gender'],
                 'phone_number' => $row['phone_number'],
@@ -45,5 +47,10 @@ class StudentsImport implements ToModel, WithHeadingRow
         Log::info('Student created/updated: ', $student->toArray());
 
         return $student;
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }

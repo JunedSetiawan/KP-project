@@ -19,6 +19,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "cors": "^2.8.5",
         "daisyui": "^3.9.4"
     }
 }
