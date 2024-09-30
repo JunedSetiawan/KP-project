@@ -15,14 +15,14 @@ class AttendanceSeeder extends Seeder
     {
         Attendance::create([
             'student_id' => 1,
-            'classrooms_id' => 1,
+            'classrooms_id' => 13,
             'date' => now(),
             'information' => 'Sakit',
             'note' => 'Sakit'
         ]);
         Attendance::create([
             'student_id' => 2,
-            'classrooms_id' => 2,
+            'classrooms_id' => 14,
             'date' => now(),
             'information' => 'Ijin',
             'note' => 'Ijin'

@@ -12,6 +12,7 @@ Route::group(['middleware' => [ 'auth']], function () {
     Route::put('/attendance/{attendance}', [AttendanceController::class, 'update'])->name('attendance.update');
     Route::delete('/attendance/{attendance}', [AttendanceController::class, 'destroy'])->name('attendance.destroy');
     Route::post('/attendances-import', [AttendanceController::class, 'import'])->name('attendance.import');
+    Route::get('/attendance/list/{id}', [AttendanceController::class, 'list'])->name('attendance.list');
 });
 
 ?>

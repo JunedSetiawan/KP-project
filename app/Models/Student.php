@@ -17,13 +17,19 @@ class Student extends Model
         'name_parent',
         'phone_number_parent',
         'phone_number_parent_opt',
-        'classes_id',
+        'classroom_id',
         'status',
+        'school_year_id',
     ];
 
-    public function classes()
+    public function classroom()
     {
-        return $this->belongsTo(Classroom::class, 'classes_id');
+        return $this->belongsTo(Classroom::class);
+    }
+
+    public function schoolyear()
+    {
+        return $this->belongsTo(SchoolYear::class);
     }
 
     public function attendance()

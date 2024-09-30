@@ -50,7 +50,7 @@ class Attendances extends AbstractTable
         $table
         ->column('classrooms.name', sortable:true, searchable: true, label: 'Class')
         ->column('classrooms.teacher.name', sortable:true, searchable: true, label: 'Guru')
-        ->rowLink(fn (Attendance $attendance) => route('attendance.create', ['id' => $attendance->id]))
+        ->rowLink(fn (Attendance $attendance) => route('attendance.list', ['id' => $attendance->id]))
         ->column('date', sortable:true)
         ->column('information', sortable:true)
         ->column('note')

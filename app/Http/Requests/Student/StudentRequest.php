@@ -29,7 +29,7 @@ class StudentRequest extends FormRequest
             'class_id' => ['nullable', 'string'],
             'name_parent' => ['string'],
             'phone_number_parent' => ['string'],
-            'phone_number_parent_opt' => ['string'],
+            'phone_number_parent_opt' => ['string'],            
         ];
     }
 }
