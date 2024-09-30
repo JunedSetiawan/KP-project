@@ -65,12 +65,12 @@ class StudentController extends Controller
     {
         $this->spladeTitle('Edit Student');
         
-        $classes = Classroom::query()->pluck('name', 'id')->toArray();
+        $classrooms = Classroom::query()->pluck('name', 'id')->toArray();
 
 
         return view('pages.student.edit', [
             'student' => $student,
-            'classes' => $classes,
+            'classrooms' => $classrooms,
         ]);
     }
 

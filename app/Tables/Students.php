@@ -2,7 +2,9 @@
 
 namespace App\Tables;
 
+use App\Models\Classroom;
 use App\Models\Student;
+use App\Models\StudentClassHistory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
@@ -88,13 +90,48 @@ class Students extends AbstractTable
             ->column('schoolyear.year', label: 'Tahun Ajaran')
             ->column('Actions')
             ->bulkAction(
-                label: 'Touch timestamp',
-                each: fn (User $user) => $user->touch(),
+                label: 'Kenaikan Kelas',
+                each: fn (Student $user) => $user->touch(),
                 confirm: 'Touch projects',
                 confirmText: 'Are you sure you want to touch the projects?',
                 confirmButton: 'Yes, touch all selected rows!',
                 cancelButton: 'No, do not touch!',
-                before: fn () => info('Touching the selected projects'),
+                before: function (array $selectedIds) {
+                    $students = Student::query()->with('classroom','schoolyear')
+                        ->unless($selectedIds === ['*'], fn ($query) => $query->whereIn('id', $selectedIds))
+                        ->get();
+
+foreach ($students as $student) {
+    StudentClassHistory::create([
+        'student_id' => $student->id,
+        'classroom_id' => $student->classroom->id,
+        'school_year_id' => $student->schoolYear->id ?? '',
+    ]);
+
+    $classroomName = $student->classroom->name;
+
+    // Ekstrak angka dari nama kelas (contoh: 7)
+    $classNumber = intval(preg_replace('/[^0-9]/', '', $classroomName));
+    // jika kelas 9 maka redirect kmbali
+    if ($classNumber == 9) {
+        Toast::warning('Kelas 9 tidak diperbolehkan')->autoDismiss(5);
+        return redirect()->back();
+    }
+
+    // Tambah angka dengan 1
+    $nextClassNumber = $classNumber + 1;
+    $newClassroom = Classroom::where('name', $nextClassNumber)->first();
+    if ($newClassroom) {
+
+        // Update classroom_id siswa dengan kelas terbaru
+        $student->classroom_id = $newClassroom->id;
+        $student->save(); // Simpan perubahan
+    }
+
+}
+
+             
+                },
                 after: fn () => Toast::info('Timestamps updated!')
             )
             ->export(
