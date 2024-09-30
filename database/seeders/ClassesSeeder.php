@@ -13,21 +13,21 @@ class ClassesSeeder extends Seeder
      */
     public function run(): void
     {
-        $classrooms = [
-            [
-                'name' => '7A',
-            ],
-            [
-                'name' => '8D',
-            ],
-            [
-                'name' => '9F',
-            ],
+        // $classrooms = [
+        //     [
+        //         'name' => '7A',
+        //     ],
+        //     [
+        //         'name' => '8D',
+        //     ],
+        //     [
+        //         'name' => '9F',
+        //     ],
 
-        ];
+        // ];
 
-        foreach ($classrooms as $class) {
-            Classroom::create($class);
-        }
+        // foreach ($classrooms as $class) {
+        //     Classroom::create($class);
+        // }
     }
 }

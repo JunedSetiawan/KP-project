@@ -28,8 +28,8 @@ class AttendanceController extends Controller
 
         $attendance = Attendance::with('classrooms')->find($id);
 
-        $class = Student::query()->with('classes')->get();
-        dd($class->classes);
+        $class = Classroom::query()->with('students')->get();
+        dd($class);
 
         // Cek apakah attendance ditemukan dan classroom tersedia
         if ($attendance && $attendance->classrooms) {

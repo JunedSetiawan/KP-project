@@ -37,6 +37,7 @@ class StudentsImport implements ToModel, WithHeadingRow
                 'name_parent' => $row['name_parent'],
                 'phone_number_parent' => $row['phone_number_parent'],
                 'phone_number_parent_opt' => $row['phone_number_parent_opt'],
+                
             ]
         );
         
