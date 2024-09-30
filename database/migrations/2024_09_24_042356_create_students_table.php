@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('name_parent')->nullable();
             $table->string('phone_number_parent')->nullable();
             $table->string('phone_number_parent_opt')->nullable();
-            $table->unsignedBigInteger('classroom_id');
+            $table->unsignedBigInteger('classroom_id')->nullable();
             $table->foreign('classroom_id')->references('id')->on('classrooms');
             $table->string('status')->nullable()->default('active');
-            $table->unsignedBigInteger('school_year_id');
+            $table->unsignedBigInteger('school_year_id')->nullable();
             $table->foreign('school_year_id')->references('id')->on('school_years');
           //  $table->foreign('classes_id')->references('id')->on('classes');
             $table->timestamps();

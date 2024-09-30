@@ -37,7 +37,7 @@ class Students extends AbstractTable
      */
     public function for()
     {
-        return Student::query()->with('classes');
+        return Student::query()->with('classroom');
     }
 
     /**
@@ -56,7 +56,7 @@ class Students extends AbstractTable
                 'P' => 'Perempuan',
             ])
             ->column('phone_number')
-            ->column('classes.name')
+            ->column('classroom.name')
             ->column('Actions')
             ->withGlobalSearch(columns: ['nis'])
             ->export(

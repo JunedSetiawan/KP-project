@@ -22,9 +22,14 @@ class Student extends Model
         'school_year_id',
     ];
 
-    public function classes()
+    public function classroom()
     {
-        return $this->belongsTo(Classroom::class, 'claasroom_id');
+        return $this->belongsTo(Classroom::class);
+    }
+
+    public function schoolyear()
+    {
+        return $this->belongsTo(SchoolYear::class);
     }
 
     public function attendance()
