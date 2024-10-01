@@ -35,6 +35,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
                 'nisn' => $row['nisn'],
                 'name' => $row['name'],
                 'gender' => $row['gender'],
+                'school_year_id' => $row['tahun_ajaran_id'],
                 'phone_number' => $row['phone_number'],
                 'classroom_id' => $classroom->id, // Pastikan ini menggunakan ID yang benar dari Classroom
                 'name_parent' => $row['name_parent'],

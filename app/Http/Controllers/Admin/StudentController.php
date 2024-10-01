@@ -8,6 +8,7 @@ use App\Http\Requests\Student\UpdateStudentRequest;
 use App\Imports\StudentsImport;
 use App\Models\Classes;
 use App\Models\Classroom;
+use App\Models\SchoolYear;
 use App\Models\Student;
 use App\Tables\Students;
 use Illuminate\Http\Request;
@@ -18,9 +19,12 @@ use ProtoneMedia\Splade\Facades\Toast;
 
 class StudentController extends Controller
 {
+
     public function index()
     {
         $this->spladeTitle('Student');
+      
+        // dd($schoolYears);
         // $this->authorize('viewAny', \App\Models\User::class);
         return view('pages.student.index', [
             'students' => Students::class,
@@ -71,6 +75,18 @@ class StudentController extends Controller
         return view('pages.student.edit', [
             'student' => $student,
             'classrooms' => $classrooms,
+        ]);
+    }
+
+    public function show($id)
+    {
+        $this->spladeTitle('Detail Student');
+        
+        $student = Student::findOrFail($id);
+
+
+        return view('pages.student.show', [
+            'student' => $student,
         ]);
     }
 

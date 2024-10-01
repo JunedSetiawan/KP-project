@@ -28,7 +28,7 @@ class Student extends Model
         return $this->belongsTo(Classroom::class);
     }
 
-    public function schoolyear()
+    public function schoolYear()
     {
         return $this->belongsTo(SchoolYear::class);
     }

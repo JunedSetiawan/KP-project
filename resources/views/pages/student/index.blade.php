@@ -18,7 +18,7 @@
     </x-splade-form>
 </div>
     {{-- @endcan --}}
-    <x-splade-table :for="$students">
+    <x-splade-table :for="$students" search-debounce="700">
         {{-- @can('manage-user') --}}
             <x-splade-cell Actions as="$student">
                 <div class="space-x-3">
