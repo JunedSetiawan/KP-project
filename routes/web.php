@@ -42,6 +42,7 @@ Route::middleware('splade')->group(function () {
 
     // Route untuk menandai kehadiran siswa
     Route::post('/attendance/{student}/mark', [AttendanceController::class, 'mark'])->name('attendance.mark');
+    Route::post('/attendance/submit-all/{classroom}', [AttendanceController::class, 'submitAll'])->name('attendance.submitAll');
         Route::get('testing-table', [UserController::class, 'index'])->name('test.table');
         Route::get('/dashboard', function () {
             return view('dashboard');
@@ -61,4 +62,5 @@ Route::middleware('splade')->group(function () {
     require __DIR__ . '/admin/schoolyear.php';
     require __DIR__ . '/admin/attendance.php';
     require __DIR__ . '/admin/studentclasshistory.php';
+    require __DIR__ . '/admin/logattendance.php';
 });

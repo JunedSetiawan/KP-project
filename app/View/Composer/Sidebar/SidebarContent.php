@@ -84,6 +84,12 @@ class SidebarContent
                         'menus' => [],
                     ],
                     [
+                        'title' => 'Riwayat Daftar Hadir',
+                        'route' => 'logattendance.index',
+                        'icon' => @svg('heroicon-o-users'),
+                        'menus' => [],
+                    ],
+                    [
                         'title' => 'Helpers',
                         'route' => null,
                         'icon' => @svg('heroicon-o-question-mark-circle'),
