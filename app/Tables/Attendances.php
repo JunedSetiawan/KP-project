@@ -49,7 +49,7 @@ class Attendances extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-        ->column('name', sortable:true, searchable: true, label: 'Class')
+        ->column('name', sortable:true, searchable: true, label: 'Kelas')
         ->column('teacher.name', sortable:true, searchable: true, label: 'Guru')
         ->rowLink(fn (Classroom $classroom) => route('attendance.list', ['id' => $classroom->id]))
        

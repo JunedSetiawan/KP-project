@@ -108,22 +108,26 @@ class AttendanceController extends Controller
 
     public function list($classroom_id)
 {
+    // Set judul halaman menggunakan Splade
     $this->spladeTitle('List Attendance');
 
-    // Ambil classroom berdasarkan classroom_id dan relasi dengan students
-    $classroom = Classroom::with('students')->find($classroom_id);
+    // Ambil classroom berdasarkan classroom_id dan relasi dengan students serta teacher
+    $classroom = Classroom::with(['students', 'teacher'])->find($classroom_id);
 
     // Pastikan classroom ditemukan
     if ($classroom) {
         // Ambil semua siswa terkait dengan classroom
         $students = $classroom->students;
     } else {
-            dd('No attendance or classroom found');
+        // Jika classroom tidak ditemukan, tampilkan pesan error atau redirect
+        return redirect()->route('attendance.index')->with('error', 'Classroom not found.');
     }
 
-    // Kirim koleksi siswa ke view
+    // Kirim classroom dan koleksi siswa ke view
     return view('pages.attendance.list', [
+        'classroom' => $classroom,
         'students' => $students,
     ]);
 }
+
 }

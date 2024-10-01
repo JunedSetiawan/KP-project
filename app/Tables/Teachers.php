@@ -52,7 +52,7 @@ class Teachers extends AbstractTable
             ->column('nip')
             ->column('name')
             ->column('actions')
-            ->paginate(5);
+            ->paginate(10);
 
             // ->searchInput()
             // ->selectFilter()

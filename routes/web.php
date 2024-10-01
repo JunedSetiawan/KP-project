@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,14 @@ Route::middleware('splade')->group(function () {
     // });
 
     Route::middleware('auth')->group(function () {
+        // Route untuk menampilkan daftar kelas
+    Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
+
+    // Route untuk menampilkan daftar siswa dalam kelas tertentu
+    Route::get('/attendance/{classroom}', [AttendanceController::class, 'list'])->name('attendance.list');
+
+    // Route untuk menandai kehadiran siswa
+    Route::post('/attendance/{student}/mark', [AttendanceController::class, 'mark'])->name('attendance.mark');
         Route::get('testing-table', [UserController::class, 'index'])->name('test.table');
         Route::get('/dashboard', function () {
             return view('dashboard');
