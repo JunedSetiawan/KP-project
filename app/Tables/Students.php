@@ -133,72 +133,74 @@ class Students extends AbstractTable
                 cancelButton: 'Tidak',
                 before: function (array $selectedIds) {
                     $students = Student::query()->with('classroom', 'schoolyear')
-                    ->unless($selectedIds === ['*'], fn($query) => $query->whereIn('id', $selectedIds))
-                    ->get();
-                
-                foreach ($students as $student) {
-                    // Simpan riwayat kelas lama siswa di tabel StudentClassHistory
-                    StudentClassHistory::create([
-                        'student_id'      => $student->id,
-                        'classroom_id'    => $student->classroom->id,  // Kelas lama
-                        'school_year_id'  => $student->schoolyear->id, // Tahun ajaran lama
-                    ]);
-                
-                    // Ambil nama kelas, misalnya "8A"
-                    $classroomName = $student->classroom->name;
-                
-                    // Ekstrak angka dari nama kelas (contoh: 8)
-                    $classNumber = intval(preg_replace('/[^0-9]/', '', $classroomName));
-                
-                    // Jika kelas 9, tidak diperbolehkan naik kelas
-                    if ($classNumber == 9) {
-                        Toast::warning('Siswa kelas 9 tidak diperbolehkan naik kelas')->autoDismiss(5);
-                        return redirect()->back();
-                    }
-                
-                    $nextClassType = 'A'; // Menghapus angka, menyisakan huruf
-                
-                    // Tambah angka kelas dengan 1 (misalnya dari "8A" ke "9A")
-                    $nextClassNumber = $classNumber + 1;
-                
-                    // Buat nama kelas baru dengan angka yang ditingkatkan dan huruf yang sama (misalnya "9A")
-                    $nextClassName = $nextClassNumber . $nextClassType;
-                
-                    // Cari kelas baru berdasarkan nama kelas baru (misalnya "9A")
-                    $newClassroom = Classroom::where('name', $nextClassName)->first();
-                
-                    if ($newClassroom) {
-                        // Cek tahun ajaran sekarang (misal: "2024/2025")
-                        $currentYear = $student->schoolYear->year; // "2024/2025"
-                        
-                        // Pisahkan tahun ajaran untuk mendapatkan awal dan akhir tahun
-                        list($startYear, $endYear) = explode('/', $currentYear);
-                
-                        // Tambah satu tahun ke awal dan akhir tahun untuk tahun ajaran baru
-                        $newStartYear = (int)$startYear + 1;
-                        $newEndYear = (int)$endYear + 1;
-                        $newSchoolYear = $newStartYear . '/' . $newEndYear; // Misalnya, "2025/2026"
-                
-                        // Cek apakah tahun ajaran baru sudah ada di database
-                        $schoolYear = SchoolYear::where('year', $newSchoolYear)->first();
-                
-                        // Jika tidak ada, buat tahun ajaran baru
-                        if (!$schoolYear) {
-                            $schoolYear = SchoolYear::create([
-                                'year' => $newSchoolYear, // Simpan sebagai "2025/2026"
-                            ]);
-                        }
-                
-                        // Update classroom_id dan tahun ajaran siswa dengan tahun ajaran baru
-                        $student->classroom_id = $newClassroom->id;
-                        $student->school_year_id = $schoolYear->id; // Set tahun ajaran baru yang sudah dibuat/ditemukan
-                        $student->save(); // Simpan perubahan
-                
-                        Log::info("Siswa telah naik kelas ke: " . $nextClassName . " untuk tahun ajaran " . $newSchoolYear . "\n");
-                    } else {
-                        Log::warning("Kelas dengan nama " . $nextClassName . " tidak ditemukan.\n");
-                    }
-                }
+    ->unless($selectedIds === ['*'], fn($query) => $query->whereIn('id', $selectedIds))
+    ->get();
+
+foreach ($students as $student) {
+    // Simpan riwayat kelas lama siswa di tabel StudentClassHistory
+    StudentClassHistory::create([
+        'student_id'      => $student->id,
+        'classroom_id'    => $student->classroom->id,  // Kelas lama
+        'school_year_id'  => $student->schoolyear->id, // Tahun ajaran lama
+    ]);
+
+    // Ambil nama kelas, misalnya "8A"
+    $classroomName = $student->classroom->name;
+
+    // Ekstrak angka dari nama kelas (contoh: 8)
+    $classNumber = intval(preg_replace('/[^0-9]/', '', $classroomName));
+
+    // Jika kelas 9, tidak diperbolehkan naik kelas
+    if ($classNumber == 9) {
+        Toast::warning('Siswa kelas 9 tidak diperbolehkan naik kelas')->autoDismiss(5);
+        return redirect()->back();
+    }
+
+    // Ambil huruf kelas (contoh: "A", "B", dll)
+    $classType = preg_replace('/[0-9]/', '', $classroomName); // Menghapus angka, menyisakan huruf
+
+    // Tambah angka kelas dengan 1 (misalnya dari "8A" ke "9A")
+    $nextClassNumber = $classNumber + 1;
+
+    // Buat nama kelas baru dengan angka yang ditingkatkan dan huruf yang sama (misalnya "9A")
+    $nextClassName = $nextClassNumber . $classType;
+
+    // Cari kelas baru berdasarkan nama kelas baru (misalnya "9A")
+    $newClassroom = Classroom::where('name', $nextClassName)->first();
+
+    if ($newClassroom) {
+        // Cek tahun ajaran sekarang (misal: "2024/2025")
+        $currentYear = $student->schoolyear->year; // "2024/2025"
+        
+        // Pisahkan tahun ajaran untuk mendapatkan awal dan akhir tahun
+        list($startYear, $endYear) = explode('/', $currentYear);
+
+        // Tambah satu tahun ke awal dan akhir tahun untuk tahun ajaran baru
+        $newStartYear = (int)$startYear + 1;
+        $newEndYear = (int)$endYear + 1;
+        $newSchoolYear = $newStartYear . '/' . $newEndYear; // Misalnya, "2025/2026"
+
+        // Cek apakah tahun ajaran baru sudah ada di database
+        $schoolYear = SchoolYear::where('year', $newSchoolYear)->first();
+
+        // Jika tidak ada, buat tahun ajaran baru
+        if (!$schoolYear) {
+            $schoolYear = SchoolYear::create([
+                'year' => $newSchoolYear, // Simpan sebagai "2025/2026"
+            ]);
+        }
+
+        // Update classroom_id dan tahun ajaran siswa dengan tahun ajaran baru
+        $student->classroom_id = $newClassroom->id;
+        $student->school_year_id = $schoolYear->id; // Set tahun ajaran baru yang sudah dibuat/ditemukan
+        $student->save(); // Simpan perubahan
+
+        echo "Siswa telah naik kelas ke: " . $nextClassName . " untuk tahun ajaran " . $newSchoolYear . "\n";
+    } else {
+        echo "Kelas dengan nama " . $nextClassName . " tidak ditemukan.\n";
+    }
+}
+
                 
 
              
