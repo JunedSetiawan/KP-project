@@ -31,7 +31,8 @@ class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
         $student = Student::updateOrCreate(
              // Kondisi untuk menentukan apakah akan melakukan update atau create
             [
-                'nis' => $row['nis'],
+                'nipd' => $row['nipd'],
+                'nisn' => $row['nisn'],
                 'name' => $row['name'],
                 'gender' => $row['gender'],
                 'phone_number' => $row['phone_number'],

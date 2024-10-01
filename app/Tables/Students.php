@@ -105,7 +105,7 @@ foreach ($students as $student) {
     StudentClassHistory::create([
         'student_id' => $student->id,
         'classroom_id' => $student->classroom->id,
-        'school_year_id' => $student->schoolYear->id ?? '',
+        
     ]);
 
     $classroomName = $student->classroom->name;

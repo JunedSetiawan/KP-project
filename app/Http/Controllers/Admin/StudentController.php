@@ -37,10 +37,10 @@ class StudentController extends Controller
         //     'manager' => 'Manager',
         // ];
 
-        $classes = Classroom::all();
+        $classrooms = Classroom::query()->pluck('name', 'id')->toArray();
 
         return view('pages.student.create', [
-           'classes' => $classes,
+            'classrooms' => $classrooms
         ]);
     }
 
@@ -86,9 +86,10 @@ class StudentController extends Controller
         // $this->authorize('update', \App\Models\User::class);
 
         $validated = $request->validated();
-
+        $validated['classroom_id'] = $validated['class_id']; // Tetapkan classroom_id dari class_id
+        unset($validated['class_id']); // Hapus class_id jika tidak diperlukan
+        
         $student->update($validated);
-
         Toast::success('Student updated successfully!')->autoDismiss(5);
 
         return redirect()->route('student.index');

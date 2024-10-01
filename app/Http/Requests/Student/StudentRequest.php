@@ -22,7 +22,8 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nis' => ['integer'],
+            'nipd' => ['integer'],
+            'nisn' => ['integer'],
             'name' => ['required', 'string'],
             'gender' => ['required', 'string'],
             'phone_number' => ['string'],

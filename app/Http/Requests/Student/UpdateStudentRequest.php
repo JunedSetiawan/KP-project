@@ -22,11 +22,12 @@ class UpdateStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'nis' => [ 'integer'],
+           'nipd' => [ 'integer'],
+            'nisn' => ['integer'],
             'name' => ['required', 'string'],
             'gender' => ['required', 'string'],
             'phone_number' => ['string'],
-            'classes_id' => ['nullable', 'string'],
+            'class_id' => ['nullable', 'string'],
             'name_parent' => ['string'],
             'phone_number_parent' => ['string'],
             'phone_number_parent_opt' => ['string'],
