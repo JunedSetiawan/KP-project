@@ -17,23 +17,6 @@ class Attendance extends Model
         'note',
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        // Event Eloquent untuk 'created'
-        static::created(function ($attendance) {
-            // Simpan data ke LogAttendance setelah Attendance dibuat
-            LogAttendance::create([
-                'student_id' => $attendance->student_id,
-                'date' => $attendance->date,
-                'classrooms_id' => $attendance->classrooms_id,
-                'information' => $attendance->information,
-                'note' => $attendance->note,
-            ]);
-        });
-    }
-
     public function classrooms()
     {
         return $this->belongsTo(Classroom::class, 'classrooms_id', 'id');

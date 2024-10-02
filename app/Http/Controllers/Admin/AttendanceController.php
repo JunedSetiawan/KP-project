@@ -63,15 +63,16 @@ class AttendanceController extends Controller
 
 
 
-    public function store(AttendanceRequest $request)
+    public function store(UpdateAttendanceRequest $request)
 {
-    // $this->authorize('create', \App\Models\User::class);
-
     // Validasi data
     $validated = $request->validated();
 
     // Simpan data ke tabel Attendance
     $attendance = Attendance::create($validated);
+
+    // Simpan data ke tabel LogAttendance
+
     // Menampilkan pesan sukses
     Toast::success('Attendance created successfully!')->autoDismiss(5);
 
@@ -189,8 +190,11 @@ public function submitAll(Request $request, Classroom $classroom)
         }
     }
 
+    
+
     // Bulk insert attendance data
     Attendance::insert($attendanceData);
+    LogAttendance::insert($attendanceData);
 
     Toast::success("Attendance dibuat successfully! {$messageSentCount} pesan dikirim.")->autoDismiss(5);
 
