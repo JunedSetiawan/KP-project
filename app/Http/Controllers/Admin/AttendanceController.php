@@ -179,7 +179,7 @@ public function submitAll(Request $request, Classroom $classroom)
             $student = Student::find($studentId);
             if ($student && $student->phone_number_parent) {
                 try {
-                    $message = "Halo {$student->name}, Anda tidak memasuki kelas hari ini. Terima kasih. :)";
+                    $message = "Halo Orang tua murid dari {$student->name}, tidak memasuki kelas hari ini. Terima kasih. :)";
                     $this->fonnte->sendMessage($student->phone_number_parent, $message);
                     $messageSentCount++;
                 } catch (\Exception $e) {
