@@ -7,14 +7,25 @@ use App\Http\Requests\Attendance\UpdateAttendanceRequest;
 use App\Models\Attendance;
 use App\Models\Classroom;
 use App\Models\LogAttendance;
+use App\Models\Student;
+use App\Services\FonnteService;
 use App\Tables\Attendances;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use ProtoneMedia\Splade\Facades\Toast;
 use ProtoneMedia\Splade\SpladeTable;
 
 class AttendanceController extends Controller
 {
+    protected $fonnte;
+
+    public function __construct(FonnteService $fonnte)
+    {
+        $this->fonnte = $fonnte;
+    }
+
+
     public function index()
     {
         $this->spladeTitle('Attendance');
@@ -145,10 +156,13 @@ class AttendanceController extends Controller
     // Ambil semua siswa terkait dengan classroom
     $students = $classroom->students;
 
+    $date = Carbon::now()->locale('id');
+
     // Kirim classroom dan koleksi siswa ke view
     return view('pages.attendance.list', [
         'classroom' => $classroom,
         'students' => $students,
+        'date' => $date
     ]);
 }
 
@@ -157,25 +171,38 @@ class AttendanceController extends Controller
 
 public function submitAll(Request $request, Classroom $classroom)
 {
-    // Loop through each student's attendance data
-    foreach ($request->attendance as $studentId => $attendanceData) {
-        // Update or create the attendance record for the student
-        Attendance::updateOrCreate(
-            [
-                'student_id' => $studentId, 
-                'classrooms_id' => $classroom->id, 
-                'date' => Carbon::today()
-            ],
-            [
-                'status' => $attendanceData['status'], 
-                'note' => $attendanceData['note'] ?? null,
-                'information' => $attendanceData['status'] // Menggunakan status sebagai informasi
-            ]
-        );
-    }
-    Toast::success('Attendance dibuat successfully!')->autoDismiss(5);
+    $attendanceData = [];
+    $messageSentCount = 0;
 
-    // Redirect back with a success message
+    foreach ($request->attendance as $studentId => $data) {
+        $attendanceData[] = [
+            'student_id' => $studentId,
+            'date' => Carbon::today(),
+            'classrooms_id' => $classroom->id,
+            'information' => $data['status'],
+            'note' => $data['note'] ?? null,
+        ];
+
+        if ($data['status'] == 'A') {
+            $student = Student::find($studentId);
+            if ($student && $student->phone_number_parent) {
+                try {
+                    $message = "Halo {$student->name}, Anda tidak memasuki kelas hari ini. Terima kasih. :)";
+                    $this->fonnte->sendMessage($student->phone_number_parent, $message);
+                    $messageSentCount++;
+                } catch (\Exception $e) {
+                    // Log error
+                    Log::error("Failed to send message to student {$student->id}: " . $e->getMessage());
+                }
+            }
+        }
+    }
+
+    // Bulk insert attendance data
+    Attendance::insert($attendanceData);
+
+    Toast::success("Attendance dibuat successfully! {$messageSentCount} pesan dikirim.")->autoDismiss(5);
+
     return redirect()->route('attendance.index');
 }
 
