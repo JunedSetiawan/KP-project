@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Attendance\AttendanceRequest;
 use App\Http\Requests\Attendance\UpdateAttendanceRequest;
 use App\Models\Attendance;
 use App\Models\Classroom;
@@ -62,23 +63,21 @@ class AttendanceController extends Controller
 
 
 
-    public function store(Attendance $request)
+    public function store(UpdateAttendanceRequest $request)
 {
-    // $this->authorize('create', \App\Models\User::class);
-
     // Validasi data
     $validated = $request->validated();
 
     // Simpan data ke tabel Attendance
     $attendance = Attendance::create($validated);
 
-    // Buat log attendance
+    // Simpan data ke tabel LogAttendance
     LogAttendance::create([
         'student_id' => $attendance->student_id,
-        'date' => Carbon::today(),
+        'date' => $attendance->date,
         'classrooms_id' => $attendance->classrooms_id,
-        'information' => $validated['status'], // Atur status sebagai informasi
-        'note' => $validated['note'] ?? null, // Catatan bisa opsional
+        'information' => $attendance->information,
+        'note' => $attendance->note,
     ]);
 
     // Menampilkan pesan sukses
@@ -86,6 +85,7 @@ class AttendanceController extends Controller
 
     return redirect()->route('attendance.index');
 }
+
 
 
     public function edit(Attendance $attendance)
