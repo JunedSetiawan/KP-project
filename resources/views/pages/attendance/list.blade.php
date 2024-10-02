@@ -4,6 +4,11 @@
     </x-slot>
 
     <div class="container mx-auto mt-6">
+        <div class="text-center">
+            <h2 class="text-2xl font-bold">Daftar Hadir Kelas {{ $classroom->name }} </h2>
+            <p class="text-md font-semibold">{{ $date->isoFormat('dddd, MMMM YYYY')  }}</p>
+            <p class="text-md font-semibold">Tahun Ajaran  {{ $students->first()->schoolYear->year }}</p>
+        </div>
         @if ($students->isEmpty())
             <div class="alert alert-warning mt-4">
                 No students found for this class.
@@ -18,9 +23,9 @@
                 </div>
 
                 <!-- Form yang mengirim seluruh absensi sekaligus -->
-                <form method="POST" action="{{ route('attendance.submitAll', $classroom->id) }}">
+                <form method="POST" action="{{ route('attendance.submitAll', $classroom->id) }}" >
                     @csrf
-                    <table class="table w-full">
+                    <table class="table w-full bg-white">
                         <!-- Table header -->
                         <thead>
                             <tr>
