@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LogAttendance extends Model
+class ListDateLogAttendance extends Model
 {
     use HasFactory;
 
@@ -17,7 +17,7 @@ class LogAttendance extends Model
         'note',
     ];
 
-    public function classroom()
+    public function classrooms()
     {
         return $this->belongsTo(Classroom::class, 'classrooms_id', 'id');
     }
