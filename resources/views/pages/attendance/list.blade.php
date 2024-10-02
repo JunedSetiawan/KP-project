@@ -77,21 +77,19 @@
     </div>
 
     <!-- JavaScript untuk tombol Check All -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mendapatkan tombol "Check All"
-            const checkAllButton = document.getElementById('checkAll');
-
-            // Event listener ketika tombol ditekan
-            checkAllButton.addEventListener('click', function() {
-                // Pilih semua radio button dengan nilai "V"
-                const radios = document.querySelectorAll('input[type="radio"][value="V"]');
-                
-                // Cek semua radio button dengan nilai "V"
-                radios.forEach(function(radio) {
-                    radio.checked = true;
-                });
+    <x-splade-script>
+        document.getElementById('checkAll').addEventListener('click', function() {
+            // Ambil semua radio button yang memiliki value "V"
+            const radioButtons = document.querySelectorAll('input[type="radio"][value="V"]');
+            console.log(radioButtons);
+            // Set semua radio button yang memiliki value "V" menjadi checked
+            radioButtons.forEach(function(radio) {
+                radio.checked = true;
             });
         });
-    </script>
+    </x-splade-script>
+
 </x-app-layout>
+
+<script>
+</script>
