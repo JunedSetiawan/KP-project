@@ -21,21 +21,6 @@ class LogAttendanceController extends Controller
         ]);
     }
 
-    public function store(LogAttendance $request)
-    {
-        // $this->authorize('create', \App\Models\User::class);
-
-        $validated = $request->validated();
-
-        // $validated['password'] = Hash::make($validated['password']);
-        
-        $logattendance = LogAttendance::create($validated);
-
-        Toast::success('School Year created successfully!')->autoDismiss(5);
-
-        return redirect()->route('logattendance.index');
-    }
-
     public function listdate($classroom_id)
     {
         // Set judul halaman menggunakan Splade
