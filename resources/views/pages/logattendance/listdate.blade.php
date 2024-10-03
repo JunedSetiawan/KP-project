@@ -11,7 +11,7 @@
         @else
             <div class="overflow-x-auto mt-6">
                 <!-- Tabel untuk menampilkan tanggal absensi -->
-                <table class="table w-full">
+                <table class="table w-full border border-solid">
                     <!-- Table header -->
                     <thead>
                         <tr>
