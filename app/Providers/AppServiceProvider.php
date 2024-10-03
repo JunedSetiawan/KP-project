@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Services\FonnteService;
+use App\Tables\ListLogAttendances;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use ProtoneMedia\Splade\Facades\SEO;
@@ -65,6 +66,14 @@ class AppServiceProvider extends ServiceProvider
         });
         Gate::define('manage-user', function (User $user) {
             return $user->isAdmin();
+        });
+
+        $this->app->bind(ListLogAttendances::class, function ($app) {
+            // Retrieve parameters from request, or pass them manually
+            $classroom_id = request()->route('classroom_id'); // or pass the variable directly
+            $date = request()->query('date', now()->toDateString()); // Example default value
+    
+            return new ListLogAttendances($classroom_id, $date);
         });
     }
 }

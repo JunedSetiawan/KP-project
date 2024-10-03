@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ __('Attendance') }}
+        {{ __('Riwayat Daftar Hadir Per Tanggal') }}
     </x-slot>
 
     {{-- @can('manage-user') --}}
