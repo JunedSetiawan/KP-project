@@ -71,7 +71,6 @@ class StudentController extends Controller
         
         $classrooms = Classroom::query()->pluck('name', 'id')->toArray();
 
-
         return view('pages.student.edit', [
             'student' => $student,
             'classrooms' => $classrooms,
