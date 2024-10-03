@@ -13,6 +13,7 @@ Route::group(['middleware' => [ 'auth']], function () {
     Route::delete('/logattendance/{logattendance}', [LogAttendanceController::class, 'destroy'])->name('logattendance.destroy');
     Route::post('/logattendances-import', [LogAttendanceController::class, 'import'])->name('logattendance.import');
     Route::get('/logattendance/listdate/{id}', [LogAttendanceController::class, 'listdate'])->name('logattendance.listdate');
+    Route::get('/logattendance/list/{classroom_id}/{date}', [LogAttendanceController::class, 'list'])->name('logattendance.list');
 });
 
 ?>

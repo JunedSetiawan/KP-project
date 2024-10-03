@@ -18,8 +18,6 @@ return new class extends Migration
             $table->date('date');
             $table->unsignedBigInteger('classrooms_id');
             $table->foreign('classrooms_id')->references('id')->on('classrooms');
- 
-           
             $table->string('information');
             $table->string('note')->nullable();
             $table->timestamps();

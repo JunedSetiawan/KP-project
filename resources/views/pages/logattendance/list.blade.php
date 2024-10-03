@@ -1,97 +1,29 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ 'Kelas ' . $classroom->name }}
+        {{ __('Attendance') }}
     </x-slot>
-
-    <div class="container mx-auto mt-6">
-        @if ($students->isEmpty())
-            <div class="alert alert-warning mt-4">
-                No students found for this class.
-            </div>
-        @else
-            <div class="overflow-x-auto mt-6">
-                <!-- Tombol "Check All" -->
-                <div class="mb-4">
-                    <button type="button" id="checkAll" class="btn btn-sm btn-secondary">
-                        Check All Hadir (V)
-                    </button>
-                </div>
-
-                <!-- Form yang mengirim seluruh absensi sekaligus -->
-                <form method="POST" action="{{ route('attendance.submitAll', $classroom->id) }}">
-                    @csrf
-                    <table class="table w-full">
-                        <!-- Table header -->
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Nama Siswa</th>
-                                <th>Keterangan</th>
-                                <th>Catatan</th>
-                            </tr>
-                        </thead>
-                        <!-- Table body -->
-                        <tbody>
-                            @foreach ($students as $index => $student)
-                                <tr>
-                                    <th>{{ $index + 1 }}</th>
-                                    <td>{{ $student->name }}</td>
-                                    <td>
-                                        <!-- Radio buttons for attendance -->
-                                        <div class="form-control flex flex-row">
-                                            <label class="cursor-pointer label">
-                                                <input type="radio" name="attendance[{{ $student->id }}][status]" value="V" class="radio radio-primary" required>
-                                                <span class="label-text ml-2">V</span>
-                                            </label>
-                                            <label class="cursor-pointer label">
-                                                <input type="radio" name="attendance[{{ $student->id }}][status]" value="S" class="radio radio-secondary" required>
-                                                <span class="label-text ml-2">S</span>
-                                            </label>
-                                            <label class="cursor-pointer label">
-                                                <input type="radio" name="attendance[{{ $student->id }}][status]" value="I" class="radio radio-accent" required>
-                                                <span class="label-text ml-2">I</span>
-                                            </label>
-                                            <label class="cursor-pointer label">
-                                                <input type="radio" name="attendance[{{ $student->id }}][status]" value="A" class="radio radio-error" required>
-                                                <span class="label-text ml-2">A</span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <!-- Textarea for notes -->
-                                        <textarea name="attendance[{{ $student->id }}][note]" class="textarea textarea-bordered w-full" placeholder="Masukkan catatan..."></textarea>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                    <!-- Tombol Submit di bagian bawah tabel -->
-                    <button type="submit" class="btn btn-primary mt-4">Submit Absensi</button>
-                </form>
-            </div>
-        @endif
-
-        <!-- Back to Class List button -->
-        <a href="{{ route('attendance.index') }}" class="btn btn-secondary mt-4">Back to Class List</a>
-    </div>
-
-    <!-- JavaScript untuk tombol Check All -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mendapatkan tombol "Check All"
-            const checkAllButton = document.getElementById('checkAll');
-
-            // Event listener ketika tombol ditekan
-            checkAllButton.addEventListener('click', function() {
-                // Pilih semua radio button dengan nilai "V"
-                const radios = document.querySelectorAll('input[type="radio"][value="V"]');
-                
-                // Cek semua radio button dengan nilai "V"
-                radios.forEach(function(radio) {
-                    radio.checked = true;
-                });
-            });
-        });
-    </script>
+    <x-splade-table :for="$logattendances">
+        <x-splade-cell information as="$logattendance">
+            @switch($logattendance->information)
+                @case('V')
+                    Hadir
+                    @break
+    
+                @case('S')
+                    Sakit
+                    @break
+    
+                @case('I')
+                    Ijin
+                    @break
+    
+                @case('A')
+                    Alpha
+                    @break
+    
+                @default
+                    {{ $logattendance->information }}
+            @endswitch
+        </x-splade-cell>
+    </x-splade-table>
 </x-app-layout>
