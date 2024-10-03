@@ -122,7 +122,7 @@ class Students extends AbstractTable
             ->column('phone_number', label: 'Nomor Telepon')
             ->column('classroom.name', label: 'Kelas')
             ->column('schoolYear.year', label: 'Tahun Ajaran')
-            ->rowLink(fn (Student $user) => route('student.detail', ['id' => $user->id]))
+            ->rowModal(fn (Student $user) => route('student.detail', ['id' => $user->id]))
             ->column('Actions')
             ->bulkAction(
                 label: 'Kenaikan Kelas',
@@ -195,9 +195,9 @@ foreach ($students as $student) {
         $student->school_year_id = $schoolYear->id; // Set tahun ajaran baru yang sudah dibuat/ditemukan
         $student->save(); // Simpan perubahan
 
-        echo "Siswa telah naik kelas ke: " . $nextClassName . " untuk tahun ajaran " . $newSchoolYear . "\n";
+        Toast::success('Kenaikan Kelas pada siswa berhasil, Silahkan cek menggunakan filter tahun ajaran terbaru :)')->autoDismiss(5);
     } else {
-        echo "Kelas dengan nama " . $nextClassName . " tidak ditemukan.\n";
+        Log::info("Kelas dengan nama " . $nextClassName . " tidak ditemukan.\n");
     }
 }
 
@@ -205,7 +205,6 @@ foreach ($students as $student) {
 
              
                 },
-                after: fn () => Toast::success('Kenaikan Kelas pada siswa berhasil, Silahkan cek menggunakan filter tahun ajaran terbaru :)')->autoDismiss(5),
             )
             ->export(
                 'Export',

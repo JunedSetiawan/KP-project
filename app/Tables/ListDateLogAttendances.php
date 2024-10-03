@@ -43,9 +43,8 @@ class ListDateLogAttendances extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-            ->column('No', searchable: false, sortable: false) // Menambahkan nomor urut
             ->column('date', sortable: true, searchable: true)
-            ->rowLink(fn ($log) => route('logattendance.list', ['date' => $log->date]))
-            ->withGlobalSearch(columns: ['date']); // Pencarian global berdasarkan tanggal
+            ->rowLink(fn ($log) => route('logattendance.list', ['classroom_id' => $this->classroomId, 'date' => $log->date]))
+            ->paginate(10);
     }
 }

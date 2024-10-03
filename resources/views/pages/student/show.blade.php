@@ -1,30 +1,27 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ __('Edit Student') }}
+        {{ __('Detail Siswa') }}
     </x-slot>
 
     <x-splade-modal>
         <x-splade-form class="bg-base-100 space-y-2 p-5" :default="$student"
-            action="" method="put">
-            @csrf
-            <x-splade-input name="nipd" label="NIPD" />
-            <x-splade-input name="nisn" label="NISN" />
-            <x-splade-input name="name" label="Nama" required />
-            <x-splade-group name="gender" label="Pilih Jenis Kelamin" inline>
-                <x-splade-radio name="gender" value="L" label="Laki Laki" />
-                <x-splade-radio name="gender" value="P" label="Perempuan" />
-            </x-splade-group>
-            <x-splade-input name="phone_number" label="Nomor HP" />
+            >
+     
+            <x-splade-input name="nipd" label="NIPD" disabled />
+            <x-splade-input name="nisn" label="NISN" disabled />
+            <x-splade-input name="name" label="Nama" disabled />
+            <x-splade-input name="gender" label="Nama" disabled />
+          
+            <x-splade-input name="phone_number" label="Nomor HP" disabled />
+            <x-splade-input name="classroom.name" label="Nomor HP" disabled />
 
             <br>
             <h2 class="text-xl font-bold tracking-wide">Data Orang Tua</h2>
-            <x-splade-input name="name_parent" label="Nama Orang Tua" />
-            <x-splade-input name="phone_number_parent" label="Nomor Orang Tua" />
-            <x-splade-input name="phone_number_parent_opt" label="Nomor Orang Tua Wali(Opsional)" />
+            <x-splade-input name="name_parent" label="Nama Orang Tua" disabled />
+            <x-splade-input name="phone_number_parent" label="Nomor Orang Tua" disabled />
+            <x-splade-input name="phone_number_parent_opt" label="Nomor Orang Tua Wali(Opsional)" disabled />
 
-            <div class="flex justify-between">
-                <x-splade-submit />
-            </div>
+           
         </x-splade-form>
     </x-splade-modal>
 </x-app-layout>

@@ -8,6 +8,7 @@ use App\Models\ListDateLogAttendance;
 use App\Models\LogAttendance;
 use App\Tables\LogAttendances;
 use App\Tables\ListDateLogAttendances;
+use App\Tables\ListLogAttendances;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\Facades\Toast;
@@ -53,6 +54,26 @@ class LogAttendanceController extends Controller
         'logattendances' => $logattendances,
     ]);
 }
+
+
+public function list($classroom_id, $date)
+{
+    $this->spladeTitle('Daftar Kehadiran tanggal : ' . $date);
+
+    // Create an instance of the ListLogAttendances table with classroom_id and date
+    $logattendances = new ListLogAttendances($classroom_id, $date);
+
+    // Return the view with the log attendance table
+    return view('pages.logattendance.list', [
+        'logattendances' => $logattendances,
+        'date' => $date,
+    ]);
+}
+
+
+
+
+
 
     
 }
