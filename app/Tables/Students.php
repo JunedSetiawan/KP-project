@@ -208,8 +208,8 @@ foreach ($students as $student) {
                 after: fn () => Toast::success('Kenaikan Kelas pada siswa berhasil, Silahkan cek menggunakan filter tahun ajaran terbaru :)')->autoDismiss(5),
             )
             ->export(
-                'export',
-                'project.xlsx',
+                'Export',
+                'daftar_siswa.xlsx',
                 Excel::XLSX
             )
             ->paginate(10);

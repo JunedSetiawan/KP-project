@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ __('Classroom') }}
+        {{ __('Daftar Kelas') }}
     </x-slot>
 
     {{-- @can('manage-classes') --}}

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ __('Teacher') }}
+        {{ __('Daftar Guru') }}
     </x-slot>
 
     <div class="flex justify-between">

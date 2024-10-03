@@ -4,6 +4,7 @@ namespace App\Tables;
 
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
 
@@ -52,7 +53,12 @@ class Teachers extends AbstractTable
             ->column('nip')
             ->column('name')
             ->column('actions')
-            ->paginate(10);
+            ->paginate(10)
+            ->export(
+                'Export',
+                'daftar_guru.xlsx',
+                Excel::XLSX
+            );
 
             // ->searchInput()
             // ->selectFilter()

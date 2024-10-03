@@ -4,6 +4,7 @@ namespace App\Tables;
 
 use App\Models\Classroom;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
 
@@ -48,9 +49,15 @@ class Classrooms extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
+        ->withGlobalSearch(columns: ['name'])
             ->column('name', sortable: true, searchable: true, label: 'Kelas')
             ->column('teacher.name', searchable: true, label: 'Wali Kelas')
             ->column('actions')
-            ->paginate(10); // Pagination Splade, tanpa memanggil get()
+            ->paginate(10) // Pagination Splade, tanpa memanggil get()
+            ->export(
+                'Export',
+                'daftar_guru.xlsx',
+                Excel::XLSX
+            );
     }
 }

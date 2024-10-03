@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ __('School Years') }}
+        {{ __('Tahun Sekolah') }}
     </x-slot>
 
     {{-- @can('manage-user') --}}
