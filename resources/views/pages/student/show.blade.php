@@ -10,10 +10,10 @@
             <x-splade-input name="nipd" label="NIPD" disabled />
             <x-splade-input name="nisn" label="NISN" disabled />
             <x-splade-input name="name" label="Nama" disabled />
-            <x-splade-input name="gender" label="Nama" disabled />
+            <x-splade-input name="gender" label="Jenis Kelamin" disabled />
           
             <x-splade-input name="phone_number" label="Nomor HP" disabled />
-            <x-splade-input name="classroom.name" label="Nomor HP" disabled />
+            <x-splade-input name="classroom.name" label="Kelas" disabled />
 
             <br>
             <h2 class="text-xl font-bold tracking-wide">Data Orang Tua</h2>

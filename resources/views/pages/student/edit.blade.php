@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ __('Edit Student') }}
+        {{ __('Edit data siswa') }}
     </x-slot>
 
     <x-splade-modal>

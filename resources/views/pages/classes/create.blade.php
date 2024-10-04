@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ __('Create Classroom') }}
+        {{ __('Membuat data kelas') }}
     </x-slot>
 
 

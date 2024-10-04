@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ 'Kelas ' . $classroom->name }}
+        {{ 'Daftar Hadir Kelas ' . $classroom->name }}
     </x-slot>
 
     <div class="container mx-auto mt-6">
@@ -11,14 +11,14 @@
         </div>
         @if ($students->isEmpty())
             <div class="alert alert-warning mt-4">
-                No students found for this class.
+                Tidak ada siswa dalam kelas ini.
             </div>
         @else
             <div class="overflow-x-auto mt-6">
                 <!-- Tombol "Check All" -->
                 <div class="mb-4">
                     <button type="button" id="checkAll" class="btn btn-sm btn-secondary">
-                        Check All Hadir (V)
+                        Checked Semua Hadir (V)
                     </button>
                 </div>
 
