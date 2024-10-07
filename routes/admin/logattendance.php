@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 // create route for users
 Route::group(['middleware' => [ 'auth']], function () {
+    Route::get('/logattendance', [LogAttendanceController::class, 'index'])->name('logattendance.index');
     Route::get('/logattendance/create/{id}', [LogAttendanceController::class, 'create'])->name('logattendance.create');
     Route::post('/logattendance', [LogAttendanceController::class, 'store'])->name('logattendance.store');
     Route::get('/logattendance/{logattendance}/edit', [LogAttendanceController::class, 'edit'])->name('logattendance.edit');

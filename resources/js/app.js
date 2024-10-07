@@ -18,7 +18,7 @@ createApp({
     .use(cors)
     .use(SpladePlugin, {
         max_keep_alive: 10,
-        transform_anchors: true,
+        transform_anchors: false,
         progress_bar: true,
     })
     .component("theme-toggle", ThemeToggle)
