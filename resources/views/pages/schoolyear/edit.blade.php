@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ __('Edit School Year') }}
+        {{ __('Edit Tahun Ajaran') }}
     </x-slot>
 
     <x-splade-modal>

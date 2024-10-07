@@ -26,12 +26,7 @@
                     {{ __('Forgot your password?') }}
                     </Link>
                     @endif
-                    <br>
-                    @if (Route::has('register'))
-                    <Link class="underline text-sm text-base-content hover:text-neutral" href="{{ route('register') }}">
-                    {{ __('Dont have an account? Sign up') }}
-                    </Link>
-                    @endif
+                
                 </div>
             </x-splade-form>
         </div>

@@ -39,7 +39,7 @@ class SidebarContent
                     [
                         'title' => 'Siswa',
                         'route' => 'student.index',
-                        'icon' => @svg('heroicon-o-academic-cap'),
+                        'icon' => @svg('heroicon-o-user'),
                         'permissions' => '',
                         'menus' => [],
                     ],
@@ -67,241 +67,29 @@ class SidebarContent
                     [
                         'title' => 'User',
                         'route' => 'user.index',
-                        'icon' => @svg('heroicon-o-users'),
+                        'icon' => @svg('heroicon-o-user-group'),
                         'permissions' => 'manage-user',
                         'menus' => [],
                     ],
                     [
                         'title' => 'Daftar Hadir',
                         'route' => 'attendance.index',
-                        'icon' => @svg('heroicon-o-users'),
+                        'icon' => @svg('heroicon-o-clipboard-document-check'),
                         'menus' => [],
                     ],
                     [
                         'title' => 'Riwayat Data Kelas',
                         'route' => 'studentclasshistory.index',
-                        'icon' => @svg('heroicon-o-users'),
+                        'icon' => @svg('heroicon-o-clipboard-document'),
                         'menus' => [],
                     ],
                     [
                         'title' => 'Riwayat Daftar Hadir',
                         'route' => 'logattendance.index',
-                        'icon' => @svg('heroicon-o-users'),
+                        'icon' => @svg('heroicon-o-clipboard-document-list'),
                         'menus' => [],
                     ],
-                    [
-                        'title' => 'Helpers',
-                        'route' => null,
-                        'icon' => @svg('heroicon-o-question-mark-circle'),
-                        'permissions' => '',
-                        'menus' => [
-                            [
-                                'title' => 'Controller helpers',
-                                'route' => 'documentation.controller-helper',
-                                'permissions' => '',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'Upload file helpers',
-                                'route' => 'documentation.upload-file-helper',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'Splade helpers',
-                                'route' => 'documentation.splade-helper',
-                                'icon' => null,
-                            ],
-                        ],
-                    ],
-                    [
-                        'title' => 'Component',
-                        'route' => null,
-                        'icon' => @svg('heroicon-o-credit-card'),
-                        'menus' => [
-                            [
-                                'title' => 'alert',
-                                'route' => 'documentation.alert',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'badge',
-                                'route' => 'documentation.badge',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'button',
-                                'route' => 'documentation.button',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'Card',
-                                'route' => 'documentation.card',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'collapse',
-                                'route' => 'documentation.collapse',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'modal',
-                                'route' => 'documentation.modal',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'tooltip',
-                                'route' => 'documentation.tooltip',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'input float-label',
-                                'route' => 'documentation.input-float',
-                                'icon' => null,
-                            ],
-                        ],
-                    ],
-                    [
-                        'title' => 'Component (Splade)',
-                        'route' => null,
-                        'icon' => @svg('heroicon-o-list-bullet'),
-                        'menus' => [
-                            [
-                                'title' => 'flash',
-                                'route' => 'documentation.flash',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'toast',
-                                'route' => 'documentation.toast',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'form',
-                                'route' => 'documentation.form',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'link',
-                                'route' => 'documentation.link',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'script',
-                                'route' => 'documentation.script',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'toggle',
-                                'route' => 'documentation.toggle',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'transition',
-                                'route' => 'documentation.transition',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'teleport',
-                                'route' => 'documentation.teleport',
-                                'icon' => null,
-                            ],
-                        ]
-                    ],
-                    [
-                        'title' => 'Input Component (Splade)',
-                        'route' => null,
-                        'icon' => @svg('heroicon-o-window'),
-                        'menus' => [
-                            [
-                                'title' => 'input-overview',
-                                'route' => 'documentation.input-overview',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'Input',
-                                'title' => 'input',
-                                'route' => 'documentation.input',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'textarea',
-                                'route' => 'documentation.textarea',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'select',
-                                'route' => 'documentation.select',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'checkbox',
-                                'route' => 'documentation.checkbox',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'radio',
-                                'route' => 'documentation.radio',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'file',
-                                'route' => 'documentation.file',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'group',
-                                'route' => 'documentation.group',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'submit',
-                                'route' => 'documentation.submit',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'wysiwyg',
-                                'route' => 'documentation.wysiwyg',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'model-binding',
-                                'route' => 'documentation.model-binding',
-                                'icon' => null,
-                            ],
-                        ]
-                    ],
-                    [
-                        'title' => 'Table Component (Splade)',
-                        'route' => null,
-                        'icon' => @svg('heroicon-o-table-cells'),
-                        'menus' => [
-                            [
-                                'title' => 'table-overview',
-                                'route' => 'documentation.table-overview',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'table-query-builder',
-                                'route' => 'documentation.table-query-builder',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'table-bulk-action',
-                                'route' => 'documentation.table-bulk-action',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'table-export',
-                                'route' => 'documentation.table-export',
-                                'icon' => null,
-                            ],
-                            [
-                                'title' => 'table-spatie-query-builder',
-                                'route' => 'documentation.table-spatie-query-builder',
-                                'icon' => null,
-                            ],
-                        ]
-                    ],
+
                 ],
             ]
         ];

@@ -3,6 +3,7 @@
 namespace App\Tables;
 
 use App\Models\StudentClassHistory;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
@@ -48,11 +49,19 @@ class StudentClassHistorys extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-            ->withGlobalSearch(columns: ['id', 'student_id', 'classroom_id', 'school_year_id'])
             ->column('id', label: 'ID', sortable: true)
             ->column('student.name', label: 'Nama Siswa', sortable: true)
             ->column('classroom.name', label: 'Kelas', sortable: true)
             ->column('schoolYear.year', label: 'Tahun Ajaran', sortable: true)
+            ->column(key: 'created_at', label: 'Dibuat', sortable: true, 
+            as: function ($created_at) {
+                return Carbon::parse($created_at)
+
+                ->setTimezone('Asia/Jakarta')
+                    ->locale('id')
+                    ->isoFormat('dddd, DD MMMM YYYY  HH:mm');
+            }
+        )
             ->paginate(10);
 
         // Menambahkan input pencarian, filter, aksi masal, dan export jika dibutuhkan
