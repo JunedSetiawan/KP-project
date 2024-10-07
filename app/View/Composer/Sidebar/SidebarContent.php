@@ -39,7 +39,7 @@ class SidebarContent
                     [
                         'title' => 'Siswa',
                         'route' => 'student.index',
-                        'icon' => @svg('heroicon-o-academic-cap'),
+                        'icon' => @svg('heroicon-o-user'),
                         'permissions' => '',
                         'menus' => [],
                     ],
@@ -67,26 +67,26 @@ class SidebarContent
                     [
                         'title' => 'User',
                         'route' => 'user.index',
-                        'icon' => @svg('heroicon-o-users'),
+                        'icon' => @svg('heroicon-o-user-group'),
                         'permissions' => 'manage-user',
                         'menus' => [],
                     ],
                     [
                         'title' => 'Daftar Hadir',
                         'route' => 'attendance.index',
-                        'icon' => @svg('heroicon-o-users'),
+                        'icon' => @svg('heroicon-o-clipboard-document-check'),
                         'menus' => [],
                     ],
                     [
                         'title' => 'Riwayat Data Kelas',
                         'route' => 'studentclasshistory.index',
-                        'icon' => @svg('heroicon-o-users'),
+                        'icon' => @svg('heroicon-o-clipboard-document'),
                         'menus' => [],
                     ],
                     [
                         'title' => 'Riwayat Daftar Hadir',
                         'route' => 'logattendance.index',
-                        'icon' => @svg('heroicon-o-users'),
+                        'icon' => @svg('heroicon-o-clipboard-document-list'),
                         'menus' => [],
                     ],
 
