@@ -30,7 +30,7 @@ class Student extends Model
 
     public function schoolYear()
     {
-        return $this->belongsTo(SchoolYear::class);
+        return $this->belongsTo(SchoolYear::class,  'school_year_id');
     }
 
     public function attendance()

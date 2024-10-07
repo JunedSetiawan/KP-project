@@ -18,7 +18,7 @@ class SchoolYearSeeder extends Seeder
             'status' => 1,
         ]);
         SchoolYear::create([
-            'year' => '2024/2025',
+            'year' => '2025/2026',
             'status' => 1,
         ]);
     }

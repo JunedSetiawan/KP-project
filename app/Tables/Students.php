@@ -58,10 +58,10 @@ class Students extends AbstractTable
         $schoolYears = SchoolYear::query()->get()->pluck('year', 'year')->toArray();
 
         $table
-            ->column('nisn', sortable: true)
+            ->column('nisn', sortable: true, searchable: true)
             ->column('nipd', sortable: true, searchable: true)
             ->column('name', sortable: true, searchable: true)
-            ->selectFilter('schoolYear.year', $schoolYears)
+            ->selectFilter('schoolYear.year', $schoolYears, 'Filter Tahun Ajaran')
             ->selectFilter('classroom.name', [
                 '7A' => '7A',
                 '7B' => '7B',
@@ -90,36 +90,8 @@ class Students extends AbstractTable
                 '9G' => '9G',
                 '9H' => '9H',
                 '9I' => '9I',
-            ])
-            ->selectFilter('classroom.name', [
-                '7A' => '7A',
-                '7B' => '7B',
-                '7C' => '7C',
-                '7D' => '7D',
-                '7E' => '7E',
-                '7F' => '7F',
-                '7G' => '7G',
-                '7H' => '7H',
-                '7I' => '7I',
-                '8A' => '8A',
-                '8B' => '8B',
-                '8C' => '8C',
-                '8D' => '8D',
-                '8E' => '8E',
-                '8F' => '8F',
-                '8G' => '8G',
-                '8H' => '8H',
-                '8I' => '8I',
-                '9A' => '9A',
-                '9B' => '9B',
-                '9C' => '9C',
-                '9D' => '9D',
-                '9E' => '9E',
-                '9F' => '9F',
-                '9G' => '9G',
-                '9H' => '9H',
-                '9I' => '9I',
-            ])
+            ], 'Filter Kelas')
+           
             ->column('phone_number', label: 'Nomor Telepon')
             ->column('classroom.name', label: 'Kelas')
             ->column('schoolYear.year', label: 'Tahun Ajaran')
@@ -196,7 +168,7 @@ class Students extends AbstractTable
                             $student->school_year_id = $schoolYear->id; // Set tahun ajaran baru yang sudah dibuat/ditemukan
                             $student->save(); // Simpan perubahan
 
-                            Toast::success("Kenaikan Kelas pada siswa kelas $student->classroom->name, Silahkan cek menggunakan filter tahun ajaran terbaru :)")->autoDismiss(5);
+                            Toast::success("Kenaikan Kelas pada siswa kelas" . $student->classroom->name . " Sekarang berubah ke $newClassroom->name, Silahkan cek menggunakan filter tahun ajaran terbaru :)")->autoDismiss(10);
                         } else {
                             Log::info("Kelas dengan nama " . $nextClassName . " tidak ditemukan.\n");
                         }
@@ -282,7 +254,7 @@ class Students extends AbstractTable
                 },
             )
             ->export(
-                'Export',
+                'Export Excel DATA siswa',
                 'daftar_siswa.xlsx',
                 Excel::XLSX
             )

@@ -86,7 +86,7 @@
             </div>
         </section>
 
-        <section class="">
+        {{-- <section class="">
             <div class="py-10 mx-auto">
                 <h1 class="text-2xl font-semibold text-base-content capitalize lg:text-3xl dark:text-white">explore our
                     awesome <span class="text-secondary">Components</span></h1>
@@ -170,6 +170,6 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
     </div>
 </x-app-layout>

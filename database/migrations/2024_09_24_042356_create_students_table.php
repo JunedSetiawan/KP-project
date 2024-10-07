@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('status')->nullable()->default('active');
             $table->unsignedBigInteger('school_year_id')->nullable();
             $table->foreign('school_year_id')->references('id')->on('school_years');
+            $table->string('note')->nullable();
           //  $table->foreign('classes_id')->references('id')->on('classes');
             $table->timestamps();
         });
