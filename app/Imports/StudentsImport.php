@@ -40,11 +40,11 @@ class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
                 'classroom_id' => $classroom->id, // Pastikan ini menggunakan ID yang benar dari Classroom
                 'name_parent' => $row['name_parent'],
                 'phone_number_parent' => $row['phone_number_parent'],
-                'phone_number_parent_opt' => $row['pho`ne_number_parent_opt'],
-                
+                'phone_number_parent_opt' => $row['phone_number_parent_opt'],
+
             ]
         );
-        
+
 
         Log::info('Student created/updated: ', $student->toArray());
 

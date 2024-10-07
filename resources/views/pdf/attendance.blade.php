@@ -21,26 +21,38 @@
             background-color: #f2f2f2;
         }
         .header {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
-        .header h3 {
+        h3 {
             margin: 0;
             text-align: center;
         }
+        .main {
+            display: flex;
+            justify-content: space-between;
+        }
         .notes {
-            margin-top: 10px;
+            float: right;
+
+            margin-top: -70px;
+
             font-size: 10px;
         }
     </style>
 </head>
 <body>
+    <h3>SMP NEGERI 1 PONOROGO</h3>
+    <div class="main">
     <div class="header">
-        <h3>SMP NEGERI 1 PONOROGO</h3>
-        <p>KELAS (ICP): 7A</p>
-        <p>Wali Kelas: FINA MASKURYATI, S.Pd., Gr</p>
-        <p>Bulan: {{ $monthName }} {{ $year }}</p>
+        <p>KELAS : {{ $attendances->first()->first()->classroom->name }}</p>
+        <p>Wali Kelas: {{ $attendances->first()->first()->classroom->teacher->name }}</p>
+        <p>Bulan: {{ $day }} {{ $monthName }} {{ $year }} | (L): <strong>{{ $totalL }}</strong>, (P): <strong>{{ $totalP }}</strong></p>
     </div>
-
+    <div class="notes">
+        <p><strong>Keterangan:</strong></p>
+        <p>V = Hadir, S = Sakit, I = Ijin, A = Alpha</p>
+    </div>
+</div>
     <table>
     <thead>
         <tr>
@@ -76,10 +88,5 @@
     </tbody>
 </table>
 
-
-    <div class="notes">
-        <p><strong>Keterangan:</strong></p>
-        <p>V = Hadir, S = Sakit, I = Ijin, A = Alpha</p>
-    </div>
 </body>
 </html>

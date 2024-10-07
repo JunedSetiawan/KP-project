@@ -64,19 +64,21 @@ public function list($classroom_id, $date)
 
     // Create an instance of the ListLogAttendances table with classroom_id and date
     $logattendances = new ListLogAttendances($classroom_id, $date);
-
+    $classroom = Classroom::where('id', $classroom_id)->first();
     // Return the view with the log attendance table
     return view('pages.logattendance.list', [
         'logattendances' => $logattendances,
         'date' => $date,
+        'classroom' => $classroom,
     ]);
 }
 
-public function exportPdf($month = null, $year = null)
+public function exportPdf($month = null, $year = null, $classId = null)
 {
     // Set defaults to current month and year if not provided
     $month = $month ?: date('m');
     $year = $year ?: date('Y');
+    $day = date('d');
 
     // Get the name of the month for display
     $monthName = Carbon::createFromDate($year, $month, 1)->format('F');
@@ -84,27 +86,34 @@ public function exportPdf($month = null, $year = null)
     // Get the number of days in the month
     $daysInMonth = Carbon::createFromDate($year, $month, 1)->daysInMonth;
 
-    // Retrieve unique student attendance records for the specified month
-    $attendances = LogAttendance::whereYear('date', $year)
+    // Retrieve unique student attendance records for the specified month and class
+    $attendances = LogAttendance::with('student', 'classroom')->whereYear('date', $year)
         ->whereMonth('date', $month)
-        ->with('student') // Eager load the student relationship
+        ->when($classId, function ($query) use ($classId) {
+            return $query->where('classrooms_id', $classId); // Filter by class_id if provided
+        })
         ->get()
         ->groupBy('student_id'); // Group by student_id to avoid duplication
 
-    // Load the view and pass necessary data
-    $pdf = PDF::loadView('pdf.attendance', compact('attendances', 'month', 'year', 'monthName', 'daysInMonth'))
+    // Count the total number of male (L) and female (P) students
+    $totalL = 0; // Male (Laki-laki)
+    $totalP = 0; // Female (Perempuan)
+
+    foreach ($attendances as $studentId => $attendanceRecords) {
+        $student = $attendanceRecords->first()->student;
+        if ($student->gender === 'L') {
+            $totalL++;
+        } elseif ($student->gender === 'P') {
+            $totalP++;
+        }
+    }
+
+    // Pass the totals along with other variables to the view
+    $pdf = PDF::loadView('pdf.attendance', compact('attendances', 'month', 'year', 'monthName', 'daysInMonth', 'day', 'totalL', 'totalP'))
         ->setPaper('a4', 'landscape');
 
     // Return the PDF as a download response
     return $pdf->download('attendance-report-' . $month . '-' . $year . '.pdf');
 }
 
-
-
-
-
-
-
-
-    
 }

@@ -5,12 +5,12 @@
 
     <div class="flex justify-between">
         @php
-            $firstDate = $logattendances->date; 
+            $firstDate = $logattendances->date;
             $month = \Carbon\Carbon::parse($firstDate)->format('m');
             $year = \Carbon\Carbon::parse($firstDate)->format('Y');
         @endphp
 
-        <a href="{{ route('logattendance.exportPdf', ['month' => $month, 'year' => $year]) }}" 
+        <a href="{{ route('logattendance.exportPdf', ['month' => $month, 'year' => $year, 'classrooms_id' => $classroom->id]) }}"
            class="btn btn-secondary mb-4 pdf-export-link">Export PDF</a>
     </div>
 
@@ -19,7 +19,7 @@
             {{ $logattendance->getFullInformation() }} <!-- Use the new method to get full info -->
         </x-splade-cell>
     </x-splade-table>
-    
+
 </x-app-layout>
 
 

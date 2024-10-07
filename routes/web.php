@@ -35,6 +35,7 @@ Route::middleware('splade')->group(function () {
     // });
 
     Route::middleware('auth')->group(function () {
+        Route::view('/tes','pdf.attendance');
         Route::post('/send-message', [MessageController::class, 'send']);
 
         Route::get('testing-table', [UserController::class, 'index'])->name('test.table');
@@ -45,7 +46,7 @@ Route::middleware('splade')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-        
+
     });
 
     require __DIR__ . '/auth.php';

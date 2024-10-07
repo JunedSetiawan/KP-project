@@ -40,9 +40,10 @@ class LogAttendance extends Model
     }
 
     public function classroom()
-    {
-        return $this->belongsTo(Classroom::class, 'classrooms_id', 'id');
-    }
+{
+    return $this->belongsTo(Classroom::class, 'classrooms_id'); // Adjust the foreign key as necessary
+}
+
 
     public function student()
 {
