@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Classroom;
 use App\Models\ListDateLogAttendance;
 use App\Models\LogAttendance;
+use App\Models\Student;
 use App\Tables\LogAttendances;
 use App\Tables\ListDateLogAttendances;
 use App\Tables\ListLogAttendances;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\Facades\Toast;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LogAttendanceController extends Controller
 {
@@ -69,6 +71,35 @@ public function list($classroom_id, $date)
         'date' => $date,
     ]);
 }
+
+public function exportPdf($month = null, $year = null)
+{
+    // Set defaults to current month and year if not provided
+    $month = $month ?: date('m');
+    $year = $year ?: date('Y');
+
+    // Get the name of the month for display
+    $monthName = Carbon::createFromDate($year, $month, 1)->format('F');
+
+    // Get the number of days in the month
+    $daysInMonth = Carbon::createFromDate($year, $month, 1)->daysInMonth;
+
+    // Retrieve unique student attendance records for the specified month
+    $attendances = LogAttendance::whereYear('date', $year)
+        ->whereMonth('date', $month)
+        ->with('student') // Eager load the student relationship
+        ->get()
+        ->groupBy('student_id'); // Group by student_id to avoid duplication
+
+    // Load the view and pass necessary data
+    $pdf = PDF::loadView('pdf.attendance', compact('attendances', 'month', 'year', 'monthName', 'daysInMonth'))
+        ->setPaper('a4', 'landscape');
+
+    // Return the PDF as a download response
+    return $pdf->download('attendance-report-' . $month . '-' . $year . '.pdf');
+}
+
+
 
 
 

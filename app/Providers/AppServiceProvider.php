@@ -68,12 +68,5 @@ class AppServiceProvider extends ServiceProvider
             return $user->isAdmin();
         });
 
-        $this->app->bind(ListLogAttendances::class, function ($app) {
-            // Retrieve parameters from request, or pass them manually
-            $classroom_id = request()->route('classroom_id'); // or pass the variable directly
-            $date = request()->query('date', now()->toDateString()); // Example default value
-    
-            return new ListLogAttendances($classroom_id, $date);
-        });
     }
 }

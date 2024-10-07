@@ -11,7 +11,7 @@ use ProtoneMedia\Splade\SpladeTable;
 class ListLogAttendances extends AbstractTable
 {
     protected $classroom_id;
-    protected $date;
+    public $date;
 
     /**
      * Create a new instance with classroom and date.

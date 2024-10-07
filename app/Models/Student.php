@@ -37,4 +37,21 @@ class Student extends Model
     {
         return $this->hasMany(Attendance::class);
     }
+
+    public function getAttendanceForDate($date)
+{
+    // Fetch the attendance record for the student on a specific date
+    $attendance = LogAttendance::where('student_id', $this->id)
+        ->where('date', $date)
+        ->first();
+
+    // Return the attendance information (V, S, I, A) or a default value (e.g., '-')
+    return $attendance ? $attendance->information : '-';
+}
+
+public function logAttendances()
+    {
+        return $this->hasMany(LogAttendance::class, 'student_id');
+    }
+
 }

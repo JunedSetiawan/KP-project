@@ -14,6 +14,14 @@ Route::group(['middleware' => [ 'auth']], function () {
     Route::post('/logattendances-import', [LogAttendanceController::class, 'import'])->name('logattendance.import');
     Route::get('/logattendance/listdate/{id}', [LogAttendanceController::class, 'listdate'])->name('logattendance.listdate');
     Route::get('/logattendance/list/{classroom_id}/{date}', [LogAttendanceController::class, 'list'])->name('logattendance.list');
+   
+
+
 });
+
+Route::get('/attendance/pdf/{month?}/{year?}', [LogAttendanceController::class, 'exportPdf'])
+    ->name('logattendance.exportPdf')
+    ->middleware('auth')
+    ->withoutMiddleware('splade') // Remove Splade middleware
 
 ?>
