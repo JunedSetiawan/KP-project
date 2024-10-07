@@ -258,7 +258,7 @@ class Students extends AbstractTable
                 'daftar_siswa.xlsx',
                 Excel::XLSX
             )
-            ->paginate(10);
+            ->paginate(40);
 
         // ->searchInput()
         // ->selectFilter()

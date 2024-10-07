@@ -130,8 +130,13 @@ class AttendanceController extends Controller
 
     // Pastikan classroom ditemukan
     if (!$classroom) {
-        // Jika classroom tidak ditemukan, redirect dengan pesan error
+        Toast::warning("Kelas tidak ada")->autoDismiss(5);
         return redirect()->route('attendance.index')->with('error', 'Classroom not found.');
+    }
+
+    if($classroom->students->isEmpty()) {
+        Toast::warning("Kelas $classroom->name tidak ada memiliki siswa")->autoDismiss(5);
+        return redirect()->route('attendance.index');
     }
 
     // Cek apakah absensi sudah diisi untuk hari ini
