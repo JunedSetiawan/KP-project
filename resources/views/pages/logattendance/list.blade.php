@@ -15,12 +15,15 @@
             <x-splade-cell information as="$logattendance">
                 {{ $logattendance->getFullInformation() }} <!-- Use the new method to get full info -->
             </x-splade-cell>
+            <x-splade-cell actions as="$logattendance">
+                <div class="space-x-3">
+                    <Link slideover href="{{ route('logattendance.edit', $logattendance->id) }}" class="btn btn-secondary">Edit</Link>
+                </div>
+            </x-splade-cell>
         </x-splade-table>
     </div>
+
 </x-app-layout>
-
-
-
 
 
 <x-splade-script>

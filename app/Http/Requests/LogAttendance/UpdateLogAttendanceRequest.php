@@ -11,7 +11,7 @@ class UpdateLogAttendanceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateLogAttendanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'information' => ['required', 'string'],
+            'note' => ['nullable', 'string'],
         ];
     }
 }
