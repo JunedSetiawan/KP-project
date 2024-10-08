@@ -102,8 +102,8 @@ class StudentController extends Controller
         // $this->authorize('update', \App\Models\User::class);
 
         $validated = $request->validated();
-        // $validated['classroom_id'] = $validated['class_id'];
-        // unset($validated['class_id']);
+        $validated['classroom_id'] = $validated['classroom_id']; // Tetapkan classroom_id dari class_id
+        unset($validated['class_id']); // Hapus class_id jika tidak diperlukan
 
         $student->update($validated);
         Toast::success('Siswa updated successfully!')->autoDismiss(5);
