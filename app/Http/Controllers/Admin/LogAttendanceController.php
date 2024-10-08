@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LogAttendance\UpdateLogAttendanceRequest;
 use App\Models\Classroom;
 use App\Models\ListDateLogAttendance;
 use App\Models\LogAttendance;
@@ -115,5 +116,30 @@ public function exportPdf($month = null, $year = null, $classId = null)
     // Return the PDF as a download response
     return $pdf->download('attendance-report-' . $month . '-' . $year . '.pdf');
 }
+
+public function edit(LogAttendance $logattendance)
+    {
+        $this->spladeTitle('Edit Daftar Kehadiran');
+        $studentName = $logattendance->student->name;
+
+        // $classes = Classroom::all();
+        return view('pages.logattendance.edit', [
+            'logattendances' => $logattendance,
+            'studentName' => $studentName,
+        ]);
+    }
+
+    public function update(UpdateLogAttendanceRequest $request, LogAttendance $logattendance)
+    {
+        // $this->authorize('update', \App\Models\User::class);
+
+        $validated = $request->validated();
+
+        $logattendance->update($validated);
+
+        Toast::success('Daftar kehadiran berhasil diupdate!')->autoDismiss(5);
+
+        return redirect()->back();
+    }
 
 }
