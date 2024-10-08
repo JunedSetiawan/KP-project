@@ -29,7 +29,7 @@ class TeacherController extends Controller
         $this->spladeTitle('Tambah Guru');
         $classes = Classroom::all();
         return view('pages.teacher.create', [
-           'classes' => $classes,
+            'classes' => $classes,
         ]);
     }
 
@@ -79,18 +79,22 @@ class TeacherController extends Controller
 
     public function import(Request $request)
     {
-        try{
+        // Cek apakah ada file yang diupload
+        if (!$request->hasFile('import')) {
+            Toast::danger('Tidak ada file yang dipilih!')->autoDismiss(5);
+            return redirect()->route('teacher.index');
+        }
+
+        try {
             // dd($request->import);
-//
+            //
             Excel::import(new TeachersImport, $request->file('import')->store('files'));
             Toast::success('teacher import successfully!')->autoDismiss(5);
             return redirect()->route('teacher.index');
-        }catch(\Exception $ex){
+        } catch (\Exception $ex) {
             Log::info($ex);
-            Toast::danger( $ex)->autoDismiss(5);
+            Toast::danger($ex)->autoDismiss(5);
             return redirect()->route('teacher.index');
-
         }
-
     }
 }

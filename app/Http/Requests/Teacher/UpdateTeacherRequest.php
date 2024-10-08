@@ -24,7 +24,7 @@ class UpdateTeacherRequest extends FormRequest
         return [
             'nip' => ['required', 'string'],
             'name' => ['required', 'string'],
-            'wali_kelas' => ['required', 'string']
+            // 'wali_kelas' => ['required', 'string']
         ];
     }
 }
