@@ -72,13 +72,13 @@
                     </table>
 
                     <!-- Tombol Submit di bagian bawah tabel -->
-                    <button type="submit" class="btn btn-primary mt-4">Submit Absensi</button>
+                    <button type="submit" class="btn btn-primary mt-4">Simpan Absensi</button>
                 </form>
             </div>
         @endif
 
         <!-- Back to Class List button -->
-        <a href="{{ route('attendance.index') }}" class="btn btn-secondary mt-4">Back to Class List</a>
+        <a href="{{ route('attendance.index') }}" class="btn btn-secondary mt-4">Kembalit</a>
     </div>
 
     <!-- JavaScript untuk tombol Check All -->
