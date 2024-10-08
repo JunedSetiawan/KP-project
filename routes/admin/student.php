@@ -13,6 +13,8 @@ Route::group(['middleware' => [ 'auth']], function () {
     Route::put('/student/{student}', [StudentController::class, 'update'])->name('student.update');
     Route::delete('/student/{student}', [StudentController::class, 'destroy'])->name('student.destroy');
     Route::post('/students-import', [StudentController::class, 'import'])->name('student.import');
+
+    Route::get('/student/graduate', [StudentController::class, 'graduate'])->name('student.graduate');
 });
 
 ?>

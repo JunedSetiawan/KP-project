@@ -16,6 +16,7 @@ class StudentClassHistory extends Model
     protected $fillable = [
         'student_id',
         'classroom_id',
+        'school_year_id'
     ];
 
     /**

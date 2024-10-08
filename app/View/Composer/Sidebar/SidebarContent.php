@@ -44,9 +44,16 @@ class SidebarContent
                         'menus' => [],
                     ],
                     [
+                        'title' => 'Siswa Lulus',
+                        'route' => 'student.graduate',
+                        'icon' => @svg('heroicon-o-academic-cap'),
+                        'permissions' => '',
+                        'menus' => [],
+                    ],
+                    [
                         'title' => 'Guru',
                         'route' => 'teacher.index',
-                        'icon' => @svg('heroicon-o-academic-cap'),
+                        'icon' => @svg('heroicon-o-user-group'),
                         'permissions' => '',
                         'menus' => [],
                     ],

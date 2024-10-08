@@ -3,13 +3,14 @@
 namespace App\Tables;
 
 use App\Models\SchoolYear;
-use App\Models\StudentClassHistory;
-use Carbon\Carbon;
+use App\Models\Student;
+// use App\Models\StudentGraduate;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Excel;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
 
-class StudentClassHistorys extends AbstractTable
+class StudentGraduate extends AbstractTable
 {
     /**
      * Create a new instance.
@@ -38,7 +39,7 @@ class StudentClassHistorys extends AbstractTable
      */
     public function for()
     {
-        return StudentClassHistory::query()->with(['student','classroom','schoolYear']);
+        return Student::query()->where('status', '!=', 'active');
     }
 
     /**
@@ -49,12 +50,12 @@ class StudentClassHistorys extends AbstractTable
      */
     public function configure(SpladeTable $table)
     {
+
         $schoolYears = SchoolYear::query()->get()->pluck('year', 'year')->toArray();
         $table
-            ->column('student.name', label: 'Nama Siswa', sortable: true)
-            ->column('classroom.name', label: 'Kelas', sortable: true)
-            ->column('schoolYear.year', label: 'Tahun Ajaran', sortable: true)
-
+            ->column('nisn', sortable: true, searchable: true)
+            ->column('nipd', sortable: true, searchable: true)
+            ->column('name', sortable: true, searchable: true)
             ->selectFilter('schoolYear.year', $schoolYears, 'Filter Tahun Ajaran')
             ->selectFilter('classroom.name', [
                 '7A' => '7A',
@@ -85,23 +86,23 @@ class StudentClassHistorys extends AbstractTable
                 '9H' => '9H',
                 '9I' => '9I',
             ], 'Filter Kelas')
-            ->column(key: 'created_at', label: 'Dibuat', sortable: true, 
-            as: function ($created_at) {
-                return Carbon::parse($created_at)
-
-                ->setTimezone('Asia/Jakarta')
-                    ->locale('id')
-                    ->isoFormat('dddd, DD MMMM YYYY  HH:mm');
-            }
-        )
+           
+            ->column('phone_number', label: 'Nomor Telepon')
+            ->column('classroom.name', label: 'Kelas')
+            ->column('schoolYear.year', label: 'Tahun Ajaran')
+            ->rowModal(fn(Student $user) => route('student.detail', ['id' => $user->id]))
+            ->export(
+                'Export Excel DATA siswa',
+                'daftar_siswa.xlsx',
+                Excel::XLSX
+            )
             ->paginate(10);
 
-        // Menambahkan input pencarian, filter, aksi masal, dan export jika dibutuhkan
-        // ->searchInput('student_id', label: 'Search by Student ID')
-        // ->selectFilter('classroom_id', label: 'Filter by Classroom')
-        // ->bulkAction('Delete', function ($selectedIds) {
-        //     StudentClassHistory::whereIn('id', $selectedIds)->delete();
-        // })
-        // ->export();
+            // ->searchInput()
+            // ->selectFilter()
+            // ->withGlobalSearch()
+
+            // ->bulkAction()
+            // ->export()
     }
 }

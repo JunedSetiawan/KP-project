@@ -10,6 +10,7 @@ use App\Models\Classes;
 use App\Models\Classroom;
 use App\Models\SchoolYear;
 use App\Models\Student;
+use App\Tables\StudentGraduate;
 use App\Tables\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -135,6 +136,18 @@ class StudentController extends Controller
             return redirect()->route('student.index');
 
         }
+        
+    }
+
+    public function graduate()
+    {
+        $this->spladeTitle('Student');
+      
+        // dd($schoolYears);
+        // $this->authorize('viewAny', \App\Models\User::class);
+        return view('pages.student-graduate.index', [
+            'students' => StudentGraduate::class,
+        ]);
         
     }
 }
