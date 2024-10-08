@@ -29,8 +29,8 @@ class ListDateLogAttendances extends AbstractTable
     public function for()
     {
         return LogAttendance::where('classrooms_id', $this->classroomId)
-            ->select('date')
-            ->distinct()
+            ->select('date', 'classrooms_id')
+            ->distinct('date')
             ->orderBy('date', 'asc');
     }
 
@@ -44,6 +44,7 @@ class ListDateLogAttendances extends AbstractTable
     {
         $table
             ->column('date', sortable: true, searchable: true)
+            ->column('classroom.name', sortable: true, searchable: true)
             ->rowLink(fn ($log) => route('logattendance.list', ['classroom_id' => $this->classroomId, 'date' => $log->date]))
             ->paginate(10);
     }

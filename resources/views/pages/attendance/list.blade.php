@@ -23,7 +23,7 @@
                 </div>
 
                 <!-- Form yang mengirim seluruh absensi sekaligus -->
-                <form method="POST" action="{{ route('attendance.submitAll', $classroom->id) }}" >
+                <form id="attendanceForm" method="POST" action="{{ route('attendance.submitAll', $classroom->id) }}" >
                     @csrf
                     <table class="table w-full bg-white">
                         <!-- Table header -->
@@ -71,30 +71,71 @@
                         </tbody>
                     </table>
 
-                    <!-- Tombol Submit di bagian bawah tabel -->
-                    <button type="submit" class="btn btn-primary mt-4">Simpan Absensi</button>
+                    <!-- Tombol Submit yang membuka modal -->
+                    <button type="button" id="openConfirmModal" class="btn btn-primary mt-4">Simpan Absensi</button>
                 </form>
             </div>
         @endif
 
         <!-- Back to Class List button -->
-        <a href="{{ route('attendance.index') }}" class="btn btn-secondary mt-4">Kembalit</a>
+        <a href="{{ route('attendance.index') }}" class="btn btn-secondary mt-4">Kembali</a>
     </div>
 
-    <!-- JavaScript untuk tombol Check All -->
+    <!-- Modal Konfirmasi -->
+    <div id="confirmModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+            <h3 class="text-lg font-bold mb-4">Konfirmasi</h3>
+            <p>Apakah Anda yakin ingin menyimpan absensi ini?</p>
+            <div class="mt-6 flex justify-end">
+                <button id="cancelButton" class="btn btn-secondary mr-2">Batal</button>
+                <button id="confirmButton" class="btn btn-primary">Ya, Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Error Absensi Belum Diisi -->
+@if (session('error'))
+<div id="errorModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+        <h3 class="text-lg font-bold mb-4">Kesalahan</h3>
+        <p>{{ session('error') }}</p>
+        <div class="mt-6 flex justify-end">
+            <button id="closeErrorModal" class="btn btn-secondary">Tutup</button>
+        </div>
+    </div>
+</div>
+@endif
+
+    <!-- JavaScript untuk Check All dan Modal Konfirmasi -->
     <x-splade-script>
         document.getElementById('checkAll').addEventListener('click', function() {
             // Ambil semua radio button yang memiliki value "V"
             const radioButtons = document.querySelectorAll('input[type="radio"][value="V"]');
-            console.log(radioButtons);
             // Set semua radio button yang memiliki value "V" menjadi checked
             radioButtons.forEach(function(radio) {
                 radio.checked = true;
             });
         });
+
+        // Buka modal saat tombol "Simpan Absensi" diklik
+        document.getElementById('openConfirmModal').addEventListener('click', function() {
+            document.getElementById('confirmModal').classList.remove('hidden');
+        });
+
+        // Tutup modal jika tombol "Batal" diklik
+        document.getElementById('cancelButton').addEventListener('click', function() {
+            document.getElementById('confirmModal').classList.add('hidden');
+        });
+
+        // Submit form saat tombol "Ya, Simpan" diklik
+        document.getElementById('confirmButton').addEventListener('click', function() {
+            document.getElementById('attendanceForm').submit();
+        });
+
+        // Modal error jika data belum diisi
+        document.getElementById('closeErrorModal')?.addEventListener('click', function() {
+            document.getElementById('errorModal').classList.add('hidden');
+        });
     </x-splade-script>
 
 </x-app-layout>
-
-<script>
-</script>

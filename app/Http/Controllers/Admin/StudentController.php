@@ -23,8 +23,8 @@ class StudentController extends Controller
 
     public function index()
     {
-        $this->spladeTitle('Student');
-      
+        $this->spladeTitle('Siswa');
+
         // dd($schoolYears);
         // $this->authorize('viewAny', \App\Models\User::class);
         return view('pages.student.index', [
@@ -34,7 +34,7 @@ class StudentController extends Controller
 
     public function create()
     {
-        $this->spladeTitle('Create Student');
+        $this->spladeTitle('Tambah Siswa');
 
         // $roles = [
         //     'sales' => 'Sales',
@@ -57,8 +57,8 @@ class StudentController extends Controller
 
         // $validated['password'] = Hash::make($validated['password']);
         $validated['classes_id'] = $validated['class_id'];
-        unset($validated['class_id']); 
-        
+        unset($validated['class_id']);
+
         $student = Student::create($validated);
 
         Toast::success('Student created successfully!')->autoDismiss(5);
@@ -68,8 +68,8 @@ class StudentController extends Controller
 
     public function edit(Student $student)
     {
-        $this->spladeTitle('Edit Student');
-        
+        $this->spladeTitle('Edit Siswa');
+
         $classrooms = Classroom::query()->pluck('name', 'id')->toArray();
 
         return view('pages.student.edit', [
@@ -80,8 +80,8 @@ class StudentController extends Controller
 
     public function show($id)
     {
-        $this->spladeTitle('Detail Student');
-        
+        $this->spladeTitle('Detail Siswa');
+
         $student = Student::findOrFail($id);
 
 
@@ -104,7 +104,7 @@ class StudentController extends Controller
         $validated = $request->validated();
         $validated['classroom_id'] = $validated['class_id']; // Tetapkan classroom_id dari class_id
         unset($validated['class_id']); // Hapus class_id jika tidak diperlukan
-        
+
         $student->update($validated);
         Toast::success('Student updated successfully!')->autoDismiss(5);
 
@@ -122,11 +122,11 @@ class StudentController extends Controller
         return redirect()->route('student.index');
     }
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
         try{
             // dd($request->import);
-// 
+//
             Excel::import(new StudentsImport, $request->file('import'));
             Toast::success('Student import successfully!')->autoDismiss(5);
             return redirect()->route('student.index');
@@ -136,18 +136,18 @@ class StudentController extends Controller
             return redirect()->route('student.index');
 
         }
-        
+
     }
 
     public function graduate()
     {
-        $this->spladeTitle('Student');
-      
+        $this->spladeTitle('Siswa');
+
         // dd($schoolYears);
         // $this->authorize('viewAny', \App\Models\User::class);
         return view('pages.student-graduate.index', [
             'students' => StudentGraduate::class,
         ]);
-        
+
     }
 }

@@ -10,7 +10,7 @@ class StudentClassHistoryController extends Controller
 {
     public function index()
     {
-        $this->spladeTitle('Studentclasshistory');
+        $this->spladeTitle('Riwatat Data Kelas');
         // $this->authorize('viewAny', \App\Models\User::class);
         return view('pages.studentclasshistory.index', [
             'studentclasshistorys' => StudentClassHistorys::class,

@@ -14,7 +14,7 @@ class SchoolYearController extends Controller
 {
     public function index()
     {
-        $this->spladeTitle('School Year');
+        $this->spladeTitle('Tahun Ajaran');
         // $this->authorize('viewAny', \App\Models\User::class);
         return view('pages.schoolyear.index', [
             'schoolyears' => SchoolYears::class,
@@ -23,7 +23,7 @@ class SchoolYearController extends Controller
 
     public function create()
     {
-        $this->spladeTitle('Create School Year');
+        $this->spladeTitle('Tambah Tahun Ajaran');
 
         // $roles = [
         //     'sales' => 'Sales',
@@ -33,7 +33,7 @@ class SchoolYearController extends Controller
 
 
         return view('pages.schoolyear.create', [
-           
+
         ]);
     }
 
@@ -46,7 +46,7 @@ class SchoolYearController extends Controller
         $validated['year'] = $validated['start_year'] . '/' . $validated['end_year'];
 
         // $validated['password'] = Hash::make($validated['password']);
-        
+
         $schoolyear = SchoolYear::create($validated);
 
         Toast::success('School Year created successfully!')->autoDismiss(5);
@@ -56,7 +56,7 @@ class SchoolYearController extends Controller
 
     public function edit(SchoolYear $schoolyear)
     {
-        $this->spladeTitle('Edit School Year');
+        $this->spladeTitle('Edit Tahun Ajaran');
 
         // $roles = [
         //     'sales' => 'Sales',
@@ -88,7 +88,7 @@ class SchoolYearController extends Controller
         $validated = $request->validated();
 
         $validated['year'] = $validated['start_year'] . '/' . $validated['end_year'];
-        
+
 
 
         $schoolyear->update($validated);

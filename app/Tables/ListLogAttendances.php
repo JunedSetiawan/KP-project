@@ -61,11 +61,6 @@ class ListLogAttendances extends AbstractTable
             ->column('student.name', sortable: true, searchable: true)
             ->column('information', sortable: true, searchable: true)
             ->column('note', sortable: true, searchable: true)
-            ->export(
-                label: 'Export',
-                filename: 'daftar_hadir.xlsx',
-                type: Excel::XLSX
-            )
             ->paginate(10);
 
         // Additional table configurations can go here

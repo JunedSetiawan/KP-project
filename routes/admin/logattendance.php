@@ -19,7 +19,7 @@ Route::group(['middleware' => [ 'auth']], function () {
 
 });
 
-Route::get('/attendance/pdf/{month?}/{year?}/{classrooms_id?}', [LogAttendanceController::class, 'exportPdf'])
+Route::get('/attendance/pdf/{classrooms_id?}', [LogAttendanceController::class, 'exportPdf'])
     ->name('logattendance.exportPdf')
     ->middleware('auth')
     ->withoutMiddleware('splade') // Remove Splade middleware

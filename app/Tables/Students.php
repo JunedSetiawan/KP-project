@@ -91,7 +91,7 @@ class Students extends AbstractTable
                 '9H' => '9H',
                 '9I' => '9I',
             ], 'Filter Kelas')
-           
+
             ->column('phone_number', label: 'Nomor Telepon')
             ->column('classroom.name', label: 'Kelas')
             ->column('schoolYear.year', label: 'Tahun Ajaran')
@@ -178,8 +178,8 @@ class Students extends AbstractTable
             ->bulkAction(
                 label: 'Kelulusan Siswa Kelas',
                 each: fn(Student $user) => $user->touch(),
-                confirm: 'Siswa Kenaikan Kelas',
-                confirmText: 'Apakah yakin ingin meluluskan kelas siswa ini?',
+                confirm: 'Siswa Lulus Sekolah',
+                confirmText: 'Apakah yakin ingin meluluskan siswa ini?',
                 confirmButton: 'Iya',
                 cancelButton: 'Tidak',
                 before: function (array $selectedIds) {
@@ -191,15 +191,15 @@ class Students extends AbstractTable
                        // Update the student's status to 'lulus'
                     $student->status = 'lulus';
                     $student->save();
-                    
+
                     // Optionally, store graduation history (if you have a table for that)
                     // StudentGraduationHistory::create([
                     //     'student_id' => $student->id,
                     //     'graduation_date' => now(),
                     //     // any other relevant data
                     // ]);
-                   
-                    Toast::success("Status siswa $student->name berhasil diubah menjadi 'lulus'.")->autoDismiss(10);
+
+                    Toast::success("Status siswa $student->name berhasil diubah menjadi 'Lulus'.")->autoDismiss(10);
                     }
                 },
             )

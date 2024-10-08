@@ -29,7 +29,7 @@ class AttendanceController extends Controller
 
     public function index()
     {
-        $this->spladeTitle('Attendance');
+        $this->spladeTitle('Daftar Hadir');
         // $this->authorize('viewAny', \App\Models\User::class);
         return view('pages.attendance.index', [
             'attendances' => Attendances::class,
@@ -38,7 +38,7 @@ class AttendanceController extends Controller
 
     public function create($id)
     {
-        $this->spladeTitle('Create Attendance');
+        $this->spladeTitle('Create Daftar Hadir');
 
         $attendance = Attendance::with('classrooms')->find($id);
 
@@ -54,7 +54,7 @@ class AttendanceController extends Controller
         } else {
             dd('No attendance or classroom found');
         }
-    
+
 
         return view('pages.attendance.create', [
             'classes' => $classes,
@@ -82,7 +82,7 @@ class AttendanceController extends Controller
 
     public function edit(Attendance $attendance)
     {
-        $this->spladeTitle('Edit Attendance');
+        $this->spladeTitle('Edit Daftar Hardir');
 
         return view('pages.attendance.edit', [
             'attendance' => $attendance,
@@ -123,7 +123,7 @@ class AttendanceController extends Controller
     public function list($classroom_id)
 {
     // Set judul halaman menggunakan Splade
-    $this->spladeTitle('List Attendance');
+    $this->spladeTitle('List Daftar Hadira');
 
     // Ambil classroom berdasarkan classroom_id dan relasi dengan students serta teacher
     $classroom = Classroom::with(['students', 'teacher'])->find($classroom_id);
@@ -168,6 +168,21 @@ class AttendanceController extends Controller
 
 public function submitAll(Request $request, Classroom $classroom)
 {
+    // Check if any attendance data is missing
+    $missingAttendance = false;
+
+    // Loop through the attendance data
+    foreach ($request->attendance as $studentId => $data) {
+        if (!isset($data['status'])) {
+            $missingAttendance = true;
+            break;
+        }
+    }
+
+    // If there's missing attendance data, redirect back with an error message
+    if ($missingAttendance) {
+        return redirect()->back()->with('error', 'Data absensi belum diisi untuk beberapa siswa.');
+    }
     $attendanceData = [];
     $messageSentCount = 0;
 
@@ -193,9 +208,10 @@ public function submitAll(Request $request, Classroom $classroom)
                 }
             }
         }
+
     }
 
-    
+
 
     // Bulk insert attendance data
     Attendance::insert($attendanceData);

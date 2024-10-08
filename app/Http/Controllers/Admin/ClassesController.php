@@ -19,7 +19,7 @@ class ClassesController extends Controller
 {
     public function index()
     {
-        $this->spladeTitle('Classes');
+        $this->spladeTitle('Kelas');
         // $this->authorize('viewAny', \App\Models\Classes::class);
         return view('pages.classes.index', [
             'classrooms' => Classrooms::class,
@@ -28,7 +28,7 @@ class ClassesController extends Controller
 
     public function create()
     {
-        $this->spladeTitle('Create Classrom');
+        $this->spladeTitle('Tambah Kelas');
         $classrooms = [
             '7' => '7',
             '8' => '8',
@@ -83,7 +83,7 @@ class ClassesController extends Controller
 
     public function edit(Classroom $classes)
     {
-        $this->spladeTitle('Edit Classroom');
+        $this->spladeTitle('Edit Kelas');
         $teacher = Teacher::all();
         // $classes = Classroom::all();
         return view('pages.classes.edit', [
@@ -128,7 +128,7 @@ class ClassesController extends Controller
     {
         try {
             // dd($request->import);
-            // 
+            //
             Excel::import(new ClassesImport, $request->file('import')->store('files'));
             Toast::success('classes import successfully!')->autoDismiss(5);
             return redirect()->route('classes.index');

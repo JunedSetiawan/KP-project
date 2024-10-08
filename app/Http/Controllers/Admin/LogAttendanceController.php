@@ -65,19 +65,27 @@ public function list($classroom_id, $date)
     // Create an instance of the ListLogAttendances table with classroom_id and date
     $logattendances = new ListLogAttendances($classroom_id, $date);
     $classroom = Classroom::where('id', $classroom_id)->first();
+    // Pastikan classroom ditemukan
+    if (!$classroom) {
+        return redirect()->route('attendance.index')->with('error', 'Classroom not found.');
+    }
+
+    // Ambil data siswa dari classroom
+    $students = $classroom->students;
     // Return the view with the log attendance table
     return view('pages.logattendance.list', [
         'logattendances' => $logattendances,
         'date' => $date,
         'classroom' => $classroom,
+        'students' => $students,
     ]);
 }
 
-public function exportPdf($month = null, $year = null, $classId = null)
+public function exportPdf(Request $request, $classId = null)
 {
     // Set defaults to current month and year if not provided
-    $month = $month ?: date('m');
-    $year = $year ?: date('Y');
+    $month = $request->input('month');
+    $year = $request->input('year');
     $day = date('d');
 
     // Get the name of the month for display
@@ -87,7 +95,8 @@ public function exportPdf($month = null, $year = null, $classId = null)
     $daysInMonth = Carbon::createFromDate($year, $month, 1)->daysInMonth;
 
     // Retrieve unique student attendance records for the specified month and class
-    $attendances = LogAttendance::with('student', 'classroom')->whereYear('date', $year)
+    $attendances = LogAttendance::with('student', 'classroom')
+        ->whereYear('date', $year)
         ->whereMonth('date', $month)
         ->when($classId, function ($query) use ($classId) {
             return $query->where('classrooms_id', $classId); // Filter by class_id if provided
@@ -95,16 +104,25 @@ public function exportPdf($month = null, $year = null, $classId = null)
         ->get()
         ->groupBy('student_id'); // Group by student_id to avoid duplication
 
+    // Check if attendances collection is empty
+    if ($attendances->isEmpty()) {
+
+        return redirect()->back()->with('error', "Tidak ada data absensi untuk bulan $monthName $year.");
+    }
+
     // Count the total number of male (L) and female (P) students
     $totalL = 0; // Male (Laki-laki)
     $totalP = 0; // Female (Perempuan)
 
     foreach ($attendances as $studentId => $attendanceRecords) {
-        $student = $attendanceRecords->first()->student;
-        if ($student->gender === 'L') {
-            $totalL++;
-        } elseif ($student->gender === 'P') {
-            $totalP++;
+        // Make sure attendanceRecords is not empty
+        if ($attendanceRecords->isNotEmpty()) {
+            $student = $attendanceRecords->first()->student;
+            if ($student->gender === 'L') {
+                $totalL++;
+            } elseif ($student->gender === 'P') {
+                $totalP++;
+            }
         }
     }
 
@@ -113,7 +131,8 @@ public function exportPdf($month = null, $year = null, $classId = null)
         ->setPaper('a4', 'landscape');
 
     // Return the PDF as a download response
-    return $pdf->download('attendance-report-' . $month . '-' . $year . '.pdf');
+    return $pdf->download('Laporan-Daftar-Hadir-' . $month . '-' . $year . '.pdf');
 }
+
 
 }

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ __('Daftar Siswa Kelulusan') }}
+        {{ __('Daftar Siswa Lulus') }}
     </x-slot>
 
 

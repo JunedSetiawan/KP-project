@@ -18,7 +18,7 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $this->spladeTitle('Teacher');
+        $this->spladeTitle('Guru');
         return view('pages.teacher.index', [
             'teachers' => Teachers::class,
         ]);
@@ -26,7 +26,7 @@ class TeacherController extends Controller
 
     public function create()
     {
-        $this->spladeTitle('Create Teacher');
+        $this->spladeTitle('Tambah Guru');
         $classes = Classroom::all();
         return view('pages.teacher.create', [
            'classes' => $classes,
@@ -48,7 +48,7 @@ class TeacherController extends Controller
 
     public function edit(Teacher $teacher)
     {
-        $this->spladeTitle('Edit Teacher');
+        $this->spladeTitle('Edit Guru');
         // $classes = Classroom::all();
         return view('pages.teacher.edit', [
             'teacher' => $teacher,
@@ -77,11 +77,11 @@ class TeacherController extends Controller
         return redirect()->route('teacher.index');
     }
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
         try{
             // dd($request->import);
-// 
+//
             Excel::import(new TeachersImport, $request->file('import')->store('files'));
             Toast::success('teacher import successfully!')->autoDismiss(5);
             return redirect()->route('teacher.index');
@@ -91,6 +91,6 @@ class TeacherController extends Controller
             return redirect()->route('teacher.index');
 
         }
-        
+
     }
 }
