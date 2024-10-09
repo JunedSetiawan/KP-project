@@ -34,6 +34,11 @@ Route::middleware('splade')->group(function () {
     //     return view('welcome');
     // });
 
+    // Akses Publik (tanpa autentikasi)
+    Route::get('/public-page', function () {
+        return view('public.index');  // Halaman publik yang bisa diakses siapa saja
+    })->name('public.index');
+
     Route::middleware('auth')->group(function () {
         Route::view('/tes','pdf.attendance');
         Route::post('/send-message', [MessageController::class, 'send']);

@@ -118,7 +118,7 @@ class StudentController extends Controller
         unset($validated['class_id']); // Hapus class_id jika tidak diperlukan
 
         $student->update($validated);
-        Toast::success('Student updated successfully!')->autoDismiss(5);
+        Toast::success('Siswa updated successfully!')->autoDismiss(5);
 
         return redirect()->route('student.index');
     }
@@ -143,13 +143,19 @@ class StudentController extends Controller
 
         $student->delete();
 
-        Toast::success('Student deleted successfully!')->autoDismiss(5);
+        Toast::success('Siswa deleted successfully!')->autoDismiss(5);
 
         return redirect()->route('student.index');
     }
 
     public function import(Request $request)
     {
+        // Cek apakah ada file yang diupload
+        if (!$request->hasFile('import')) {
+            Toast::danger('Tidak ada file yang dipilih!')->autoDismiss(5);
+            return redirect()->route('classes.index');
+        }
+
         try{
             // dd($request->import);
 //

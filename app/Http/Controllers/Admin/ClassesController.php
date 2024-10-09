@@ -126,6 +126,12 @@ class ClassesController extends Controller
 
     public function import(Request $request)
     {
+        // Cek apakah ada file yang diupload
+        if (!$request->hasFile('import')) {
+            Toast::danger('Tidak ada file yang dipilih!')->autoDismiss(5);
+            return redirect()->route('classes.index');
+        }
+        
         try {
             // dd($request->import);
             //
