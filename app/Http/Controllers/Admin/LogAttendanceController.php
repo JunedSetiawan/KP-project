@@ -115,6 +115,12 @@ public function exportPdf(Request $request, $classId = null)
     $totalL = 0; // Male (Laki-laki)
     $totalP = 0; // Female (Perempuan)
 
+    // Variables to store total counts of S, I, A, and V
+    $totalS = 0;
+    $totalI = 0;
+    $totalA = 0;
+    $totalV = 0;
+
     foreach ($attendances as $studentId => $attendanceRecords) {
         // Make sure attendanceRecords is not empty
         if ($attendanceRecords->isNotEmpty()) {
@@ -124,11 +130,24 @@ public function exportPdf(Request $request, $classId = null)
             } elseif ($student->gender === 'P') {
                 $totalP++;
             }
+
+            // Loop through attendance records to count S, I, A, V
+            foreach ($attendanceRecords as $record) {
+                if ($record->information === 'S') {
+                    $totalS++;
+                } elseif ($record->information === 'I') {
+                    $totalI++;
+                } elseif ($record->information === 'A') {
+                    $totalA++;
+                } elseif ($record->information === 'V') {
+                    $totalV++;
+                }
+            }
         }
     }
 
     // Pass the totals along with other variables to the view
-    $pdf = PDF::loadView('pdf.attendance', compact('attendances', 'month', 'year', 'monthName', 'daysInMonth', 'day', 'totalL', 'totalP'))
+    $pdf = PDF::loadView('pdf.attendance', compact('attendances', 'month', 'year', 'monthName', 'daysInMonth', 'day', 'totalL', 'totalP', 'totalS', 'totalI', 'totalA', 'totalV'))
         ->setPaper('a4', 'landscape');
 
     // Return the PDF as a download response
