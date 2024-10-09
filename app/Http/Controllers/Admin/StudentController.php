@@ -78,6 +78,18 @@ class StudentController extends Controller
         ]);
     }
 
+    public function editgraduate(Student $student)
+    {
+        $this->spladeTitle('Edit Alumni');
+
+        $classrooms = Classroom::query()->pluck('name', 'id')->toArray();
+
+        return view('pages.student-graduate.edit', [
+            'student' => $student,
+            'classrooms' => $classrooms,
+        ]);
+    }
+
     public function show($id)
     {
         $this->spladeTitle('Detail Siswa');
@@ -109,6 +121,20 @@ class StudentController extends Controller
         Toast::success('Student updated successfully!')->autoDismiss(5);
 
         return redirect()->route('student.index');
+    }
+
+    public function updategraduate(UpdateStudentRequest $request, Student $student)
+    {
+        // $this->authorize('update', \App\Models\User::class);
+
+        $validated = $request->validated();
+        $validated['classroom_id'] = $validated['classroom_id']; // Tetapkan classroom_id dari class_id
+        unset($validated['class_id']); // Hapus class_id jika tidak diperlukan
+
+        $student->update($validated);
+        Toast::success('Student updated successfully!')->autoDismiss(5);
+
+        return redirect()->route('student.graduate');
     }
 
     public function destroy(Student $student)

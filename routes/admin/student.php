@@ -15,6 +15,8 @@ Route::group(['middleware' => [ 'auth']], function () {
     Route::post('/students-import', [StudentController::class, 'import'])->name('student.import');
 
     Route::get('/student/graduate', [StudentController::class, 'graduate'])->name('student.graduate');
+    Route::get('/student/graduate/{student}/edit', [StudentController::class, 'editgraduate'])->name('studentgraduate.edit');
+    Route::put('/student/graduate/{student}', [StudentController::class, 'updategraduate'])->name('studentgraduate.update');
 });
 
 ?>

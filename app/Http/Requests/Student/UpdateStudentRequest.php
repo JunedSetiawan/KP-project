@@ -29,8 +29,9 @@ class UpdateStudentRequest extends FormRequest
             'phone_number' => ['string'],
             'classroom_id' => ['nullable', 'string'],
             'name_parent' => ['string'],
-            'phone_number_parent' => ['string'],
+            'phone_number_parent' => ['string','nullable'],
             'phone_number_parent_opt' => ['string','nullable'],
+            'note' => ['string', 'nullable'],
         ];
     }
 }

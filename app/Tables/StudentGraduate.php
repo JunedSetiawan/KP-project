@@ -90,6 +90,7 @@ class StudentGraduate extends AbstractTable
             ->column('phone_number', label: 'Nomor Telepon')
             ->column('classroom.name', label: 'Kelas')
             ->column('schoolYear.year', label: 'Tahun Ajaran')
+            ->column('Actions')
             ->rowModal(fn(Student $user) => route('student.detail', ['id' => $user->id]))
             ->export(
                 'Export Excel DATA siswa',

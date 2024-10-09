@@ -21,6 +21,7 @@ class Student extends Model
         'classroom_id',
         'status',
         'school_year_id',
+        'note',
     ];
 
     public function classroom()
