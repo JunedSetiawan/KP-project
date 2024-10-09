@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teachers', function (Blueprint $table) {
+        Schema::create('information_services', function (Blueprint $table) {
             $table->id();
-            $table->string('nip')->unique();
-            $table->string('name');
-            $table->boolean('is_active')->default(1);
-            $table->enum('type', ['Umum', 'BK'])->default('Umum');
-            // $table->boolean('wali_kelas')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teachers');
+        Schema::dropIfExists('information_services');
     }
 };

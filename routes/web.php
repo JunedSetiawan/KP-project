@@ -63,4 +63,5 @@ Route::middleware('splade')->group(function () {
     require __DIR__ . '/admin/attendance.php';
     require __DIR__ . '/admin/studentclasshistory.php';
     require __DIR__ . '/admin/logattendance.php';
+    require __DIR__ . '/admin/informationservice.php';
 });

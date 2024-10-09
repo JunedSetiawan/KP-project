@@ -96,6 +96,25 @@ class SidebarContent
                         'icon' => @svg('heroicon-o-clipboard-document-list'),
                         'menus' => [],
                     ],
+                    [
+                        'title' => 'Layanan',
+                        'route' => null,
+                        'icon' => @svg('heroicon-o-question-mark-circle'),
+                        'permissions' => '',
+                        'menus' => [
+                            [
+                                'title' => 'Layanan Informasi',
+                                'route' => 'informationservice.index',
+                                'permissions' => '',
+                                'icon' => null,
+                            ],
+                            [
+                                'title' => 'Layanan Classic',
+                                'route' => 'logattendance.index',
+                                'icon' => null,
+                            ],
+                        ],
+                    ],
 
                 ],
             ]

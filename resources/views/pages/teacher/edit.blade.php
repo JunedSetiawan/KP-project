@@ -9,6 +9,10 @@
             @csrf
             <x-splade-input name="nip" label="Nip" required />
             <x-splade-input name="name" label="Name" required />
+            <x-splade-group name="type" label="Pilih tipe guru" inline>
+                <x-splade-radio name="type" value="Umum" label="Umum" />
+                <x-splade-radio name="type" value="BK" label="BK" />
+            </x-splade-group>
             {{-- <x-splade-input name="wali_kelas" label="Wali Kelas" required /> --}}
 
             <div class="flex justify-between">

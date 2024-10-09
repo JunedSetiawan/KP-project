@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Teacher;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTeacherRequest extends FormRequest
 {
@@ -24,6 +25,7 @@ class UpdateTeacherRequest extends FormRequest
         return [
             'nip' => ['required', 'string'],
             'name' => ['required', 'string'],
+            'type' => ['required', Rule::in(['Umum', 'BK'])],
             // 'wali_kelas' => ['required', 'string']
         ];
     }
