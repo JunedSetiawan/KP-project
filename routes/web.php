@@ -35,9 +35,9 @@ Route::middleware('splade')->group(function () {
     // });
 
     // Akses Publik (tanpa autentikasi)
-    Route::get('/public-page', function () {
-        return view('public.index');  // Halaman publik yang bisa diakses siapa saja
-    })->name('public.index');
+    Route::get('/informationservice/public', function () {
+        return view('pages.public');  // Halaman publik yang bisa diakses siapa saja
+    })->name('pages.public');
 
     Route::middleware('auth')->group(function () {
         Route::view('/tes','pdf.attendance');
