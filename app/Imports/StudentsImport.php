@@ -3,7 +3,10 @@
 namespace App\Imports;
 
 use App\Models\Classroom;
+use App\Models\SchoolYear;
 use App\Models\Student;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -28,6 +31,20 @@ class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
             return null;
         }
 
+         // Cek atau buat tahun ajaran baru
+        // $schoolyear = SchoolYear::where('year', $row['school_year'])->first();
+
+        // if(!$schoolyear) {
+         $currentYear = Carbon::now()->year;
+         $nextYear = $currentYear + 1;
+         $schoolYear = "{$currentYear}/{$nextYear}";
+ 
+         $schoolYearRecord = SchoolYear::firstOrCreate(
+             ['year' => $schoolYear],
+             ['status' => true]
+         );
+        // }
+
         $student = Student::updateOrCreate(
              // Kondisi untuk menentukan apakah akan melakukan update atau create
             [
@@ -35,7 +52,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
                 'nisn' => $row['nisn'],
                 'name' => $row['name'],
                 'gender' => $row['gender'],
-                'school_year_id' => $row['tahun_ajaran_id'],
+                'school_year_id' => $schoolYearRecord->id,
                 'phone_number' => $row['phone_number'],
                 'classroom_id' => $classroom->id, // Pastikan ini menggunakan ID yang benar dari Classroom
                 'name_parent' => $row['name_parent'],
@@ -45,9 +62,20 @@ class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
         );
 
 
-        Log::info('Student created/updated: ', $student->toArray());
+       // Buat user untuk siswa jika belum ada
+       $user = User::firstOrCreate(
+        [
+            'name' => $student->name,
+            'username' => $student->nipd,
+            'role' => 'student',
+            'email' => $student->nipd . '@example.com',
+            'password' => bcrypt($student->nipd),
+        ]
+    );
 
-        return $student;
+    Log::info('Student and user created/updated: ', [$student->toArray(), $user->toArray()]);
+
+    return $student;
     }
 
     public function chunkSize(): int

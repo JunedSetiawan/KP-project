@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
+            'username' => 'admin zapo',
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
@@ -26,8 +27,16 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::create([
             'name' => 'Guru BK',
             'email' => 'user@example.com',
+            'username' => 'bk zapo',
             'password' => Hash::make('password'),
             'role' => 'user',
+        ]);
+        \App\Models\User::create([
+            'name' => 'Siswa',
+            'email' => 'siswa@example.com',
+            'username' => 'siswa zapo',
+            'password' => Hash::make('password'),
+            'role' => 'student',
         ]);
 
         $this->call([SchoolYearSeeder::class, ClassesSeeder::class]);

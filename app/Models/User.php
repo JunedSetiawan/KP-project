@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
         'role'
     ];
@@ -52,5 +53,9 @@ class User extends Authenticatable
     public function isUser()
 {
     return $this->role === 'user';
+}
+    public function isStudent()
+{
+    return $this->role === 'student';
 }
 }

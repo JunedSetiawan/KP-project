@@ -51,6 +51,7 @@ class Users extends AbstractTable
         $table
             ->column('name', sortable: true, searchable: true)
             ->column('email', sortable: true, searchable: true)
+            ->column('username', sortable: true, searchable: true)
             ->column('created_at', sortable: true)
             ->column('Actions')
             ->searchInput('email')
