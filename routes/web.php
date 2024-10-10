@@ -30,14 +30,6 @@ Route::middleware('splade')->group(function () {
     // Registers routes to support async File Uploads with Filepond...
     Route::spladeUploads();
 
-    // Route::get('/', function () {
-    //     return view('welcome');
-    // });
-
-    // Akses Publik (tanpa autentikasi)
-    Route::get('/informationservice/public', function () {
-        return view('pages.public');  // Halaman publik yang bisa diakses siapa saja
-    })->name('pages.public');
 
     Route::middleware('auth')->group(function () {
         Route::view('/tes','pdf.attendance');

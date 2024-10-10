@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\InformationService\InformationServiceRequest;
 use App\Models\Classroom;
 use App\Models\InformationService;
+use App\Models\Student;
 use App\Models\Teacher;
 use App\Tables\InformationServices;
 use Illuminate\Http\Request;
@@ -53,5 +54,12 @@ class InformationServiceController extends Controller
         session()->flash('success', 'Layanan Informasi berhasil ditambahkan!');
 
         return redirect()->route('informationservice.index');
+    }
+
+
+    public function loadStudent($classroom)
+    {
+        $data = Student::where('classroom_id', $classroom)->get();
+        return response()->json($data);
     }
 }
