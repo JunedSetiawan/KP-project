@@ -44,7 +44,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
              ['status' => true]
          );
         // }
-
+         $i = 1;
         $student = Student::updateOrCreate(
              // Kondisi untuk menentukan apakah akan melakukan update atau create
             [
@@ -69,7 +69,7 @@ class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
             'username' => $student->nipd,
             'role' => 'student',
             'email' => $student->nipd . '@example.com',
-            'password' => bcrypt($student->nipd),
+            'password' => bcrypt("pass$student->nipd"),
         ]
     );
 
