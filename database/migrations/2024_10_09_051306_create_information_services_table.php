@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('information_services', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('teacher_id');
+            $table->date('date');
+            $table->string('note');
             $table->timestamps();
         });
     }
