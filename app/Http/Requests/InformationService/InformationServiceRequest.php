@@ -11,7 +11,7 @@ class InformationServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -20,9 +20,14 @@ class InformationServiceRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {
-        return [
-            //
-        ];
-    }
+{
+    return [
+        'teacher' => ['required', 'exists:teachers,id'],
+            'classroom' => ['required', 'exists:classrooms,id'],
+            'student' => ['required', 'exists:students,id'],
+            'keterangan' => ['required', 'string'],
+            'date' => ['required', 'date'],
+    ];
+}
+
 }

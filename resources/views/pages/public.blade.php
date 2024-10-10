@@ -10,7 +10,8 @@
             </h2>
             
             <!-- Dropdown untuk Pilih Guru BK -->
-            <x-splade-form method="POST" action="{{ route('informationservice.store') }}">
+            <x-splade-form method="POST" action="{{ route('informationservice.store') }}" reset-on-success>
+                @csrf
                 <div class="mt-8">
                     <x-splade-select name="teacher" label="Pilih Guru BK" placeholder="-- Pilih Guru BK --" :options="$teachers" />
                 </div>

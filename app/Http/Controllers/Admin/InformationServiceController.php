@@ -11,6 +11,7 @@ use App\Models\Teacher;
 use App\Tables\InformationServices;
 use Illuminate\Http\Request;
 use ProtoneMedia\Splade\Components\Toast;
+use ProtoneMedia\Splade\Facades\Toast as FacadesToast;
 
 class InformationServiceController extends Controller
 {
@@ -49,11 +50,16 @@ class InformationServiceController extends Controller
     public function store(InformationServiceRequest $request)
     {
         $validated = $request->validated();
-        $informationservice = InformationService::create($validated);
+        $informationservice = InformationService::create([
+            'student_id' => $validated['student'], 
+            'teacher_id' => $validated['teacher'],
+            'date' => $validated['date'],
+            'note' => $validated['keterangan'],
+        ]);
 
-        session()->flash('success', 'Layanan Informasi berhasil ditambahkan!');
+        FacadesToast::success('Layanan Informasi Berhasil dibuat')->autoDismiss(5);
 
-        return redirect()->route('informationservice.index');
+        return redirect()->route('informationservice.public');
     }
 
 
