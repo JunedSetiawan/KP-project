@@ -1,4 +1,4 @@
-<x-splade-form method="POST" action="#">
+<x-splade-form method="POST" action="{{ route('informationservice.store') }}">
     <div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative">
@@ -20,6 +20,10 @@
                     <x-splade-select name="kelas" label="Pilih Kelas" placeholder="-- Pilih Kelas --" :options="$classrooms" />
                 </div>
 
+                <div class="mt-6">
+                    <x-splade-select name="kelas" label="Pilih Kelas" placeholder="-- Pilih Kelas --" :options="$classrooms" />
+                </div>
+
                 <!-- Textarea untuk Keterangan -->
                 <div class="mt-6">
                     <x-splade-textarea name="keterangan" label="Keterangan" placeholder="Isi keterangan..." />
@@ -34,6 +38,12 @@
                 <div class="mt-6">
                     <x-splade-submit label="Kirim" />
                 </div>
+                @if (session('success'))
+    <div class="bg-green-500 text-white p-4 rounded-md">
+        {{ session('success') }}
+    </div>
+@endif
+
 
             </div>
         </div>
