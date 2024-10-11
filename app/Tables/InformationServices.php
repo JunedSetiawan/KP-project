@@ -48,8 +48,9 @@ class InformationServices extends AbstractTable
     public function configure(SpladeTable $table)
     {
         $table
-        ->column('teacher.name', label: 'Nama Guru')
+        ->column('teacher.name', label: 'Nama Guru BK')
         ->column('student.name', label: 'Nama Siswa')
+        ->column('student.classroom.name', label: 'Kelas')
         ->column('date', label: 'Tanggal')
         ->column('note', label: 'Keterangan');
             //->withGlobalSearch(columns: ['id'])
