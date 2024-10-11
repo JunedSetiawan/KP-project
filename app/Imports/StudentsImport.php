@@ -43,8 +43,17 @@ class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
              ['year' => $schoolYear],
              ['status' => true]
          );
-        // }
-         $i = 1;
+        // Buat user untuk siswa jika belum ada
+        $user = User::firstOrCreate(
+            [
+                'name' => $row['name'],
+                'username' => $row['nipd'],
+                'role' => 'student',
+                'email' => $row['nipd'] . '@gmail.com',
+                'password' => bcrypt('pass' . $row['nipd']),
+            ]
+            );
+
         $student = Student::updateOrCreate(
              // Kondisi untuk menentukan apakah akan melakukan update atau create
             [
@@ -55,23 +64,13 @@ class StudentsImport implements ToModel, WithHeadingRow, WithChunkReading
                 'school_year_id' => $schoolYearRecord->id,
                 'phone_number' => $row['phone_number'],
                 'classroom_id' => $classroom->id, // Pastikan ini menggunakan ID yang benar dari Classroom
+                'user_id' => $user->id,
                 'name_parent' => $row['name_parent'],
                 'phone_number_parent' => $row['phone_number_parent'],
                 'phone_number_parent_opt' => $row['phone_number_parent_opt'],
             ]
         );
 
-
-       // Buat user untuk siswa jika belum ada
-       $user = User::firstOrCreate(
-        [
-            'name' => $student->name,
-            'username' => $student->nipd,
-            'role' => 'student',
-            'email' => $student->nipd . '@example.com',
-            'password' => bcrypt("pass$student->nipd"),
-        ]
-    );
 
     Log::info('Student and user created/updated: ', [$student->toArray(), $user->toArray()]);
 

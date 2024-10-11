@@ -158,7 +158,7 @@ class StudentController extends Controller
 
         try{
             // dd($request->import);
-//
+            set_time_limit(300);
             Excel::import(new StudentsImport, $request->file('import'));
             Toast::success('Student import successfully!')->autoDismiss(5);
             return redirect()->route('student.index');

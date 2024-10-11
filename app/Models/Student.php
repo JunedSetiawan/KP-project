@@ -19,6 +19,7 @@ class Student extends Model
         'phone_number_parent',
         'phone_number_parent_opt',
         'classroom_id',
+        'user_id',
         'status',
         'school_year_id',
         'note',
@@ -53,6 +54,11 @@ class Student extends Model
 public function logAttendances()
     {
         return $this->hasMany(LogAttendance::class, 'student_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
