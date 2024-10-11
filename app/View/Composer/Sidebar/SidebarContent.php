@@ -116,6 +116,26 @@ class SidebarContent
                         ],
                     ],
 
+                    [
+                        'title' => 'Catatan Perkembangan Peserta Didik',
+                        'route' => null,
+                        'icon' => @svg('heroicon-o-pencil-square'),
+                        'permissions' => '',
+                        'menus' => [
+                            [
+                                'title' => 'Prestasi',
+                                'route' => 'informationservice.index',
+                                'permissions' => '',
+                                'icon' => null,
+                            ],
+                            [
+                                'title' => 'Pelanggaran',
+                                'route' => 'violation.index',
+                                'icon' => null,
+                            ],
+                        ],
+                    ],
+
                 ],
             ]
         ];
