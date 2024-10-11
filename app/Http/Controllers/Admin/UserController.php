@@ -30,9 +30,9 @@ class UserController extends Controller
         $this->spladeTitle('Create User');
 
         $roles = [
-            'sales' => 'Sales',
-            'purchase' => 'Purchase',
-            'manager' => 'Manager',
+            'admin' => 'Admin',
+            'user' => 'Guru BK',
+            'student' => 'Siswa',
         ];
 
         return view('pages.user.create', [
@@ -62,6 +62,7 @@ class UserController extends Controller
         $roles = [
             'admin' => 'Admin',
             'user' => 'Guru BK',
+            'student' => 'Siswa',
         ];
 
         return view('pages.user.edit', [

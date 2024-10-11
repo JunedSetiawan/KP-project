@@ -8,7 +8,9 @@
         @csrf
         <x-splade-input name="name" label="Name" required />
         <x-splade-input name="email" label="Email" type="email" required />
+        <x-splade-input name="username" label="Username"  required />
         <x-splade-input name="password" label="Password" type="password" required />
+        <x-splade-select name="role" :options="$roles" label="Role" placeholder="Pilih 1 role" />
         {{-- <x-splade-select name="role" :options="$roles" label="Role" required placeholder="Select 1 role" /> --}}
 
         <x-splade-submit label="Save" />

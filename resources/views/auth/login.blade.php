@@ -9,6 +9,12 @@
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" />
 
+
+            <div class="font-semibold">
+                <p>Untuk Siswa silahkan login menggunakan <strong>NIS</strong> kalian masing-masing</p>
+                <p>contoh : username  = <strong>123456</strong>, password = pass<strong>123456</strong> untuk password nya tidak perlu pisah yaa..</p>
+            </div>
+
             <x-splade-form action="{{ route('store.login') }}" class="space-y-4">
                 <!-- Email Address -->
                 <x-splade-input id="username" type="text" name="username" :label="__('Username')" required autofocus
@@ -20,12 +26,7 @@
                 <x-splade-submit class="w-full" :label="__('Masuk')" />
 
                 <div class="mt-6 text-center">
-                    @if (Route::has('password.request'))
-                    <Link class="underline text-sm text-base-content hover:text-neutral"
-                        href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                    </Link>
-                    @endif
+                  Jika ada masalah, silahkan  hubungi <a href="https://wa.me/082365265904" target="_blank"  class="text-blue-600 hover:text-blue-900">Admin</a>
                 
                 </div>
             </x-splade-form>

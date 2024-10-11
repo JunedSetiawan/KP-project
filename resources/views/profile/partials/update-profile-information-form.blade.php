@@ -13,8 +13,9 @@
         preserve-scroll>
         <x-splade-input id="name" name="name" type="text" :label="__('Name')" required autofocus autocomplete="name" />
         <x-splade-input id="email" name="email" type="email" :label="__('Email')" required autocomplete="email" />
+        <x-splade-input id="username" name="username" type="text" :label="__('username')" required autocomplete="username" />
 
-        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+        @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyusername && ! $user->hasVerifiedEmail())
         <div>
             <p class="text-sm mt-2 text-base-content">
                 {{ __('Your email address is unverified.') }}
