@@ -97,6 +97,14 @@ class Students extends AbstractTable
             ->column('schoolYear.year', label: 'Tahun Ajaran')
             ->rowModal(fn(Student $user) => route('student.detail', ['id' => $user->id]))
             ->column('Actions')
+             ->bulkAction(
+                label: 'Delete Student',
+                each: fn (Student $student) => $student->delete(),
+                confirm: 'Delete Student',
+                confirmText: 'Are you sure you want to delete the Students?',
+                confirmButton: 'Yes, Delete all!',
+                cancelButton: 'No, do not Delete!',
+            )
             ->bulkAction(
                 label: 'Kenaikan Siswa Kelas',
                 each: fn(Student $user) => $user->touch(),

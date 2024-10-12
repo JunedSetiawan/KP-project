@@ -10,9 +10,11 @@ use App\Models\Classes;
 use App\Models\Classroom;
 use App\Models\SchoolYear;
 use App\Models\Student;
+use App\Models\User;
 use App\Tables\StudentGraduate;
 use App\Tables\Students;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
@@ -51,17 +53,34 @@ class StudentController extends Controller
 
     public function store(StudentRequest $request)
     {
+        try{
+            DB::beginTransaction();
+        
         // $this->authorize('create', \App\Models\User::class);
 
         $validated = $request->validated();
 
         // $validated['password'] = Hash::make($validated['password']);
-        $validated['classes_id'] = $validated['class_id'];
-        unset($validated['class_id']);
+        // $validated['classroom_id'] = $validated['classroom_id'];
 
-        $student = Student::create($validated);
+         $user = User::create(
+            [
+                'name' => $validated['name'],
+                'username' => $validated['nipd'],
+                'role' => 'student',
+                'email' => $validated['nipd'] . '@gmail.com',
+                'password' => bcrypt('pass' . $validated['nipd']),
+            ]);
 
-        Toast::success('Student created successfully!')->autoDismiss(5);
+        $student = Student::create($validated,[
+            'user_id' => $user->id
+        ]);
+
+        DB::commit();
+        Toast::success('Siswa Berhail Dibuat!')->autoDismiss(5);
+    }catch (\Exception $e) {
+        DB::rollBack();
+    }
 
         return redirect()->route('student.index');
     }

@@ -22,15 +22,15 @@ class StudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nipd' => ['integer'],
-            'nisn' => ['integer'],
+            'nipd' => ['integer','required'],
+            'nisn' => ['integer','required'],
             'name' => ['required', 'string'],
             'gender' => ['required', 'string'],
             'phone_number' => ['string'],
-            'class_id' => ['nullable', 'string'],
+            'classroom_id' => ['nullable', 'string'],
             'name_parent' => ['string'],
             'phone_number_parent' => ['string'],
-            'phone_number_parent_opt' => ['string'],            
+            'phone_number_parent_opt' => ['string', 'nullable'],            
         ];
     }
 }

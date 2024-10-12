@@ -54,19 +54,13 @@ class Users extends AbstractTable
             ->column('username', sortable: true, searchable: true)
             ->column('created_at', sortable: true)
             ->column('Actions')
-            ->searchInput('email')
-            ->withGlobalSearch('name')
-            ->selectFilter('email', [
-                '.com' => '.com',
-                '.net' => '.net'
-            ])
             ->bulkAction(
-                label: 'Touch timestamp',
-                each: fn (User $user) => $user->touch(),
-                confirm: 'Touch projects',
-                confirmText: 'Are you sure you want to touch the projects?',
-                confirmButton: 'Yes, touch all selected rows!',
-                cancelButton: 'No, do not touch!',
+                label: 'Delete User',
+                each: fn (User $user) => $user->delete(),
+                confirm: 'Delete User',
+                confirmText: 'Are you sure you want to delete the users?',
+                confirmButton: 'Yes, Delete all!',
+                cancelButton: 'No, do not Delete!',
             )
             ->export(
                 'export',

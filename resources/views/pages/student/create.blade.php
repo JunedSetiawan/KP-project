@@ -14,7 +14,7 @@
             <x-splade-radio name="gender" value="P" label="Perempuan" />
         </x-splade-group>
         <x-splade-input name="phone_number" label="Nomor HP" />
-        <x-splade-select name="class_id" :options="$classrooms" label="Pilih Kelas" required placeholder="Pilih kelas" />
+        <x-splade-select name="classroom_id" :options="$classrooms" label="Pilih Kelas" required placeholder="Pilih kelas" />
         <br>
         <h2 class="text-xl font-bold tracking-wide">Data Orang Tua</h2>
         <x-splade-input name="name_parent" label="Nama Orang Tua" />

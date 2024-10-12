@@ -11,12 +11,14 @@
                 @click="table.setSelectedItems(@js($table->getPrimaryKeys()))" dusk="select-all-on-this-page">
                 {{ __('Select all on this page') }} ({{ $table->totalOnThisPage() }})
             </button>
-
+            
+            @if (!request()->routeIs('student.index'))
             @if($showPaginator())
             <button class="text-left w-full px-4 py-2 text-sm text-base-content hover:bg-base-200  font-normal"
                 @click="table.setSelectedItems(['*'])" dusk="select-all-results">
                 {{ __('Select all results') }} ({{ $table->totalOnAllPages() }})
             </button>
+            @endif
             @endif
 
             <button v-if="table.hasSelectedItems"
