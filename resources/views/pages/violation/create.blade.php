@@ -1,16 +1,16 @@
 <x-app-layout>
     <x-slot name="headerNav">
-        {{ __('Create Teachers') }}
+        {{ __('Create Violations') }}
     </x-slot>
 
 
-    <x-splade-form class="bg-base-100 space-y-2 p-5" action="{{ route('teacher.store') }}" method="post">
+    <x-splade-form class="bg-base-100 space-y-2 p-5" action="{{ route('violation.store') }}" method="post">
         @csrf
-        <x-splade-input name="nip" label="Nip" required />
-        <x-splade-input name="name" label="Name" required />
-        {{-- <x-splade-input name="wali_kelas" label="Wali_kelas" required /> --}}
-        {{-- <x-splade-select name="role" :options="$roles" label="Role" required placeholder="Select 1 role" /> --}}
-
+        <x-splade-select name="classroom" label="Pilih Kelas" placeholder="-- Pilih Kelas --" :options="$classrooms" />
+        <x-splade-select name="student_id" remote-url="`/load/student/${form.classroom}`" select-first-remote-option label="Pilih Siswa" placeholder="-- Siswa --" option-label="name" option-value="id" />
+        <x-splade-input name="violation" label="Pelanggaran" required />
+        <x-splade-input name="note" label="Keterangan" required />
+        <x-splade-file name="evidence" filepond preview accept="image/png,image/jpg,image/jpeg" label="Bukti Sanksi" />
         <x-splade-submit label="Save" />
 
     </x-splade-form>

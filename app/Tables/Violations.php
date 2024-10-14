@@ -50,7 +50,8 @@ class Violations extends AbstractTable
         $table
             ->column('student.name', label: 'Nama Siswa', sortable: true)
             ->column('violation', label: 'Pelanggaran', sortable: true)
-            ->column('note', label: 'Keterangan', sortable: true);
+            ->column('note', label: 'Keterangan', sortable: true)
+            ->column('actions');
 
             // ->withGlobalSearch(columns: ['id'])
             // ->column('id', sortable: true);
