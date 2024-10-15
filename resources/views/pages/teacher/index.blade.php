@@ -6,7 +6,7 @@
     <div class="flex justify-between">
         <Link href="{{ route('teacher.create') }}" class="btn btn-secondary mb-4">Create</Link>
 
-        <x-splade-form action="{{ route('teacher.import') }}">
+        <x-splade-form action="{{ route('teacher.import') }}" class="mb-4">
             @csrf
             <label for="">Import Data Guru (excel/xlsx)</label>
             <div class="flex items-center">

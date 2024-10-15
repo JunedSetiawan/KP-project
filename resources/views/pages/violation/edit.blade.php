@@ -21,14 +21,14 @@
             <x-splade-input name="note" label="Keterangan" required />
 
             <!-- File Upload -->
-            <x-splade-file name="evidence" filepond preview accept="image/png,image/jpg,image/jpeg"
+            <x-splade-file name="image" filepond preview accept="image/png,image/jpg,image/jpeg"
                 label="Bukti Sanksi" />
 
             <!-- Menampilkan gambar bukti yang sudah ada -->
             <div>
                 <label>Bukti Sanksi Sebelumnya:</label>
-                <img src="{{ route('getImage', ['filename' => $violation->evidence]) }}"
-                    alt="{{ $violation->evidence }}" class="w-32 h-32 object-cover mt-2" />
+                <img src="{{ route('getImage', ['filename' => $violation->image]) }}"
+                    alt="{{ $violation->image }}" class="w-32 h-32 object-cover mt-2" />
             </div>
             
             <div class="flex justify-between">

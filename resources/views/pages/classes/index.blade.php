@@ -5,8 +5,8 @@
 
     {{-- @can('manage-classes') --}}
     <div class="flex justify-between">
-    <Link href="{{ route('classes.create') }}" class="btn btn-secondary mb-4">Create</Link>
-    <x-splade-form action="{{ route('classes.import') }}"
+    <Link href="{{ route('classes.create') }}" class="btn btn-secondary">Create</Link>
+    <x-splade-form action="{{ route('classes.import') }}"  class="mb-4"
     >
     @csrf
     <label for="">Import Data Kelas (excel/xlsx)</label>
