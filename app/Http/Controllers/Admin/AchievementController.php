@@ -92,18 +92,48 @@ class AchievementController extends Controller
     ]);
 }
 
-    public function update(UpdateAchievementRequest $request, Achievement $achievement)
-    {
-        // $this->authorize('update', \App\Models\User::class);
+public function update(UpdateAchievementRequest $request, Achievement $achievement)   
+{
+    // Update data pelanggaran
+    $achievement->achievement = $request->input('achievement');
+    $achievement->note = $request->input('note');
 
-        $validated = $request->validated();
+    // Jika ada file gambar baru yang diunggah
+    if ($request->hasFile('image')) {
+        // Hapus gambar lama jika ada
+        if ($achievement->image) {
+            $filePath = 'images/' . $achievement->image;
 
-        $achievement->update($validated);
-         
-        $achievement->delete();
+            if (Storage::disk('public')->exists($filePath)) {
+                Storage::disk('public')->delete($filePath);
+            }
+        }
 
-        Toast::success('Prestasi Berhasil Dihapus!')->autoDismiss(5);
+        // Ambil file baru
+        $file = $request->file('image');
+        // Ambil ekstensi asli file
+        $ext = $file->getClientOriginalExtension();
+        // Buat nama acak untuk file tanpa ekstensi
+        $randomName = pathinfo($file->hashName(), PATHINFO_FILENAME);
+        // Simpan file dengan nama acak dan ekstensi asli
+        $path = $file->storeAs('public/images', $randomName . '.' . $ext);
+        // Ambil nama file yang disimpan (beserta ekstensi)
+        $filename = pathinfo($path, PATHINFO_BASENAME);
 
-        return redirect()->route('achievement.index');
+        // Simpan nama file baru ke database
+        $achievement->image = $filename;
+    } else {
+        // Jika tidak ada file gambar baru, tetapi ada gambar lama yang dipilih
+        if ($request->image_existing) {
+            $achievement->image = $request->image_existing;
+        }
     }
+
+    // Simpan data pelanggaran
+    $achievement->save();
+
+    Toast::message('Successfully updated the Prestasi')->autoDismiss(5);
+
+    return redirect()->route('achievement.index');
+}
 }

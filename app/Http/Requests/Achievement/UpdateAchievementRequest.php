@@ -22,7 +22,6 @@ class UpdateAchievementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'student_id' => ['required', 'integer'],
             'achievement' => ['required', 'string'],
             'note' => ['required', 'string'],
             'image' => 'image|mimes:jpg,jpeg,png|max:2048|nullable',

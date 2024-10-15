@@ -20,6 +20,9 @@
             <!-- Input Keterangan -->
             <x-splade-input name="note" label="Keterangan" required />
 
+            <!-- Input Keterangan -->
+            <x-splade-input name="point" label="Poin" required />
+
             <!-- File Upload -->
             <x-splade-file name="image" filepond preview accept="image/png,image/jpg,image/jpeg"
                 label="Bukti Prestasi" />
