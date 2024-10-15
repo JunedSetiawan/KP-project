@@ -10,7 +10,9 @@ use App\Models\Classroom;
 use App\Models\Student;
 use App\Tables\Achievements;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use ProtoneMedia\Splade\Facades\Toast;
+use ProtoneMedia\Splade\FileUploads\ExistingFile;
 
 class AchievementController extends Controller
 {
@@ -25,7 +27,7 @@ class AchievementController extends Controller
 
     public function create()
     {
-        $this->spladeTitle('Tambah Pelanggaran');
+        $this->spladeTitle('Tambah Prestasi');
         $achievement = Achievement::all();
 
         $classrooms = Classroom::query()->pluck('name', 'id')->toArray();
@@ -36,40 +38,50 @@ class AchievementController extends Controller
     }
 
     public function store(AchievementRequest $request)
-    {
+{
+    $filename = null;
 
-        if ($request->hasFile('image')) {
-            $ext = $request->file('image')->getClientOriginalExtension();
-            $data = $request->file('image')->store('public/images');
-            $filename = pathinfo($data, PATHINFO_FILENAME) . '.' . $ext;
-        }
+    if ($request->hasFile('image')) {
+        // Ambil file
+        $file = $request->file('image');
 
-        $validated = $request->validated();
+        // Ambil ekstensi asli file
+        $ext = $file->getClientOriginalExtension();
 
-        $validated['image'] = $filename ?? null;
+        // Buat nama acak untuk file tanpa ekstensi
+        $randomName = pathinfo($file->hashName(), PATHINFO_FILENAME);
 
-        $achievement = Achievement::create($validated);
+        // Simpan file dengan nama acak dan ekstensi asli
+        $path = $file->storeAs('public/images', $randomName . '.' . $ext);
 
-
-        Toast::message('Created Prestasi Successfully!')->autoDismiss(5);
-
-        return redirect()->route('achievement.index');
+        // Ambil nama file yang disimpan (beserta ekstensi)
+        $filename = pathinfo($path, PATHINFO_BASENAME);
     }
+
+    // Validasi dan buat prestasi
+    $validated = $request->validated();
+    $validated['image'] = $filename;
+
+    $achievement = Achievement::create($validated);
+
+    // Tampilkan pesan berhasil
+    Toast::message('Created Prestasi Successfully!')->autoDismiss(5);
+
+    return redirect()->route('achievement.index');
+}
 
     public function edit(Achievement $achievement)
 {
-    $this->spladeTitle('Edit Pelanggaran');
+    $this->spladeTitle('Edit Prestasi');
 
-    // Ambil siswa yang terkait dengan pelanggaran
+    // Ambil siswa yang terkait dengan prestasi
     $student = Student::with('classroom')->find($achievement->student_id);
 
     // Ambil semua kelas
     $classroom = $student->classroom->name;
 
-    // Ambil siswa yang ada di kelas yang terkait dengan pelanggaran
+    // Ambil siswa yang ada di kelas yang terkait dengan prestasi
     $students = Student::query()->pluck('name', 'id')->toArray();
-
-    // dd( $violation->evidence);
 
     return view('pages.achievement.edit', [
         'achievement' => $achievement,
@@ -87,17 +99,10 @@ class AchievementController extends Controller
         $validated = $request->validated();
 
         $achievement->update($validated);
-
-        Toast::success('Prestasi berhasil diperbarui!')->autoDismiss(5);
-
-        return redirect()->route('achievement.index');
-    }
-
-    public function destroy(Achievement $achievement)
-    {
+         
         $achievement->delete();
 
-        Toast::success('Pestasi Berhasil Dihapus!')->autoDismiss(5);
+        Toast::success('Prestasi Berhasil Dihapus!')->autoDismiss(5);
 
         return redirect()->route('achievement.index');
     }

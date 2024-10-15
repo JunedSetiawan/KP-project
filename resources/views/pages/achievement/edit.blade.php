@@ -14,21 +14,21 @@
             <!-- Select Siswa -->
             <input type="text" name="student_id" label="Pilih Siswa" value="{{ $students->name }}" disabled readonly />
 
-            <!-- Input Pelanggaran -->
+            <!-- Input Prestasi -->
             <x-splade-input name="achievement" label="Prestasi" required />
 
             <!-- Input Keterangan -->
             <x-splade-input name="note" label="Keterangan" required />
 
             <!-- File Upload -->
-            <x-splade-file name="evidence" filepond preview accept="image/png,image/jpg,image/jpeg"
-                label="Bukti Sanksi" />
+            <x-splade-file name="image" filepond preview accept="image/png,image/jpg,image/jpeg"
+                label="Bukti Prestasi" />
 
             <!-- Menampilkan gambar bukti yang sudah ada -->
             <div>
-                <label>Bukti Sanksi Sebelumnya:</label>
-                <img src="{{ route('getImage', ['filename' => $achievement->evidence]) }}"
-                    alt="{{ $achievement->evidence }}" class="w-32 h-32 object-cover mt-2" />
+                <label>Bukti Prestasi Sebelumnya:</label>
+                <img src="{{ route('getImage', ['filename' => $achievement->image]) }}"
+                    alt="{{ $achievement->image }}" class="w-32 h-32 object-cover mt-2" />
             </div>
             
             <div class="flex justify-between">
