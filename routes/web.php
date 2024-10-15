@@ -61,6 +61,7 @@ Route::middleware('splade')->group(function () {
     require __DIR__ . '/admin/logattendance.php';
     require __DIR__ . '/admin/informationservice.php';
     require __DIR__ . '/admin/violation.php';
+    require __DIR__ . '/admin/achievement.php';
 });
 
 Route::get('/post/{filename}/image', [ImageUpload::class, 'getImageFile'])->name('getImage');

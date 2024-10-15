@@ -124,7 +124,7 @@ class SidebarContent
                         'menus' => [
                             [
                                 'title' => 'Prestasi',
-                                'route' => 'informationservice.index',
+                                'route' => 'achievement.index',
                                 'permissions' => '',
                                 'icon' => null,
                             ],
