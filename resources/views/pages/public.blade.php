@@ -1,4 +1,5 @@
-<div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+
+<div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8" style="background-image: url({{ asset('img/auth/light_grey_dots_background.jpg') }});">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative">
             

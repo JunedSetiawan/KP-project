@@ -7,13 +7,20 @@
     <title>SMPN 1 ZAPO</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        header {
+            background-image: url({{ asset('img/auth/light_grey_dots_background.jpg') }});
+            
+        }
+    </style>
 </head>
 <body>
-    <header class="bg-white">
+    <header class="min-h-screen">
         <nav class="border-t-4 border-blue-500">
             <div class="container flex items-center justify-between px-6 py-3 mx-auto">
                 <a href="#">
-                    <img class="w-auto h-6 sm:h-7" src="{{ asset('img/auth/logo.png') }}" alt="">
+                    <img class="w-auto h-24 sm:h-24" src="{{ asset('img/auth/logo.png') }}" alt="">
                 </a>
                 <div class="flex">
                 <a class="my-1 text-sm font-medium text-gray-500 rtl:-scale-x-100 hover:text-blue-500  lg:mx-4 lg:my-0" href="{{ route('informationservice.public') }}">
