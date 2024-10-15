@@ -35,7 +35,7 @@ Route::middleware('splade')->group(function () {
 
 
     Route::middleware('auth')->group(function () {
-        Route::view('/tes','pdf.attendance');
+        // Route::view('/tes','pdf.attendance');
         Route::post('/send-message', [MessageController::class, 'send']);
 
         Route::get('testing-table', [UserController::class, 'index'])->name('test.table');

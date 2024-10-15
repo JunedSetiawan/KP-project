@@ -3,9 +3,9 @@
         {{ __('Dashboard') }}
     </x-slot>
     <div class="p-5">
-        <h1 class="text-3xl">Welcome To Dashboard BK ZAPO</h1>
+        <h1 class="text-3xl">Selamat Datang {{ auth()->user()->name }}, Silahkan Pilih Menu disamping untuk memulai</h1>
 
-        <section class="my-6 dark:bg-gray-800 dark:text-gray-100">
+        {{-- <section class="my-6 dark:bg-gray-800 dark:text-gray-100">
             <div class="container grid grid-cols-1 gap-6 mx-auto sm:grid-cols-2 xl:grid-cols-4">
                 <div class="flex p-4 space-x-4 rounded-lg md:space-x-6 bg-base-100 dark:text-gray-100">
                     <div class="flex justify-center p-2 align-middle rounded-lg sm:p-4 dark:bg-violet-400">
@@ -84,7 +84,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
 
         {{-- <section class="">
             <div class="py-10 mx-auto">

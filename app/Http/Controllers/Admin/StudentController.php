@@ -13,6 +13,7 @@ use App\Models\Student;
 use App\Models\User;
 use App\Tables\StudentGraduate;
 use App\Tables\Students;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -59,9 +60,14 @@ class StudentController extends Controller
         // $this->authorize('create', \App\Models\User::class);
 
         $validated = $request->validated();
+        $currentYear = Carbon::now()->year;
+        $nextYear = $currentYear + 1;
+        $schoolYear = "{$currentYear}/{$nextYear}";
 
-        // $validated['password'] = Hash::make($validated['password']);
-        // $validated['classroom_id'] = $validated['classroom_id'];
+        $schoolYearRecord = SchoolYear::firstOrCreate(
+            ['year' => $schoolYear],
+            ['status' => true]
+        );
 
          $user = User::create(
             [
@@ -72,9 +78,10 @@ class StudentController extends Controller
                 'password' => bcrypt('pass' . $validated['nipd']),
             ]);
 
-        $student = Student::create($validated,[
-            'user_id' => $user->id
-        ]);
+        $student = Student::create(array_merge($validated, [
+            'user_id' => $user->id,
+            'school_year_id' => $schoolYearRecord->id,
+        ]));
 
         DB::commit();
         Toast::success('Siswa Berhail Dibuat!')->autoDismiss(5);
@@ -160,10 +167,16 @@ class StudentController extends Controller
     {
         // $this->authorize('delete', \App\Models\User::class);
 
-        $student->delete();
-
+        DB::transaction(function () use ($student) {
+            $user = $student->user;
+            $student->delete();
+            if ($user) {
+                $user->delete();
+            }
+        });
+    
         Toast::success('Siswa deleted successfully!')->autoDismiss(5);
-
+    
         return redirect()->route('student.index');
     }
 
