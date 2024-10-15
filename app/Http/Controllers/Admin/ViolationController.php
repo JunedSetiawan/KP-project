@@ -94,18 +94,51 @@ class ViolationController extends Controller
     ]);
 }
 
-    public function update(UpdateViolationRequest $request, Violation $violation)
-    {
-        // $this->authorize('update', \App\Models\User::class);
+public function update(UpdateViolationRequest $request, Violation $violation)   
+{
+    // Update data pelanggaran
+    $violation->violation = $request->input('violation');
+    $violation->note = $request->input('note');
 
-        $validated = $request->validated();
+    // Jika ada file gambar baru yang diunggah
+    if ($request->hasFile('image')) {
+        // Hapus gambar lama jika ada
+        if ($violation->image) {
+            $filePath = 'images/' . $violation->image;
 
-        $violation->update($validated);
+            if (Storage::disk('public')->exists($filePath)) {
+                Storage::disk('public')->delete($filePath);
+            }
+        }
 
-        Toast::success('Pelanggaran berhasil diperbarui!')->autoDismiss(5);
+        // Ambil file baru
+        $file = $request->file('image');
+        // Ambil ekstensi asli file
+        $ext = $file->getClientOriginalExtension();
+        // Buat nama acak untuk file tanpa ekstensi
+        $randomName = pathinfo($file->hashName(), PATHINFO_FILENAME);
+        // Simpan file dengan nama acak dan ekstensi asli
+        $path = $file->storeAs('public/images', $randomName . '.' . $ext);
+        // Ambil nama file yang disimpan (beserta ekstensi)
+        $filename = pathinfo($path, PATHINFO_BASENAME);
 
-        return redirect()->route('violation.index');
+        // Simpan nama file baru ke database
+        $violation->image = $filename;
+    } else {
+        // Jika tidak ada file gambar baru, tetapi ada gambar lama yang dipilih
+        if ($request->image_existing) {
+            $violation->image = $request->image_existing;
+        }
     }
+
+    // Simpan data pelanggaran
+    $violation->save();
+
+    Toast::message('Successfully updated the Violation')->autoDismiss(5);
+
+    return redirect()->route('violation.index');
+}
+
 
     public function destroy(Violation $violation)
     {
