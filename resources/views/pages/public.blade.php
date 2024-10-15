@@ -3,10 +3,10 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative">
             
-            <img class="absolute top-0 left-0 h-20 w-auto m-4" src="https://www.svgrepo.com/show/301692/login.svg" alt="Login Icon">
+            <img class="absolute top-0 left-0 h-20 w-auto m-4" src="{{ asset('img/auth/logo-bk.png') }}" alt="Login Icon">
             <img class="absolute top-0 right-0 h-20 w-auto m-4" src="{{ asset('img/auth/logo.png') }}" alt="Logo SMP">
             
-            <h2 class="text-center text-3xl leading-9 font-extrabold text-gray-900 mt-12">
+            <h2 class="text-center text-3xl leading-9 font-extrabold text-gray-900 mt-16">
                 Layanan Informasi
             </h2>
             

@@ -44,7 +44,7 @@
             <div class="items-center lg:flex">
                 <div class="w-full lg:w-1/2">
                     <div class="lg:max-w-lg">
-                        <h1 class="text-3xl font-semibold text-gray-800 lg:text-4xl">Selamat Datang di Website  <span class="text-blue-500">SMPN 1 Ponorogo </span>BK dan Pengembangan Peserta Didik</h1>
+                        <h1 class="text-3xl font-semibold text-gray-800 lg:text-4xl">Selamat Datang di Website BK dan Pengembangan Peserta Didik <span class="text-blue-500">SMPN 1 Ponorogo </span></h1>
     
                       
                     </div>
