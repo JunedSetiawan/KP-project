@@ -10,6 +10,7 @@ use App\Models\Student;
 use App\Models\Violation;
 use App\Tables\Violations;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use ProtoneMedia\Splade\Facades\Toast;
 
 class ViolationController extends Controller
@@ -36,25 +37,38 @@ class ViolationController extends Controller
     }
 
     public function store(ViolationRequest $request)
-    {
+{
+    $filename = null;
 
-        if ($request->hasFile('evidence')) {
-            $ext = $request->file('evidence')->getClientOriginalExtension();
-            $data = $request->file('evidence')->store('public/images');
-            $filename = pathinfo($data, PATHINFO_FILENAME) . '.' . $ext;
-        }
+    if ($request->hasFile('image')) {
+        // Ambil file
+        $file = $request->file('image');
 
-        $validated = $request->validated();
+        // Ambil ekstensi asli file
+        $ext = $file->getClientOriginalExtension();
 
-        $validated['evidence'] = $filename ?? null;
+        // Buat nama acak untuk file tanpa ekstensi
+        $randomName = pathinfo($file->hashName(), PATHINFO_FILENAME);
 
-        $violation = Violation::create($validated);
+        // Simpan file dengan nama acak dan ekstensi asli
+        $path = $file->storeAs('public/images', $randomName . '.' . $ext);
 
-
-        Toast::message('Created Violation Successfully!')->autoDismiss(5);
-
-        return redirect()->route('violation.index');
+        // Ambil nama file yang disimpan (beserta ekstensi)
+        $filename = pathinfo($path, PATHINFO_BASENAME);
     }
+
+    // Validasi dan buat pelanggaran
+    $validated = $request->validated();
+    $validated['image'] = $filename;
+
+    $violation = Violation::create($validated);
+
+    // Tampilkan pesan berhasil
+    Toast::message('Created Violation Successfully!')->autoDismiss(5);
+
+    return redirect()->route('violation.index');
+}
+
 
     public function edit(Violation $violation)
 {
@@ -69,13 +83,13 @@ class ViolationController extends Controller
     // Ambil siswa yang ada di kelas yang terkait dengan pelanggaran
     $students = Student::query()->pluck('name', 'id')->toArray();
 
-    // dd( $violation->evidence);
+    // dd( $violation->image);
 
     return view('pages.violation.edit', [
         'violation' => $violation,
         'classroom' => $classroom,  // Kirim daftar kelas ke view
         'students' => $student,      // Kirim daftar siswa dari kelas terkait ke view
-        'evidenceUrl' => $violation->evidence ? asset('storage/' . $violation->evidence) : null,
+        'imageUrl' => $violation->image ? asset('storage/' . $violation->image) : null,
         'selectedClassroom' => $student->classroom_id, // Kirim ID kelas yang dipilih
     ]);
 }
@@ -95,6 +109,14 @@ class ViolationController extends Controller
 
     public function destroy(Violation $violation)
     {
+
+        $filePath = 'images/' . $violation->image;
+
+        if (Storage::disk('public')->exists($filePath)) {
+
+            Storage::disk('public')->delete($filePath);
+        }
+
         $violation->delete();
 
         Toast::success('Violation deleted successfully!')->autoDismiss(5);

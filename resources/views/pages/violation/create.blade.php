@@ -10,7 +10,8 @@
         <x-splade-select name="student_id" remote-url="`/load/student/${form.classroom}`" select-first-remote-option label="Pilih Siswa" placeholder="-- Siswa --" option-label="name" option-value="id" />
         <x-splade-input name="violation" label="Pelanggaran" required />
         <x-splade-input name="note" label="Keterangan" required />
-        <x-splade-file name="evidence" filepond preview accept="image/png,image/jpg,image/jpeg" label="Bukti Sanksi" />
+        <x-splade-file name="image" filepond preview accept="image/png,image/jpg,image/jpeg" label="Bukti Sanksi" />
+        
         <x-splade-submit label="Save" />
 
     </x-splade-form>
