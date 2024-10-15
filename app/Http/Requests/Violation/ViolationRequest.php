@@ -25,7 +25,7 @@ class ViolationRequest extends FormRequest
             'student_id' => ['required', 'integer'],
             'violation' => ['required', 'string'],
             'note' => ['required', 'string'],
-            'evidence' => 'image|mimes:jpg,jpeg,png|max:2048|nullable',
+            'image' => 'image|mimes:jpg,jpeg,png|max:2048|nullable',
         ];
     }
 }

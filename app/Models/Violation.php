@@ -13,7 +13,7 @@ class Violation extends Model
         'student_id',
         'violation',
         'note',
-        'evidence',
+        'image',
     ];
 
     public function student()

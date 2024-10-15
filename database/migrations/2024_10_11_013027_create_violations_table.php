@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id');
             $table->string('violation');
             $table->string('note');
-            $table->string('evidence')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
