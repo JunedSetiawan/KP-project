@@ -11,7 +11,7 @@ class UpdateViolationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateViolationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'student_id' => ['required', 'integer'],
+            'violation' => ['required', 'string'],
+            'note' => ['required', 'string'],
+            'evidence' => 'image|mimes:jpg,jpeg,png|max:2048|nullable',
         ];
     }
 }

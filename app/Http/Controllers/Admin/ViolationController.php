@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Violation\UpdateViolationRequest;
 use App\Http\Requests\Violation\ViolationRequest;
 use App\Models\Classroom;
 use App\Models\Student;
@@ -56,14 +57,40 @@ class ViolationController extends Controller
     }
 
     public function edit(Violation $violation)
-    {
-        $this->spladeTitle('Edit Pelanggaran');
+{
+    $this->spladeTitle('Edit Pelanggaran');
 
-        $classrooms = Classroom::query()->pluck('name', 'id')->toArray();
-        return view('pages.violation.create', [
-            'violation' => $violation,
-            'classrooms' => $classrooms
-        ]);
+    // Ambil siswa yang terkait dengan pelanggaran
+    $student = Student::with('classroom')->find($violation->student_id);
+
+    // Ambil semua kelas
+    $classroom = $student->classroom->name;
+
+    // Ambil siswa yang ada di kelas yang terkait dengan pelanggaran
+    $students = Student::query()->pluck('name', 'id')->toArray();
+
+    // dd( $violation->evidence);
+
+    return view('pages.violation.edit', [
+        'violation' => $violation,
+        'classroom' => $classroom,  // Kirim daftar kelas ke view
+        'students' => $student,      // Kirim daftar siswa dari kelas terkait ke view
+        'evidenceUrl' => $violation->evidence ? asset('storage/' . $violation->evidence) : null,
+        'selectedClassroom' => $student->classroom_id, // Kirim ID kelas yang dipilih
+    ]);
+}
+
+    public function update(UpdateViolationRequest $request, Violation $violation)
+    {
+        // $this->authorize('update', \App\Models\User::class);
+
+        $validated = $request->validated();
+
+        $violation->update($validated);
+
+        Toast::success('Pelanggaran berhasil diperbarui!')->autoDismiss(5);
+
+        return redirect()->route('violation.index');
     }
 
     public function destroy(Violation $violation)
@@ -74,7 +101,6 @@ class ViolationController extends Controller
 
         return redirect()->route('violation.index');
     }
-
 
 
 }

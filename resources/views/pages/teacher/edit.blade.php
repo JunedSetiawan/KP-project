@@ -13,7 +13,6 @@
                 <x-splade-radio name="type" value="Umum" label="Umum" />
                 <x-splade-radio name="type" value="BK" label="BK" />
             </x-splade-group>
-            {{-- <x-splade-input name="wali_kelas" label="Wali Kelas" required /> --}}
 
             <div class="flex justify-between">
                 <x-splade-submit />

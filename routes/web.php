@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AttendanceController;
+use App\Http\Controllers\ImageUpload;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -46,6 +47,7 @@ Route::middleware('splade')->group(function () {
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+
     });
 
     require __DIR__ . '/auth.php';
@@ -60,3 +62,5 @@ Route::middleware('splade')->group(function () {
     require __DIR__ . '/admin/informationservice.php';
     require __DIR__ . '/admin/violation.php';
 });
+
+Route::get('/post/{filename}/image', [ImageUpload::class, 'getImageFile'])->name('getImage');

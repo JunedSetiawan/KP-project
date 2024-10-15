@@ -7,13 +7,30 @@
         <x-splade-form class="bg-base-100 space-y-2 p-5" :default="$violation"
             action="{{ route('violation.update', $violation->id) }}" method="put">
             @csrf
-            <x-splade-select name="classroom" label="Pilih Kelas" placeholder="-- Pilih Kelas --" :options="$classrooms" />
-            <x-splade-select name="student_id" remote-url="`/load/student/${form.classroom}`" select-first-remote-option label="Pilih Siswa" placeholder="-- Siswa --" option-label="name" option-value="id" />
-            <x-splade-input name="violation" label="Pelanggaran" required />
-            <x-splade-input name="note" label="Keterangan" required />
-            <x-splade-file name="evidence" filepond preview accept="image/png,image/jpg,image/jpeg" label="Bukti Sanksi" />
-            {{-- <x-splade-input name="wali_kelas" label="Wali Kelas" required /> --}}
 
+            <!-- Select Kelas -->
+            <input type="text" name="classroom" label="Kelas" disabled readonly value="{{ $classroom }}" />
+
+            <!-- Select Siswa -->
+            <input type="text" name="student_id" label="Pilih Siswa" value="{{ $students->name }}" disabled readonly />
+
+            <!-- Input Pelanggaran -->
+            <x-splade-input name="violation" label="Pelanggaran" required />
+
+            <!-- Input Keterangan -->
+            <x-splade-input name="note" label="Keterangan" required />
+
+            <!-- File Upload -->
+            <x-splade-file name="evidence" filepond preview accept="image/png,image/jpg,image/jpeg"
+                label="Bukti Sanksi" />
+
+            <!-- Menampilkan gambar bukti yang sudah ada -->
+            <div>
+                <label>Bukti Sanksi Sebelumnya:</label>
+                <img src="{{ route('getImage', ['filename' => $violation->evidence]) }}"
+                    alt="{{ $violation->evidence }}" class="w-32 h-32 object-cover mt-2" />
+            </div>
+            
             <div class="flex justify-between">
                 <x-splade-submit />
             </div>
