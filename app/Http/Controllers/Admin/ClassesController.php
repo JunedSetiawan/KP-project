@@ -119,7 +119,7 @@ class ClassesController extends Controller
 
         $classes->delete();
 
-        Toast::success('Classes deleted successfully!')->autoDismiss(5);
+        Toast::success('Data Kelas berhasil dihapus!')->autoDismiss(5);
 
         return redirect()->route('classes.index');
     }
@@ -136,7 +136,7 @@ class ClassesController extends Controller
             // dd($request->import);
             //
             Excel::import(new ClassesImport, $request->file('import')->store('files'));
-            Toast::success('classes import successfully!')->autoDismiss(5);
+            Toast::success('Data Kelas berhasil diimport!')->autoDismiss(5);
             return redirect()->route('classes.index');
         } catch (\Exception $ex) {
             Log::info($ex);

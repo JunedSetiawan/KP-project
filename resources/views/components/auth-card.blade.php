@@ -6,6 +6,8 @@
                 <div class="md:flex justify-center items-center h-full w-full">
                     <img src="{{ asset('img/auth/logo.png') }}" alt="Auth Image"
                         class="md:w-auto w-24 m-auto md:m-0 bg-cover object-cover bg-no-repeat max-h-[400px]" />
+                    <img src="{{ asset('img/auth/logo-bk.png') }}" alt="Auth Image"
+                        class="md:w-auto w-24 m-auto md:m-0 bg-cover object-cover bg-no-repeat max-h-[320px]" />
                 </div>
                 <div class="">
                     {{ $slot }}

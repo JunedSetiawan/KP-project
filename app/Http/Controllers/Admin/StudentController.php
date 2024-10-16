@@ -84,7 +84,7 @@ class StudentController extends Controller
         ]));
 
         DB::commit();
-        Toast::success('Siswa Berhail Dibuat!')->autoDismiss(5);
+        Toast::success('Data Siswa Berhail Dibuat!')->autoDismiss(5);
     }catch (\Exception $e) {
         DB::rollBack();
     }
@@ -144,7 +144,7 @@ class StudentController extends Controller
         unset($validated['class_id']); // Hapus class_id jika tidak diperlukan
 
         $student->update($validated);
-        Toast::success('Siswa updated successfully!')->autoDismiss(5);
+        Toast::success('Data siswa berhasil diubah!')->autoDismiss(5);
 
         return redirect()->route('student.index');
     }
@@ -158,7 +158,7 @@ class StudentController extends Controller
         unset($validated['class_id']); // Hapus class_id jika tidak diperlukan
 
         $student->update($validated);
-        Toast::success('Student updated successfully!')->autoDismiss(5);
+        Toast::success('Data Alumni berhasil diubah!')->autoDismiss(5);
 
         return redirect()->route('student.graduate');
     }
@@ -175,7 +175,7 @@ class StudentController extends Controller
             }
         });
     
-        Toast::success('Siswa deleted successfully!')->autoDismiss(5);
+        Toast::success('Data Siswa berhasil dihapus!')->autoDismiss(5);
     
         return redirect()->route('student.index');
     }
@@ -192,7 +192,7 @@ class StudentController extends Controller
             // dd($request->import);
             set_time_limit(300);
             Excel::import(new StudentsImport, $request->file('import'));
-            Toast::success('Student import successfully!')->autoDismiss(5);
+            Toast::success('Data Siswa Berhail Diimport!')->autoDismiss(5);
             return redirect()->route('student.index');
         }catch(\Exception $ex){
             Log::info($ex);

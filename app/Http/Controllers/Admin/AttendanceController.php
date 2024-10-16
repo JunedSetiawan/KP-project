@@ -38,7 +38,7 @@ class AttendanceController extends Controller
 
     public function create($id)
     {
-        $this->spladeTitle('Create Daftar Hadir');
+        $this->spladeTitle('Buat Daftar Hadir');
 
         $attendance = Attendance::with('classrooms')->find($id);
 
@@ -74,7 +74,7 @@ class AttendanceController extends Controller
     // Simpan data ke tabel LogAttendance
 
     // Menampilkan pesan sukses
-    Toast::success('Attendance created successfully!')->autoDismiss(5);
+    Toast::success('Daftar Hadir Berhasil dibuat!')->autoDismiss(5);
 
     return redirect()->route('attendance.index');
 }
@@ -104,7 +104,7 @@ class AttendanceController extends Controller
 
         $attendance->update($validated);
 
-        Toast::success('Attendance updated successfully!')->autoDismiss(5);
+        Toast::success('Daftar Hadir Berhasil diubah!')->autoDismiss(5);
 
         return redirect()->route('attendance.index');
     }
@@ -115,7 +115,7 @@ class AttendanceController extends Controller
 
         $attendance->delete();
 
-        Toast::success('Attendance deleted successfully!')->autoDismiss(5);
+        Toast::success('Daftar Hadir Berbayar dihapus!')->autoDismiss(5);
 
         return redirect()->route('attendance.index');
     }
@@ -123,7 +123,7 @@ class AttendanceController extends Controller
     public function list($classroom_id)
 {
     // Set judul halaman menggunakan Splade
-    $this->spladeTitle('List Daftar Hadira');
+    $this->spladeTitle('List Daftar Hadir');
 
     // Ambil classroom berdasarkan classroom_id dan relasi dengan students serta teacher
     $classroom = Classroom::with(['students', 'teacher'])->find($classroom_id);
@@ -217,7 +217,7 @@ public function submitAll(Request $request, Classroom $classroom)
     Attendance::insert($attendanceData);
     LogAttendance::insert($attendanceData);
 
-    Toast::success("Attendance dibuat successfully! {$messageSentCount} pesan dikirim.")->autoDismiss(5);
+    Toast::success("Daftar Hadir berhasil dibuat! {$messageSentCount} pesan dikirim.")->autoDismiss(5);
 
     // Redirect back with a success message
     return redirect()->route('logattendance.listdate', ['id' => $classroom->id, 'date']);

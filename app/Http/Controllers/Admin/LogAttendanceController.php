@@ -20,7 +20,7 @@ class LogAttendanceController extends Controller
 {
     public function index()
     {
-        $this->spladeTitle('LogAttendance');
+        $this->spladeTitle('Riwayat Daftar Hadir');
         // $this->authorize('viewAny', \App\Models\User::class);
         return view('pages.logattendance.index', [
             'logattendances' => LogAttendances::class,
@@ -30,14 +30,14 @@ class LogAttendanceController extends Controller
     public function listdate($classroom_id)
 {
     // Set judul halaman menggunakan Splade
-    $this->spladeTitle('List Attendance');
+    $this->spladeTitle('List Daftar Kehadiran');
 
     // Ambil classroom berdasarkan classroom_id
     $classroom = Classroom::with('students', 'teacher')->find($classroom_id);
 
     // Pastikan classroom ditemukan
     if (!$classroom) {
-        return redirect()->route('attendance.index')->with('error', 'Classroom not found.');
+        return redirect()->route('attendance.index')->with('error', 'Kelas tidak ditemukan.');
     }
 
     // Ambil semua tanggal absensi unik dari log_attendances berdasarkan classroom_id
@@ -68,7 +68,7 @@ public function list($classroom_id, $date)
     $classroom = Classroom::where('id', $classroom_id)->first();
     // Pastikan classroom ditemukan
     if (!$classroom) {
-        return redirect()->route('attendance.index')->with('error', 'Classroom not found.');
+        return redirect()->route('attendance.index')->with('error', 'Kelas tidak ditemukan.');
     }
 
     // Ambil data siswa dari classroom
@@ -174,7 +174,7 @@ public function edit(LogAttendance $logattendance)
 
         $logattendance->update($validated);
 
-        Toast::success('Daftar kehadiran berhasil diupdate!')->autoDismiss(5);
+        Toast::success('Daftar kehadiran berhasil diubah!')->autoDismiss(5);
 
         return redirect()->back();
     }

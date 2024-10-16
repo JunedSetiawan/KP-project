@@ -1,11 +1,11 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-base-content">
-            {{ __('Profile Information') }}
+            {{ __('Informasi Profil') }}
         </h2>
 
         <p class="mt-1 text-sm text-base-content">
-            {{ __("Update your account's profile information and email address.") }}
+            {{ __("Perbarui informasi profil dan alamat email akun Anda.") }}
         </p>
     </header>
 
@@ -13,7 +13,7 @@
         preserve-scroll>
         <x-splade-input id="name" name="name" type="text" :label="__('Name')" required autofocus autocomplete="name" />
         <x-splade-input id="email" name="email" type="email" :label="__('Email')" required autocomplete="email" />
-        <x-splade-input id="username" name="username" type="text" :label="__('username')" required autocomplete="username" />
+        <x-splade-input id="username" name="username" type="text" :label="__('Username')" required autocomplete="username" />
 
         @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyusername && ! $user->hasVerifiedEmail())
         <div>
@@ -35,7 +35,7 @@
         @endif
 
         <div class="flex items-center gap-4">
-            <x-splade-submit :label="__('Save')" />
+            <x-splade-submit :label="__('Simpan')" />
 
             @if (session('status') === 'profile-updated')
             <p class="text-sm text-base-content">
