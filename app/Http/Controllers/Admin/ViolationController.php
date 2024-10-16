@@ -64,7 +64,7 @@ class ViolationController extends Controller
     $violation = Violation::create($validated);
 
     // Tampilkan pesan berhasil
-    Toast::message('Created Violation Successfully!')->autoDismiss(5);
+    Toast::message('Data Pelanggaran berhasil dibuat!')->autoDismiss(5);
 
     return redirect()->route('violation.index');
 }
@@ -134,7 +134,7 @@ public function update(UpdateViolationRequest $request, Violation $violation)
     // Simpan data pelanggaran
     $violation->save();
 
-    Toast::message('Successfully updated the Violation')->autoDismiss(5);
+    Toast::message('Data Pelanggaran berhasil diubah!')->autoDismiss(5);
 
     return redirect()->route('violation.index');
 }
@@ -152,7 +152,7 @@ public function update(UpdateViolationRequest $request, Violation $violation)
 
         $violation->delete();
 
-        Toast::success('Violation deleted successfully!')->autoDismiss(5);
+        Toast::success('Data Pelanggaran berhasil dihapus!')->autoDismiss(5);
 
         return redirect()->route('violation.index');
     }

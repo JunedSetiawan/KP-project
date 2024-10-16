@@ -49,7 +49,7 @@ class SchoolYearController extends Controller
 
         $schoolyear = SchoolYear::create($validated);
 
-        Toast::success('School Year created successfully!')->autoDismiss(5);
+        Toast::success('Tahun Ajaran berhasil dibuat!')->autoDismiss(5);
 
         return redirect()->route('schoolyear.index');
     }
@@ -93,7 +93,7 @@ class SchoolYearController extends Controller
 
         $schoolyear->update($validated);
 
-        Toast::success('School Year updated successfully!')->autoDismiss(5);
+        Toast::success('Tahun Ajaran berhasil diubah!')->autoDismiss(5);
 
         return redirect()->route('schoolyear.index');
     }
@@ -104,7 +104,7 @@ class SchoolYearController extends Controller
 
         $schoolyear->delete();
 
-        Toast::success('School Year deleted successfully!')->autoDismiss(5);
+        Toast::success('Tahun Ajaran berhasil dihapus!')->autoDismiss(5);
 
         return redirect()->route('schoolyear.index');
     }
@@ -114,7 +114,7 @@ class SchoolYearController extends Controller
     $schoolyear = SchoolYear::find($id);
 
     if (!$schoolyear) {
-        Toast::error('School Year not found')->autoDismiss(5);
+        Toast::error('Tahun Ajaran tidak ditemukan')->autoDismiss(5);
         return redirect()->route('schoolyear.index');
     }
 

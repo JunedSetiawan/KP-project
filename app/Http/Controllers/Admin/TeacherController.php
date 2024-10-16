@@ -41,7 +41,7 @@ class TeacherController extends Controller
 
         $teacher = Teacher::create($validated);
 
-        Toast::success('Teacher created successfully!')->autoDismiss(5);
+        Toast::success('Data Guru berhasil dibuat!')->autoDismiss(5);
 
         return redirect()->route('teacher.index');
     }
@@ -63,7 +63,7 @@ class TeacherController extends Controller
 
         $teacher->update($validated);
 
-        Toast::success('Teacher updated successfully!')->autoDismiss(5);
+        Toast::success('Data Guru berhasil diubah!')->autoDismiss(5);
 
         return redirect()->route('teacher.index');
     }
@@ -72,7 +72,7 @@ class TeacherController extends Controller
     {
         $teacher->delete();
 
-        Toast::success('Teacher deleted successfully!')->autoDismiss(5);
+        Toast::success('Data Guru berhasil dihapus!')->autoDismiss(5);
 
         return redirect()->route('teacher.index');
     }
@@ -89,7 +89,7 @@ class TeacherController extends Controller
             // dd($request->import);
             //
             Excel::import(new TeachersImport, $request->file('import')->store('files'));
-            Toast::success('teacher import successfully!')->autoDismiss(5);
+            Toast::success('Data Guru berhasil diimport!')->autoDismiss(5);
             return redirect()->route('teacher.index');
         } catch (\Exception $ex) {
             Log::info($ex);

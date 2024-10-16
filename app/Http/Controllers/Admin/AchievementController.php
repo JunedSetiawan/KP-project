@@ -65,7 +65,7 @@ class AchievementController extends Controller
     $achievement = Achievement::create($validated);
 
     // Tampilkan pesan berhasil
-    Toast::message('Created Prestasi Successfully!')->autoDismiss(5);
+    Toast::message('Data Prestasi berhasil dibuat!')->autoDismiss(5);
 
     return redirect()->route('achievement.index');
 }
@@ -132,7 +132,7 @@ public function update(UpdateAchievementRequest $request, Achievement $achieveme
     // Simpan data pelanggaran
     $achievement->save();
 
-    Toast::message('Successfully updated the Prestasi')->autoDismiss(5);
+    Toast::message('Data Prestasi berhasil diubah!')->autoDismiss(5);
 
     return redirect()->route('achievement.index');
 }
