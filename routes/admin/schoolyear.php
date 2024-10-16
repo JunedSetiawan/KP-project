@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\SchoolYearController;
 use Illuminate\Support\Facades\Route;
 
 // create route for students
-Route::group(['middleware' => [ 'auth']], function () {
+Route::group(['middleware' => ['can:manage-student','auth']], function () {
     Route::get('/school-year', [SchoolYearController::class, 'index'])->name('schoolyear.index');
     Route::get('/school-year/create', [SchoolYearController::class, 'create'])->name('schoolyear.create');
     Route::post('/school-year', [SchoolYearController::class, 'store'])->name('schoolyear.store');

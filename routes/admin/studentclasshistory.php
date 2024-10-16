@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\StudentClassHistoryController;
 use Illuminate\Support\Facades\Route;
 
 // create route for students
-Route::group(['middleware' => [ 'auth']], function () {
+Route::group(['middleware' => ['can:manage-student','auth']], function () {
     Route::get('/student-class-history', [StudentClassHistoryController::class, 'index'])->name('studentclasshistory.index');
     Route::get('/student-class-history/create', [StudentClassHistoryController::class, 'create'])->name('studentclasshistory.create');
     Route::post('/student-class-history', [StudentClassHistoryController::class, 'store'])->name('studentclasshistory.store');

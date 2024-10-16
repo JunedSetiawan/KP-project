@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\ViolationController;
 use Illuminate\Support\Facades\Route;
 
 // create route for users
-Route::group(['middleware' => [ 'auth']], function () {
+Route::group(['middleware' => ['can:manage-student','auth']], function () {
     Route::get('/violation', [ViolationController::class, 'index'])->name('violation.index');
     Route::get('/violation/create', [ViolationController::class, 'create'])->name('violation.create');
     Route::post('/violation', [ViolationController::class, 'store'])->name('violation.store');

@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 // create route for teachers
-Route::group(['middleware' => [ 'auth']], function () {
+Route::group(['middleware' => ['can:manage-student','auth']], function () {
     Route::get('/teacher', [TeacherController::class, 'index'])->name('teacher.index');
     Route::get('/teacher/create', [TeacherController::class, 'create'])->name('teacher.create');
     Route::post('/teacher', [TeacherController::class, 'store'])->name('teacher.store');

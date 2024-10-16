@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\AttendanceController;
 use Illuminate\Support\Facades\Route;
 
 // create route for users
-Route::group(['middleware' => [ 'auth']], function () {
+Route::group(['middleware' => ['can:manage-student','auth']], function () {
     Route::get('/attendance', [AttendanceController::class, 'index'])->name('attendance.index');
     Route::get('/attendance/create/{id}', [AttendanceController::class, 'create'])->name('attendance.create');
     Route::post('/attendance', [AttendanceController::class, 'store'])->name('attendance.store');
