@@ -16,7 +16,13 @@ class Semester extends Model
 
     public function classroom()
     {
-        return $this->hasMany(Classroom::class);
+        return $this->belongsTo(Classroom::class);
+    }
+
+    public function getClassroomNumberAttribute()
+    {
+        // Mengambil angka saja dari nama kelas seperti "7B", "8B"
+        return preg_replace('/[^0-9]/', '', $this->classroom->name);
     }
 
 }
