@@ -33,16 +33,42 @@ class SidebarContent
                 ],
             ],
             [
-                'title' => 'Documentation',
-                'permissions' => '',
+                'title' => 'Data Master',
+                'permissions' => 'manage-student',
                 'menus' => [
                     [
-                        'title' => 'Siswa',
-                        'route' => 'student.index',
-                        'icon' => @svg('heroicon-o-user'),
-                        'permissions' => '',
-                        'menus' => [],
+                        'title' => 'Data Master',
+                        'route' => null,
+                        'icon' => @svg('heroicon-o-academic-cap'),
+                        'permissions' => 'manage-student',
+                        'menus' => [
+                            [
+                                'title' => 'Siswa',
+                                'route' => 'student.index',
+                                'permissions' => '',
+                                'icon' => null
+                            ],
+                            [
+                                'title' => 'Guru',
+                                'route' => 'teacher.index',
+                                'permissions' => '',
+                                'icon' => null
+                            ],
+                            [
+                                'title' => 'Kelas',
+                                'route' => 'classes.index',
+                                'permissions' => '',
+                                'icon' => null
+                            ],
+                        ],
                     ],
+                ]
+                ],
+             [
+                'title' => 'Fitur',
+                'permissions' => 'manage-student',
+                'menus' => [
+                   
                     [
                         'title' => 'Siswa Lulus',
                         'route' => 'student.graduate',
@@ -50,20 +76,8 @@ class SidebarContent
                         'permissions' => '',
                         'menus' => [],
                     ],
-                    [
-                        'title' => 'Guru',
-                        'route' => 'teacher.index',
-                        'icon' => @svg('heroicon-o-user-group'),
-                        'permissions' => '',
-                        'menus' => [],
-                    ],
-                    [
-                        'title' => 'Kelas',
-                        'route' => 'classes.index',
-                        'icon' => @svg('heroicon-o-home-modern'),
-                        'permissions' => '',
-                        'menus' => [],
-                    ],
+                   
+                  
                     [
                         'title' => 'Tahun Sekolah',
                         'route' => 'schoolyear.index',
@@ -137,7 +151,32 @@ class SidebarContent
                     ],
 
                 ],
-            ]
+            ],
+            [
+                'title' => 'Layanan',
+                'permissions' => '',
+                'menus' => [
+                    [
+                        'title' => 'Layanan',
+                        'route' => null,
+                        'icon' => @svg('heroicon-o-question-mark-circle'),
+                        'permissions' => '',
+                        'menus' => [
+                            [
+                                'title' => 'Layanan Informasi',
+                                'route' => 'informationservice.index',
+                                'permissions' => 'manage-student',
+                                'icon' => null,
+                            ],
+                            [
+                                'title' => 'Layanan Klasikal',
+                                'route' => 'logattendance.index',
+                                'icon' => null,
+                            ],
+                        ],
+                    ],
+                ]
+                ],
         ];
     }
 }
