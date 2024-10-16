@@ -39,6 +39,6 @@ class DatabaseSeeder extends Seeder
             'role' => 'student',
         ]);
 
-        $this->call([SchoolYearSeeder::class, ClassesSeeder::class]);
+        $this->call([SchoolYearSeeder::class, ClassesSeeder::class, SemesterSeeder::class]);
     }
 }

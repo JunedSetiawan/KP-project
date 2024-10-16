@@ -29,4 +29,8 @@ class Classroom extends Model
     {
         return $this->hasMany(Attendance::class);
     }
+    public function semester()
+    {
+        return $this->belongsTo(Semester::class);
+    }
 }
