@@ -3,11 +3,11 @@
         <main class="flex items-center justify-center md:min-w-[90vh] min-h-[90vh] mx-auto">
             <div
                 class="grid grid-cols-1 md:grid-cols-2 md:gap-28 gap-4 bg-base-100 w-full rounded shadow-md border border-base-100 p-10">
-                <div class="md:flex justify-center items-center h-full w-full">
+                <div class="md:flex justify-center items-center h-full w-full gap-12">
                     <img src="{{ asset('img/auth/logo.png') }}" alt="Auth Image"
-                        class="md:w-auto w-24 m-auto md:m-0 bg-cover object-cover bg-no-repeat max-h-[400px]" />
+                        class="md:w-auto w-22 m-auto md:m-0 bg-cover object-cover bg-no-repeat max-h-[240px]" />
                     <img src="{{ asset('img/auth/logo-bk.png') }}" alt="Auth Image"
-                        class="md:w-auto w-24 m-auto md:m-0 bg-cover object-cover bg-no-repeat max-h-[320px]" />
+                        class="md:w-auto w-22 m-auto md:m-0 bg-cover object-cover bg-no-repeat max-h-[240px]" />
                 </div>
                 <div class="">
                     {{ $slot }}
