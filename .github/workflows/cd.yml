@@ -25,9 +25,10 @@ jobs:
             git pull origin main  # Updates your code on the server
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh  
+            php artisan migrate:fresh  # Runs database migrations (if applicable)
+            php artisan optimize:clear
             npm install  # Installs Node.js dependencies
             npm run build  # Runs your build script (assuming you have one)
             composer install  # Installs PHP dependencies
             composer dump-autoload  # Generates optimized autoloader file (optional)
-            php artisan migrate:fresh  # Runs database migrations (if applicable)
-            php artisan optimize:clear  # Clears cache and optimized files (optional)
+         
