@@ -5,6 +5,7 @@ namespace App\Tables;
 use App\Models\Classroom;
 use App\Models\Individual;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\SpladeTable;
 
@@ -37,6 +38,19 @@ class Individuals extends AbstractTable
      */
     public function for()
     {
+        $user = Auth::user();
+
+        // Memastikan user memiliki classroom_id
+        if ($user && $user->student && $user->student->classroom_id) {
+            $classroomId = $user->student->classroom_id;
+
+            // Mengambil data Classroom yang sesuai dengan classroom_id siswa yang login
+            return Classroom::query()
+                ->with('individualServices')
+                ->where('id', $classroomId)
+                ->get();
+        }
+
         return Classroom::query()->with('individualServices')->get();
     }
 

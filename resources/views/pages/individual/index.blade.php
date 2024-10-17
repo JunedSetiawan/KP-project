@@ -6,13 +6,13 @@
     {{-- @can('manage-classes') --}}
     {{-- @endcan --}}
     <x-splade-table :for="$individuals">
-        {{-- @can('manage-classes') --}}
+        @can('manage-student')
             <x-splade-cell actions as="$individual">
                 <div class="space-x-3">
                     <Link slideover href="{{ route('individual.service.edit', $individual->id) }}" class="btn btn-secondary">Kaitkan</Link>
                 
                 </div>
             </x-splade-cell>
-        {{-- @endcan --}}
+        @endcan
     </x-splade-table>
 </x-app-layout>
