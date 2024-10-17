@@ -111,4 +111,36 @@ class MaterialController extends Controller
     return redirect()->route('material.index');
 }
 
+public function klasikal()
+    {
+        $this->spladeTitle('Klasikal');
+        return view('pages.klasikal');
+    }
+    public function kelas7() {
+        $materiGanjil = Material::where('semester_id', 1)->get();
+        $materiGenap = Material::where('semester_id', 2)->get();
+    
+        return view('pages.kelas7', compact('materiGanjil', 'materiGenap'));
+    }
+    
+    
+    public function kelas8() {
+        $materiGanjil = Material::where('semester_id', 1)->get();
+        $materiGenap = Material::where('semester_id', 2)->get();
+    
+        return view('pages.kelas8', compact('materiGanjil', 'materiGenap'));
+    }
+    
+    public function kelas9() {
+        $materiGanjil = Material::where('semester_id', 1)->get();
+        $materiGenap = Material::where('semester_id', 2)->get();
+    
+        return view('pages.kelas9', compact('materiGanjil', 'materiGenap'));
+    }
+
+    public function show($id) {
+        $materi = Material::findOrFail($id);
+        return view('pages.detail-materi', compact('materi'));
+    }
+
 }
