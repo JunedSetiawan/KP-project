@@ -50,6 +50,7 @@ class Materials extends AbstractTable
         $table
         ->column('name', sortable: true, searchable: true, label: 'Nama Materi')
         ->column('formatted_semester', label: 'Semester')
+        ->rowLink(fn (Material $material) => route('detailmaterial.index',['material_id' => $material->id]))
         ->column('actions');
            // ->withGlobalSearch(columns: ['id']);
             //->column('id', sortable: true);
