@@ -39,7 +39,7 @@ class SidebarContent
                     [
                         'title' => 'Data Master',
                         'route' => null,
-                        'icon' => @svg('heroicon-o-academic-cap'),
+                        'icon' => @svg('heroicon-o-identification'),
                         'permissions' => 'manage-student',
                         'menus' => [
                             [
@@ -60,6 +60,21 @@ class SidebarContent
                                 'permissions' => '',
                                 'icon' => null
                             ],
+                            [
+                                'title' => 'Tahun Sekolah',
+                                'route' => 'schoolyear.index',
+                                'icon' => null,
+                                'permissions' => '',
+                                'menus' => [],
+                            ],
+                            [
+                                'title' => 'User',
+                                'route' => 'user.index',
+                                'icon' => null,
+                                'permissions' => 'manage-user',
+                                'menus' => [],
+                            ],
+                           
                         ],
                     ],
                 ]
@@ -68,7 +83,18 @@ class SidebarContent
                 'title' => 'Fitur',
                 'permissions' => 'manage-student',
                 'menus' => [
-                   
+                    [
+                        'title' => 'Daftar Hadir',
+                        'route' => 'attendance.index',
+                        'icon' => @svg('heroicon-o-clipboard-document-check'),
+                        'menus' => [],
+                    ],
+                    [
+                        'title' => 'Riwayat Daftar Hadir',
+                        'route' => 'logattendance.index',
+                        'icon' => @svg('heroicon-o-clipboard-document-list'),
+                        'menus' => [],
+                    ],
                     [
                         'title' => 'Siswa Lulus',
                         'route' => 'student.graduate',
@@ -78,38 +104,16 @@ class SidebarContent
                     ],
                    
                   
-                    [
-                        'title' => 'Tahun Sekolah',
-                        'route' => 'schoolyear.index',
-                        'icon' => @svg('heroicon-o-calendar-days'),
-                        'permissions' => '',
-                        'menus' => [],
-                    ],
-                    [
-                        'title' => 'User',
-                        'route' => 'user.index',
-                        'icon' => @svg('heroicon-o-user-group'),
-                        'permissions' => 'manage-user',
-                        'menus' => [],
-                    ],
-                    [
-                        'title' => 'Daftar Hadir',
-                        'route' => 'attendance.index',
-                        'icon' => @svg('heroicon-o-clipboard-document-check'),
-                        'menus' => [],
-                    ],
+               
+                   
+                   
                     [
                         'title' => 'Riwayat Data Kelas',
                         'route' => 'studentclasshistory.index',
                         'icon' => @svg('heroicon-o-clipboard-document'),
                         'menus' => [],
                     ],
-                    [
-                        'title' => 'Riwayat Daftar Hadir',
-                        'route' => 'logattendance.index',
-                        'icon' => @svg('heroicon-o-clipboard-document-list'),
-                        'menus' => [],
-                    ],
+                   
 
                     [
                         'title' => 'Catatan Perkembangan Peserta Didik',
@@ -150,10 +154,16 @@ class SidebarContent
                                 'icon' => null,
                             ],
                             [
+                                'title' => 'Layanan Individual',
+                                'route' => 'individual.service.index',
+                                'icon' => null,
+                            ],
+                            [
                                 'title' => 'Layanan Classical',
                                 'route' => 'material.index',
                                 'icon' => null,
                             ],
+                          
                         ],
                     ],
                 ]

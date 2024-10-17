@@ -33,4 +33,8 @@ class Classroom extends Model
     {
         return $this->belongsTo(Semester::class);
     }
+    public function individualServices()
+    {
+        return $this->hasOne(IndividualService::class);
+    }
 }
