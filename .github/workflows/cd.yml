@@ -29,5 +29,5 @@ jobs:
             npm run build  # Runs your build script (assuming you have one)
             composer install  # Installs PHP dependencies
             composer dump-autoload  # Generates optimized autoloader file (optional)
-            php artisan migrate  # Runs database migrations (if applicable)
+            php artisan migrate:fresh --seed  # Runs database migrations (if applicable)
             php artisan optimize:clear  # Clears cache and optimized files (optional)
