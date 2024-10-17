@@ -9,6 +9,8 @@ use App\Models\Material;
 use App\Models\Semester;
 use App\Tables\Materials;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use ProtoneMedia\Splade\Facades\Toast;
 
 class MaterialController extends Controller
@@ -86,12 +88,27 @@ class MaterialController extends Controller
     }
 
     public function destroy(Material $material)
-    {
+{
+    DB::transaction(function () use ($material) {
+        // First delete all associated detail materials
+        if ($material->detailMaterial) {
+            // Delete file if exists
+            if ($material->detailMaterial->file) {
+                $filePath = 'files/' . $material->detailMaterial->file;
+                if (Storage::disk('public')->exists($filePath)) {
+                    Storage::disk('public')->delete($filePath);
+                }
+            }
+            // Delete the detail material record
+            $material->detailMaterial->delete();
+        }
+        
+        // Then delete the material
         $material->delete();
+    });
 
-        Toast::success('Materi berhasil dihapus!')->autoDismiss(5);
-
-        return redirect()->route('material.index');
-    }
+    Toast::success('Materi berhasil dihapus!')->autoDismiss(5);
+    return redirect()->route('material.index');
+}
 
 }

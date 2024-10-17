@@ -14,7 +14,7 @@ class DetailMaterialController extends Controller
     {
         $this->spladeTitle('Detail Materi');
         
-        $detailMaterial = DetailMaterial::where('material_id', $material_id)->first();
+        $detailMaterial = DetailMaterial::with('material')->where('material_id', $material_id)->first();
         
         return view('pages.detailmaterial.index', [
             'detailMaterial' => $detailMaterial,  // Pass detailMaterial to the view

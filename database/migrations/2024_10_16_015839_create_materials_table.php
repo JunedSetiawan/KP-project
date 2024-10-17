@@ -10,15 +10,18 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::create('materials', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('semester_id')->nullable();
-            $table->foreign('semester_id')->references('id')->on('semesters');
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('materials', function (Blueprint $table) {
+        $table->id();
+        $table->string('name');
+        $table->unsignedBigInteger('semester_id')->nullable();
+        $table->foreign('semester_id')
+            ->references('id')
+            ->on('semesters')
+            ->onDelete('cascade');  // This ensures cascade delete
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('detail_materials', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('material_id');
-            $table->foreign('material_id')->references('id')->on('materials');
+            $table->foreign('material_id')->references('id')->on('materials')->cascadeOnDelete();
             $table->string('content')->nullable();
             $table->string('file')->nullable();
             $table->string('url_video')->nullable();

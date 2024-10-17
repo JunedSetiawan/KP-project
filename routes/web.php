@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AttendanceController;
+use App\Http\Controllers\DocumentDownloadController;
 use App\Http\Controllers\ImageUpload;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
@@ -67,3 +68,4 @@ Route::middleware('splade')->group(function () {
 });
 
 Route::get('/post/{filename}/image', [ImageUpload::class, 'getImageFile'])->name('getImage');
+Route::get('download/{filename}', [DocumentDownloadController::class, 'downloadDocument'])->name('document.download');

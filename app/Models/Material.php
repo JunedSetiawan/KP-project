@@ -19,6 +19,11 @@ class Material extends Model
     return $this->belongsTo(Semester::class); 
 }
 
+public function detailMaterial()
+{
+    return $this->belongsTo(DetailMaterial::class); 
+}
+
 public function getFormattedSemesterAttribute()
 {
     // Menggunakan accessor 'classroom_number' untuk mengambil angka kelas

@@ -25,7 +25,11 @@ class DetailMaterialRequest extends FormRequest
             'material_id' => ['required', 'integer'],
             'content' => ['required', 'string'],
             'url_video' => ['required', 'string'],
-            'file' => ['required', 'string'],
+            'file' => [
+                'required', 
+                'file', 
+                'mimes:pdf,doc,docx,ppt,pptx,txt', // Allow only certain file types
+            ],
         ];
     }
 }
