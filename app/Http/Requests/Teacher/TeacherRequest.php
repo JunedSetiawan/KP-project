@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Teacher;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TeacherRequest extends FormRequest
 {
@@ -22,8 +23,9 @@ class TeacherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nip' => ['required', 'string'],
-            'name' => ['required', 'string']
+            'nip' => ['required', 'string', 'unique:teachers,nip'],
+            'name' => ['required', 'string'],
+            'type' => ['required', Rule::in(['Umum', 'BK'])],
             // 'wali_kelas' => ['required', 'string']
         ];
     }

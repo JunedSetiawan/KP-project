@@ -8,11 +8,13 @@ use App\Http\Requests\Teacher\TeacherRequest as TeacherTeacherRequest;
 use App\Http\Requests\Teacher\UpdateTeacherRequest as TeacherUpdateTeacherRequest;
 use App\Imports\TeachersImport;
 use App\Models\Classroom;
+use App\Models\User;
 use App\Tables\Teachers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use ProtoneMedia\Splade\Facades\Toast;
+use Illuminate\Support\Str;
 
 class TeacherController extends Controller
 {
@@ -34,17 +36,40 @@ class TeacherController extends Controller
     }
 
     public function store(TeacherTeacherRequest $request)
-    {
-        // $this->authorize('create', \App\Models\User::class);
+{
+    $validated = $request->validated();
 
-        $validated = $request->validated();
+    // Log untuk melihat input yang diterima
+    Log::info('Request data:', $validated);
 
-        $teacher = Teacher::create($validated);
+    // Buat user jika tipe adalah BK
+    $user = null;
+    if ($validated['type'] == 'BK') {
+        $user = User::firstOrCreate(
+            ['username' => $validated['nip']],
+            [
+                'name' => $validated['name'],
+                'role' => 'user',
+                'email' => Str::slug($validated['name']) . '@gmail.com',
+                'password' => bcrypt('passbk' . $validated['nip']),
+            ]
+        );
 
-        Toast::success('Data Guru berhasil dibuat!')->autoDismiss(5);
+        // Log untuk melihat apakah user berhasil dibuat
+        Log::info('User created or found:', $user->toArray());
 
-        return redirect()->route('teacher.index');
+        // Tambahkan user_id ke data yang akan disimpan
+        $validated['user_id'] = $user->id;
     }
+
+    // Simpan data guru
+    $teacher = Teacher::create($validated);
+
+    Toast::success('Data Guru berhasil dibuat!')->autoDismiss(5);
+
+    return redirect()->route('teacher.index');
+}
+
 
     public function edit(Teacher $teacher)
     {
