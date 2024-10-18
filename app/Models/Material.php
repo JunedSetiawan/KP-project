@@ -19,9 +19,10 @@ class Material extends Model
     return $this->belongsTo(Semester::class); 
 }
 
+// Relasi ke DetailMaterial, mengganti belongsTo menjadi hasOne
 public function detailMaterial()
 {
-    return $this->belongsTo(DetailMaterial::class); 
+    return $this->hasOne(DetailMaterial::class, 'material_id');
 }
 
 public function getFormattedSemesterAttribute()

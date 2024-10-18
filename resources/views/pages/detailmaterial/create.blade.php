@@ -7,7 +7,7 @@
         @csrf
         <x-splade-input name="content" label="Deskripsi Materi" type="text"/>
         <x-splade-input name="url_video" label="URL Video Materi" type="text"/>
-        <x-splade-file name="file" label="File Materi"/>
+        <x-splade-file name="file" label="File Materi PDF"/>
         {{-- <x-splade-input name="wali_kelas" label="Wali_kelas" required /> --}}
         {{-- <x-splade-select name="role" :options="$roles" label="Role" required placeholder="Select 1 role" /> --}}
 

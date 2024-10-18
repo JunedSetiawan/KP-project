@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Classroom;
 use App\Models\IndividualService;
+use App\Models\IndividualServiceChat;
 use App\Models\Teacher;
 use App\Tables\Individuals;
 use Illuminate\Http\Request;
@@ -48,4 +49,20 @@ class IndividualServiceController extends Controller
             'teacher' => $teacher,
         ]);
     }
+
+    public function commentStore(Request $request, $individual_service_id)
+{
+    $request->validate([
+        'body' => 'required|string|max:500',
+    ]);
+
+    IndividualServiceChat::create([
+        'individual_service_id' => $individual_service_id,
+        'user_id' => auth()->id(),
+        'body' => $request->body,
+    ]);
+
+    return redirect()->back();
+}
+
 }

@@ -15,9 +15,10 @@ class DetailMaterial extends Model
         'file',
         'url_video',
     ];
+    // Relasi ke Material
     public function material()
     {
-        return $this->belongsTo(Material::class); 
+        return $this->belongsTo(Material::class, 'material_id');
     }
 
 }
